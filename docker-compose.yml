@@ -3,10 +3,7 @@ services:
   web:
     build: .
     ports:
-      - "8081:80"  # Corrigido para 80, a porta exposta no Dockerfile
-    volumes:
-      - ./index.html:/usr/share/nginx/html/index.html
-
+      - "8081:80"  # 80 é a porta exposta no Dockerfile
     networks:
       - pi_default
 
