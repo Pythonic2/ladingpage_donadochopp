@@ -3,7 +3,7 @@ services:
   web:
     build: .
     ports:
-      - "8081:82"
+      - "8081:8081"
     volumes:
       - ./index.html:/usr/share/nginx/html/index.html
 
