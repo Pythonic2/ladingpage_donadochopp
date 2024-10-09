@@ -1,12 +1,12 @@
-version: '3.8'
+version: '3'
 services:
-  landingpage:
-    image: nginx:latest
-    volumes:
-      - ./html:/usr/share/nginx/html:ro
-      - ./nginx.conf:/etc/nginx/conf.d/:ro  # Mudança feita para montar a pasta de configuração corretamente
+  web:
+    build: .
     ports:
       - "8081:80"
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html
+
     networks:
       - pi_default
 networks:
