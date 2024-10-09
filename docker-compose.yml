@@ -1,12 +1,14 @@
 version: '3.8'
 services:
-  web:
-    build: .
+  landingpage:
+    image: nginx:latest
+    volumes:
+      - ./html:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro  # Certifique-se de que o arquivo se chama nginx.conf na sua máquina
     ports:
-      - "8081:80"  # 80 é a porta exposta no Dockerfile
+      - "8081:80"
     networks:
       - pi_default
-
 networks:
   pi_default:
     external: true
