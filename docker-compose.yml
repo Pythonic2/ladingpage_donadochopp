@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
   landingpage:
     image: nginx:latest
@@ -7,3 +7,8 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     ports:
       - "8081:80"  # Mudando a porta de 8080 para 8081
+    networks:
+      - pi_default
+networks:
+  pi_default:
+    external: true
