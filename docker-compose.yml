@@ -3,12 +3,13 @@ services:
   web:
     build: .
     ports:
-      - "8081:8081"
+      - "8081:80"  # Corrigido para 80, a porta exposta no Dockerfile
     volumes:
       - ./index.html:/usr/share/nginx/html/index.html
 
     networks:
       - pi_default
+
 networks:
   pi_default:
     external: true
