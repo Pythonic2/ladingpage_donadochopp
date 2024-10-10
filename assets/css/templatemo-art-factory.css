@@ -751,10 +751,7 @@ TRY IT ... with or without CENTER CENTER
     justify-content: center;
     background-image: url(../images/testemobile.png);
     background-repeat: no-repeat;
-  /*
-  TRY IT ... with or without CENTER CENTER
-    background-position: center center; 
-  */
+
     background-size: cover;
     width: 100%;
     height: 105vh;
