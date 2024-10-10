@@ -4,8 +4,8 @@ services:
     build: .
     ports:
       - "8081:80"
-  networks:
-      - pi_default
+    networks:
+        - pi_default
 
 networks:
   pi_default:
