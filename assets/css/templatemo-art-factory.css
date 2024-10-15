@@ -37,6 +37,52 @@ font & reset css
 reset
 --------------------------------------------- 
 */
+.right-text {
+  padding: 20px;
+  background-color: #f8f8f8; /* Cor de fundo da div */
+  border-radius: 10px;
+}
+
+.main-button {
+  display: inline-block;
+  background-color: #28a745; /* Cor de fundo do botão */
+  color: #fff; /* Cor do texto */
+  padding: 10px 20px; /* Tamanho do botão (altura e largura) */
+  border-radius: 30px; /* Torna o botão oval */
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.main-button:hover {
+  background-color: #218838; /* Cor ao passar o mouse */
+}
+
+.main-button i {
+  margin-right: 8px; /* Espaço entre o ícone e o texto */
+}
+
+/* Estilo do botão com preço */
+.price-button {
+  display: inline-block;
+  background-color: #edb338; /* Cor de fundo do botão de preço */
+  color: #fff; /* Cor do texto */
+  padding: 10px 30px; /* Tamanho do botão */
+  border-radius: 30px; /* Torna o botão oval */
+  text-align: center;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.price-button:hover {
+  background-color:  #edb338; /* Cor ao passar o mouse */
+  color: white;
+}
+
 
 @media only screen and (max-width: 768px) {
   body {
