@@ -57,7 +57,7 @@ reset
 }
 
 .main-button:hover {
-  background-color: #218838; /* Cor ao passar o mouse */
+  background-color: #FF1717 !important; /* Cor ao passar o mouse */
 }
 
 .main-button i {
@@ -87,7 +87,7 @@ reset
 
 @media only screen and (max-width: 768px) {
   body {
-      background: url('testemobile.png') no-repeat center center;
+    background-image: url(../images/bgg.jpeg) no-repeat center center !important;
       background-size: cover;
   }
 }
@@ -362,7 +362,7 @@ header
 
 .background-header .logo,
 .background-header .main-nav .nav li a {
-  color: #1e1e1e !important;
+  color: white !important;
 }
 
 .background-header .main-nav .nav > li:hover > a {
@@ -778,7 +778,7 @@ welcome
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(../images/testexz.png);
+  background-image: url(../images/bgg.jpeg); 
   background-repeat: no-repeat;
 /*
 TRY IT ... with or without CENTER CENTER
@@ -796,13 +796,21 @@ TRY IT ... with or without CENTER CENTER
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url(../images/testemobile.png);
+    /* background-image: url(../images/testemobile.png); */
+    background-image: url(../images/bgg-bombas.jpeg); 
+
     background-repeat: no-repeat;
 
     background-size: cover;
     width: 100%;
     height: 105vh;
     margin-top: -10vh;
+  }
+  .title-page{
+    margin-top: -90% !important;
+  }
+  #logo-dona{
+    display: none;
   }
 }
 
@@ -1241,7 +1249,7 @@ contact
 .contact-text {
   font-weight: 400;
   font-size: 14px;
-  color: #6f8ba4;
+  color: black !important;
   letter-spacing: 0.6px;
   line-height: 26px;
 }
@@ -1251,12 +1259,12 @@ contact
 }
 
 .contact-field {
-  background-color: rgba(250, 250, 250, 0.3);
+  background-color: white;
 }
 
 .contact-form {
   padding: 100px;
-  background-color: black;
+  background-color: #F7F7F7;
 }
 
 @media (max-width: 765px) {
@@ -1295,16 +1303,16 @@ contact
 
 .contact-form ::-webkit-input-placeholder {
   /* Edge */
-  color: #fff;
+  color: black;
 }
 
 .contact-form :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: #fff;
+  color: black;
 }
 
 .contact-form ::placeholder {
-  color: #fff;
+  color: black;
 }
 
 /* 
@@ -1374,7 +1382,7 @@ preloader
 */
 #preloader {
   overflow: hidden;
-  background-image: linear-gradient(145deg, #00b4c6 0%, #0088e8 100%);
+  /* background-image: linear-gradient(145deg, #00b4c6 0%, #0088e8 100%); */
   left: 0;
   right: 0;
   top: 0;

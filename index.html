@@ -23,6 +23,69 @@ https://templatemo.com/tm-537-art-factory
     <link rel="stylesheet" type="text/css" href="assets/css/owl-carousel.css">
 
     <style>
+        nav {
+    position: absolute; /* Fixa o menu sobre a imagem */
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semitransparente para o menu */
+    z-index: 10; /* Garante que o menu fique acima da imagem */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.background-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative; /* Posição padrão para a imagem */
+    z-index: 1; /* Mantém a imagem atrás do menu */
+}
+       body {
+            background-color: #ffffff; /* Fundo claro */
+            color: #333333; /* Texto em um tom escuro */
+            font-family: 'Montserrat', sans-serif; /* Fonte moderna */
+        }
+
+        .header-area {
+            background-color:#FF1717; /* Fundo do cabeçalho em vermelho */
+            color: #ffffff; /* Texto do cabeçalho em branco */
+        }
+
+        .nav a {
+            color: #ffffff; /* Texto do menu em branco */
+        }
+
+        .main-button-slider {
+            background-color: #F9E79F; /* Botão em amarelo suave */
+            color: #FF1717; /* Texto do botão em vermelho */
+            border-radius: 30px; /* Bordas arredondadas */
+        }
+
+        .main-button-slider:hover {
+            background-color: #e67e22; /* Cor do botão ao passar o mouse */
+        }
+
+        .footer {
+            background-color: #000000; /* Rodapé em preto */
+            color: #F9E79F; /* Texto do rodapé em amarelo */
+        }
+
         .right-text {
         padding: 20px;
         background-color: #f8f8f8; /* Cor de fundo da div */
@@ -68,6 +131,19 @@ https://templatemo.com/tm-537-art-factory
         background-color:  #edb338; /* Cor ao passar o mouse */
         color: white;
         }
+        /* Estilos do carrossel */
+.carousel-inner img {
+    max-height: 500px; /* Limite a altura do carrossel */
+    object-fit: cover; /* Ajusta as imagens para cobrir a área sem distorção */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .carousel-inner img {
+        max-height: 300px; /* Ajuste para telas menores */
+    }
+}
+
 
     </style>
     </head>
@@ -128,13 +204,13 @@ https://templatemo.com/tm-537-art-factory
         <div class="header-text">
             <div class="container">
                 <div class="row">
-                    <div class="left-text col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
-                        <h1>Seja dono <strong  style="color:#FFF500">Do seu próprio Negócio</strong></h1>
-                        <p>Alcance sua independecia financeira trabalhando para você mesmo em eventos, festas, confraternizações ou até mesmo em locais publicos como Praias.</p>
+                    <div class="left-text col-lg-6 col-md-6 col-sm-12 col-xs-12 title-page" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s" >
+                        <h1 class="text-light">Seja dono <strong  style="color:#FFF500">Do seu próprio Negócio</strong></h1>
+                        <!-- <p class="text-dark">Alcance sua independecia financeira trabalhando para você mesmo em eventos, festas, confraternizações ou até mesmo em locais publicos como Praias.</p> -->
                         <a href="#about" class="main-button-slider" style="background-color: #FF1717;">Ver Choppeiras</a>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
-                        <img src="assets/images/logo.jpeg" class="rounded img-fluid d-block mx-auto" alt="First Vector Graphic" style="width: 60%;">
+                    <div id="logo-dona" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
+                        <img src="assets/images/logo.jpeg" class="rounded img-fluid d-block mx-auto " alt="First Vector Graphic" style="width: 40%;">
                     </div>
                 </div>
             </div>
@@ -154,17 +230,28 @@ https://templatemo.com/tm-537-art-factory
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-12 col-sm-12" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
-                    <img src="assets/images/maquinas.png" class="rounded img-fluid d-block mx-auto" alt="App">
+                    <img src="assets/images/testechopeira.jpg" class="rounded img-fluid d-block mx-auto" alt="App" style="width: 75%;">
                 </div>
                 <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix">
                     <div class="left-heading">
                         <h5>Seja um Empreendedor</h5>
                     </div>
                     <div class="right-text">
-                        <p>Entregamos <a href="#">last updated on 20 August 2019 </a>for main menu drop-down arrow and sub menu text color. Duis auctor dolor eu scelerisque vestibulum. Vestibulum lacinia, nisl sit amet tristique condimentum. <br><br>
-                        Sed a consequat velit. Morbi lectus sapien, vestibulum et sapien sit amet, ultrices malesuada odio. Donec non quam euismod, mattis dui a, ultrices nisi.</p>
+                        <p>A <strong>chopeira bomba de combustível</strong> tá saindo a partir de <span class="badge text-bg-success">10.490</span> reais. Já vai nas cores que escolher e com sua logomarca.
+
+                            <span class="badge text-bg-success">10.490</span> <strong>chopeira bomba</strong>
+                            <span class="badge text-bg-success">1500</span><strong>kit extração do chopp</strong>
+                            <span class="badge text-bg-success">2000</span> <strong>carrinho</strong> 
+                            <span class="badge text-bg-success">1000</span> <strong>tonel com isolamento térmico</strong>
+                            
+                            Se quiser ela completa sai a 14.990 reais e já vai no ponto de você colocar o barril de chopp e o gelo e sair abastecendo todo mundo. 😉⛽🍺
+                            
+                            <strong>Frete grátis</strong> para retirada nos aeroportos ou podemos verificar valores de frete para entregar em sua residência.
+                            
+                            Até  <span class="badge text-bg-warning">10x</span> sem juros nos cartões 
+                            Ou 15% de desconto no pix</p>
                         <p>
-                            <a href="#" class="price-button">R$14.500,00</a>
+                            <a href="#" class="price-button">R$10.490,00</a>
 
                         </p>
                         <a href="#" class="main-button"><i class="fa fa-whatsapp"></i> Comprar Kit</a>
@@ -179,24 +266,27 @@ https://templatemo.com/tm-537-art-factory
         </div>
     </section>
 
+
+
+    
     <!-- ***** Features Big Item End ***** -->
     <section class="section" id="about">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-12 col-sm-12 order-lg-2" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
-                    <img src="assets/images/maquina+barril.png" class="rounded img-fluid d-block mx-auto" alt="App">
+                    <img src="assets/images/carrinho.jpeg" class="rounded img-fluid d-block mx-auto" alt="App" style="width: 75%;">
                 </div>
                 <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix order-lg-1">
                     <div class="left-heading">
-                        <h5>Seja um Empreendedor</h5>
+                        <h5>Precisa de um Carrinho?</h5>
                     </div>
                     <div class="right-text">
-                        <p>Entregamos <a href="#">last updated on 20 August 2019 </a>for main menu drop-down arrow and sub menu text color...</p>
+                        <p>Já tem uma <strong>Choppeira?</strong>O <strong>carrinho de transporte</strong> com capacidade de 400kg te da a mobilidade essêncial para o trablho em diversos terrenos.</p>
                         <p>
-                            <a href="#" class="price-button">R$14.500,00</a>
+                            <a href="#" class="price-button">R$2.000,00</a>
 
                         </p>
-                        <a href="#" class="main-button"><i class="fa fa-whatsapp"></i> Comprar Kit</a>
+                        <a href="#" class="main-button"><i class="fa fa-whatsapp"></i> Comprar Carrinho</a>
                     </div>
                 </div>
             </div>
@@ -213,17 +303,16 @@ https://templatemo.com/tm-537-art-factory
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-md-12 col-sm-12" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
-                <img src="assets/images/combo.png" class="rounded img-fluid d-block mx-auto" alt="App">
+                <img src="assets/images/cilindro.jpeg" class="rounded img-fluid d-block mx-auto" alt="App" style="width: 75%;">
             </div>
             <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix">
                 <div class="left-heading">
-                    <h5>Seja um Empreendedor</h5>
+                    <h5>Precisa Extrair seu Chopp?</h5>
                 </div>
                 <div class="right-text">
-                    <p>Entregamos <a href="#">last updated on 20 August 2019 </a>for main menu drop-down arrow and sub menu text color. Duis auctor dolor eu scelerisque vestibulum. Vestibulum lacinia, nisl sit amet tristique condimentum. <br><br>
-                    Sed a consequat velit. Morbi lectus sapien, vestibulum et sapien sit amet, ultrices malesuada odio. Donec non quam euismod, mattis dui a, ultrices nisi.</p>
+                    <p>Vamos Extrair o Chopp? Kit Completo de extração de chopp para sua <strong>Choppeira a bomba</strong>, esse kit conta com regulador de pressão, mangueiras e conectores de engate.    </p>
                     <p>
-                        <a href="#" class="price-button">R$14.500,00</a>
+                        <a href="#" class="price-button">R$1.500,00</a>
 
                     </p>
                     <a href="#" class="main-button"><i class="fa fa-whatsapp"></i> Comprar Kit</a>
@@ -482,6 +571,7 @@ https://templatemo.com/tm-537-art-factory
                 <!-- ***** Contact Form Start ***** -->
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="contact-form">
+                        <h3>Fale Conosco</h3>
                         <form id="contact" action="" method="post">
                           <div class="row">
                             <div class="col-md-6 col-sm-12">
@@ -524,15 +614,15 @@ https://templatemo.com/tm-537-art-factory
                 
                 . Design: <a rel="nofollow" href="#">Gest Tech</a></p>
                 </div>
-                <div class="col-lg-5 col-md-12 col-sm-12">
+                <!-- <div class="col-lg-5 col-md-12 col-sm-12">
                     <ul class="social">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                        <li><a href="#"><i class="fa fa-kwai"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="#"><i class="fa fa-tiktok"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google"></i></a></li>
                         <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
     </footer>
