@@ -812,6 +812,13 @@ TRY IT ... with or without CENTER CENTER
   #logo-dona{
     display: none;
   }
+  .rounded{
+    width: 100% !important;
+    margin-left: 100%;
+  }
+  h5{
+    text-align: center;
+  }
 }
 
 .welcome-area .header-text {
