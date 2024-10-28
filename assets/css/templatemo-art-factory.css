@@ -45,7 +45,7 @@ reset
 
 .main-button {
   display: inline-block;
-  background-color: #28a745; /* Cor de fundo do botão */
+  background-color: #F80302; /* Cor de fundo do botão */
   color: #fff; /* Cor do texto */
   padding: 10px 20px; /* Tamanho do botão (altura e largura) */
   border-radius: 30px; /* Torna o botão oval */
@@ -277,7 +277,7 @@ a.main-button-slider {
   font-size: 13px;
   border-radius: 20px;
   padding: 12px 20px;
-  background-color: #f55858;
+  background-color: #F80302;
   text-transform: uppercase;
   color: #fff;
   letter-spacing: 0.25px;
@@ -295,7 +295,7 @@ a.main-button {
   font-size: 13px;
   border-radius: 20px;
   padding: 12px 20px;
-  background-color: #f55858;
+  background-color: #F80302;
   text-transform: uppercase;
   color: #fff;
   letter-spacing: 0.25px;
@@ -324,6 +324,7 @@ button.main-button {
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  background-color: #F80302;
 }
 
 button.main-button:hover {
@@ -958,7 +959,7 @@ about
 #about2 h5 {
   font-size: 26px;
   font-weight: 700;
-  color: #1e1e1e;
+  color: #F80302;
   line-height: 40px;
   margin-bottom: 25px;
   letter-spacing: 0.5px;
@@ -988,7 +989,7 @@ about
   color: #1e1e1e;
   margin-bottom: 20px;
 }
-
+  
 /* 
 ---------------------------------------------
 services
@@ -1271,7 +1272,8 @@ contact
 
 .contact-form {
   padding: 100px;
-  background-color: #F7F7F7;
+  background-color:#FBC22D;
+  color:#F80302;
 }
 
 @media (max-width: 765px) {
