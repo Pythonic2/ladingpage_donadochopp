@@ -240,6 +240,8 @@ p {
 global styles
 --------------------------------------------- 
 */
+
+
 html,
 body {
   background: #fff;
@@ -354,7 +356,6 @@ header
 .background-header {
   background-color: #fff;
   height: 80px !important;
-  position: fixed !important;
   top: 0px;
   left: 0px;
   right: 0px;
@@ -393,7 +394,7 @@ header
 
 .header-area .main-nav {
   min-height: 80px;
-  background: transparent;
+  background: transparent; 
 }
 
 .header-area .main-nav .logo {
