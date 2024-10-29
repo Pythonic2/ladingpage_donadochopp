@@ -1018,6 +1018,7 @@ services
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   position: relative;
+  height: 700px;
 }
 
 @media screen and (max-width: 920px) {
