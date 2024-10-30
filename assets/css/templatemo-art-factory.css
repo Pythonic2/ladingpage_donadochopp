@@ -939,7 +939,7 @@ about
 
 @media (max-width: 765px) {
   #about {
-    padding: 20px 0px 120px 0px;
+    padding: 2px 0px 2px 0px;
   }
 }
 
@@ -1018,7 +1018,7 @@ services
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
   position: relative;
-  height: 700px;
+  height: 730px;
 }
 
 @media screen and (max-width: 920px) {
