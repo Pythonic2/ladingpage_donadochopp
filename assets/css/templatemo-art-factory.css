@@ -37,6 +37,8 @@ font & reset css
 reset
 --------------------------------------------- 
 */
+
+
 .right-text {
   padding: 20px;
   background-color: #f8f8f8; /* Cor de fundo da div */
@@ -87,7 +89,7 @@ reset
 
 @media only screen and (max-width: 768px) {
   body {
-    background-image: url(../images/bgg.jpeg) no-repeat center center !important;
+    background-image: url(../images/bgmulher.jpeg) no-repeat center center !important;
       background-size: cover;
   }
 }
@@ -249,12 +251,12 @@ body {
 }
 
 ::selection {
-  background: #ff589e;
+  background: #F80302;
   color: #fff;
 }
 
 ::-moz-selection {
-  background: #ff589e;
+  background: #F80302;
   color: #fff;
 }
 
@@ -364,7 +366,7 @@ header
 
 .background-header .logo,
 .background-header .main-nav .nav li a {
-  color: white !important;
+  color: #f55858 !important;
 }
 
 .background-header .main-nav .nav > li:hover > a {
@@ -399,7 +401,7 @@ header
 
 .header-area .main-nav .logo {
   line-height: 80px;
-  color: #fff;
+  color:#f55858;
   font-size: 28px;
   font-weight: 700;
   text-transform: uppercase;
@@ -783,7 +785,7 @@ welcome
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(../images/bgg.jpeg); 
+  background-image: url(../images/bgmulher.jpeg); 
   background-repeat: no-repeat;
 /*
 TRY IT ... with or without CENTER CENTER
@@ -802,7 +804,7 @@ TRY IT ... with or without CENTER CENTER
     align-items: center;
     justify-content: center;
     /* background-image: url(../images/testemobile.png); */
-    background-image: url(../images/bgg-bombas.jpeg); 
+    background-image: url(../images/bgmulhermobile.jpg); 
 
     background-repeat: no-repeat;
 
@@ -812,7 +814,7 @@ TRY IT ... with or without CENTER CENTER
     margin-top: -10vh;
   }
   .title-page{
-    margin-top: -90% !important;
+    margin-top: -120% !important;
   }
   #logo-dona{
     display: none;
@@ -993,7 +995,227 @@ about
   color: #1e1e1e;
   margin-bottom: 20px;
 }
-  
+#about {
+  padding: 80px 0;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #F80302;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.right-text {
+  color: #333;
+  padding: 20px;
+}
+
+.product-details {
+  list-style: none;
+  padding: 0;
+}
+
+.product-details li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.price-badge {
+  background-color: #28a745;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.installment-badge {
+  background-color: #F80302;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.price-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.price-button {
+  background-color: #FFBB08;
+  color: #F80302;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.main-button {
+  background-color: #F80302;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.main-button i {
+  margin-right: 8px;
+}
+
+.main-button:hover, .price-button:hover {
+  opacity: 0.9;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.produto-section {
+  background-color: #FFBB08;
+  padding: 60px 0;
+}
+
+.produto-info {
+  color: #F80302;
+  padding: 30px;
+}
+
+.produto-info h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #F80302;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.produto-info p {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.info-button {
+  background-color: #F80302;
+  color: #fff;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.info-button:hover {
+  background-color: #d70201;
+}
+
+.carousel-inner img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+
+
+
+
+
+.carousel-indicators [data-bs-target] {
+  background-color: #F80302; /* Cor de fundo vermelho */
+  width: 12px; /* Largura do indicador */
+  height: 12px; /* Altura do indicador */
+  border-radius: 50%; /* Torna o botão circular */
+  margin: 0 5px; /* Espaço entre os indicadores */
+  transition: background-color 0.3s ease; /* Efeito de transição para o hover */
+}
+
+.carousel-indicators .active {
+  background-color: #FFBB08; /* Cor de fundo amarelo para o indicador ativo */
+  width: 14px;
+  height: 14px;
+  border: 2px solid #F80302; /* Bordas vermelhas ao redor do botão ativo */
+}
+.carousel-indicators button {
+  background-color: #F80302 !important; /* Cor vermelha */
+  border: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 5px;
+  opacity: 1; /* Garante que não fique transparente */
+  transition: background-color 0.3s ease;
+}
+
+.carousel-indicators .active {
+  background-color: black !important; /* Cor amarela para o indicador ativo */
+  border: 2px solid #F80302; /* Borda vermelha para o indicador ativo */
+  width: 14px;
+  height: 14px;
+}
+.carousel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px; /* Defina uma altura adequada para seu layout */
+}
+
+.carousel-item img {
+    margin-left: 10%;
+}
+
+@media (max-width: 765px) {
+  .carousel-item img {
+    margin-top: 25%;
+  }
+}
+
+.price-tag {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #F80302; /* Cor vermelha */
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.price-tag {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #F80302; /* Vermelho */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* 
 ---------------------------------------------
 services
