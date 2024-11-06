@@ -366,21 +366,23 @@ header
 
 .background-header .logo,
 .background-header .main-nav .nav li a {
-  color: #f55858 !important;
+  color: #ee0000 !important;
 }
 
 .background-header .main-nav .nav > li:hover > a {
-  color: #f55858 !important;
+  color: #f50000 !important;
 }
 
 .background-header .main-nav .nav > li > ul > li:hover > a {
-  color: #f55858 !important;
+  color: #f00000 !important;
 }
 
 .background-header .nav li a.active {
-  color: #f55858 !important;
+  color: #eb0000 !important;
 }
-
+.active{
+  color: #000;
+}
 .header-area {
   position: absolute;
   top: 0px;
@@ -401,7 +403,7 @@ header
 
 .header-area .main-nav .logo {
   line-height: 80px;
-  color:#f55858;
+  color:#eb0000;
   font-size: 28px;
   font-weight: 700;
   text-transform: uppercase;
@@ -452,7 +454,7 @@ header
 }
 
 .header-area .main-nav .nav li:hover a {
-  color: #f55858;
+  color: #eb0000;
 }
 
 .header-area .main-nav .nav li.submenu {
@@ -1579,6 +1581,27 @@ footer
   filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
 }
 
+/* logo*/
+/* Esconde a logo por padrão */
+.logo-mobile {
+  display: none;
+}
+
+/* Exibe a logo e ajusta o texto apenas em dispositivos móveis */
+@media (max-width: 768px) {
+  .logo-mobile {
+      display: inline;
+      width: 60px; /* Ajuste o tamanho conforme necessário */
+      vertical-align: middle;
+      margin-right: 8px;
+  }
+
+  .logo-text {
+      font-size: 1rem; /* Ajuste o tamanho do texto conforme necessário */
+  }
+}
+
+
 /* Estilos específicos para cada rede social */
 #fb{ background-color: #3b5998; }
 #yt{ background-color: #FF0000; }
@@ -1726,3 +1749,298 @@ preloader
     opacity: 0;
   }
 }
+
+
+/*CARDS*/
+
+.work-section {
+  text-align: center;
+  padding: 20px;
+  background-color: #f0f0f0; /* Ajuste conforme necessário */
+}
+
+.section-title {
+  font-size: 2rem;
+  color: #F80302;
+  margin-bottom: 20px;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card-content h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.card-content p {
+  color: #666;
+}
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.video-placeholder {
+  position: relative;
+  cursor: pointer;
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: white;
+  opacity: 0.8;
+}
+/* Estilo para o placeholder do vídeo */
+.video-placeholder {
+  position: relative;
+  cursor: pointer;
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: white;
+  opacity: 0.8;
+}
+
+/* Estilo para o modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  position: relative;
+  margin: 5% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.video-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
+.video-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.main-video {
+  width: 100%;
+  max-width: 400px; /* Ajuste conforme necessário */
+  border-radius: 8px;
+}
+
+.text-content {
+  flex: 1;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.text-content h2 {
+  color: #F80302;
+}
+
+.text-content h3 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.text-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.text-content ul li {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.text-content p {
+  margin: 10px 0;
+}
+
+.preco-antigo {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.preco-atual {
+  color: #F80302;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.pix {
+  font-weight: bold;
+}
+
+.cores {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.cor {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+.btn-comprar {
+  background-color: #FFBB08;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.btn-comprar:hover {
+  background-color: #e6a700;
+}
+.video-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #F80302; /* Cor do título */
+  margin-bottom: 10px; /* Espaço entre o título e o vídeo */
+}
+
+.video-content {
+  display: flex;
+  justify-content: center;
+}
+
+.main-video {
+  width: 100%;
+  max-width: 600px; /* Ajuste conforme necessário */
+  border-radius: 8px;
+}
+.video-section {
+  text-align: center;
+  padding: 20px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  color: #F80302;
+  margin-bottom: 20px;
+}
+
+.video-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.video-overlay {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.play-button {
+  position: absolute;
+  font-size: 3rem;
+  color: white;
+  opacity: 0.8;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.main-video {
+  display: none; /* Oculta o vídeo até que o usuário clique para reproduzir */
+  width: 100%;
+  max-width: 600px;
+  border-radius: 8px;
+}
+
