@@ -89,7 +89,7 @@ reset
 
 @media only screen and (max-width: 768px) {
   body {
-    background-image: url(../images/bgmulher.jpeg) no-repeat center center !important;
+    background-image: url(../images/bgg.jpeg) no-repeat center center !important;
       background-size: cover;
   }
 }
@@ -785,7 +785,7 @@ welcome
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(../images/bgmulher.jpeg); 
+  background-image: url(../images/bgg.jpeg); 
   background-repeat: no-repeat;
 /*
 TRY IT ... with or without CENTER CENTER
@@ -804,7 +804,7 @@ TRY IT ... with or without CENTER CENTER
     align-items: center;
     justify-content: center;
     /* background-image: url(../images/testemobile.png); */
-    background-image: url(../images/bgmulhermobile.jpg); 
+    background-image: url(../images/bgg-bombas.jpeg); 
 
     background-repeat: no-repeat;
 
@@ -814,7 +814,7 @@ TRY IT ... with or without CENTER CENTER
     margin-top: -10vh;
   }
   .title-page{
-    margin-top: -120% !important;
+    margin-top: -80% !important;
   }
   #logo-dona{
     display: none;
@@ -933,6 +933,7 @@ TRY IT ... with or without CENTER CENTER
 about
 ---------------------------------------------
 */
+
 
 #about {
   padding: 120px 0px;
@@ -1372,89 +1373,84 @@ services
 accordions
 ---------------------------------------------
 */
-
-#frequently-question {
-  padding: 120px 0px;
+/* Estilos Gerais para a Seção de Perguntas Frequentes */
+#faq-section {
+  background-color: #f8f9fa;
+  padding: 60px 0;
 }
 
-#frequently-question .section-heading p {
-  margin-bottom: 80px;
+.faq-section-heading h2 {
+  color: #F80302;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
-#frequently-question .left-text {
-  align-self: center !important;
+.faq-section-heading p {
+  color: #666;
+  font-size: 1rem;
 }
 
-#frequently-question .left-text h5 {
-  font-size: 26px;
-  font-weight: 700;
-  color: #1e1e1e;
-  line-height: 40px;
-  margin-bottom: 25px;
-  letter-spacing: 0.5px;
+.faq-section-heading a.faq-main-button {
+  background-color: #FF6508;
+  color: #FFF;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 15px;
 }
 
-#frequently-question .left-text p {
-  margin-bottom: 30px;
-  font-size: 16px;
-  line-height: 30px;
-  letter-spacing: 0.5px;
+/* Estilos do Acordeão */
+.faq-accordion-button {
+  background-color: #FFBB08;
+  color: #333;
+  font-weight: bold;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
-#frequently-question .left-text span {
-  font-size: 16px;
-  color: #4a4a4a;
-  margin-bottom: 50px;
-  display: block;
+.faq-accordion-button:not(.collapsed) {
+  color: #fff;
+  background-color: #F80302;
 }
 
-#frequently-question .left-text span a {
-  font-weight: 500;
+.faq-accordion-button:focus {
+  box-shadow: none;
 }
 
-@media (max-width: 765px) {
-  #frequently-question .left-text {
-    margin-bottom: 60px;
-  }
+.faq-accordion-item {
+  border: none;
+  border-bottom: 1px solid #ddd;
 }
 
-.accordions {
-  background-color: #f7f7f7;
-}
-.accordion-head {
-  padding: 20px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: color 200ms ease-in-out;
-  border-bottom: 1px solid #fff;
-}
-@media screen and (min-width: 768px) {
-  .accordion-head {
-    padding: 1rem;
-    font-size: 1.2rem;
-  }
-}
-.accordion-head .icon {
-  float: right;
-  transition: transform 200ms ease-in-out;
-}
-.accordion-head.is-open {
-  color: #0088e8;
+.faq-accordion-item:last-child {
   border-bottom: none;
 }
-.accordion-head.is-open .icon {
-  transform: rotate(45deg);
-}
-.accordion-body {
-  overflow: hidden;
-  height: 0;
-  transition: height 300ms ease-in-out;
-  border-bottom: 1px solid #fff;
-}
-.accordion-body > .content {
+
+.faq-accordion-body {
+  color: #333;
   padding: 20px;
-  padding-top: 0;
+  background-color: #fff;
 }
+
+/* Responsivo */
+@media (max-width: 768px) {
+  #faq-section {
+      padding: 40px 20px;
+  }
+
+  .faq-section-heading h2 {
+      font-size: 1.75rem;
+  }
+
+  .faq-accordion-body {
+      padding: 15px;
+  }
+}
+
 
 /* 
 ---------------------------------------------
@@ -1556,6 +1552,39 @@ contact
 footer
 --------------------------------------------- 
 */
+
+.social {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.social li {
+  list-style: none;
+}
+
+.social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.2rem;
+  text-decoration: none;
+}
+
+/* Estilos específicos para cada rede social */
+#fb{ background-color: #3b5998; }
+#yt{ background-color: #FF0000; }
+#tw { background-color: #1DA1F2; }
+#tk{ background-color: #69C9D0; }
+#ins { background-color: #E1306C; }
+#maps{ background-color: #FF0000; }
+
+
 footer {
   background-color: #fff;
   padding: 60px 0px;

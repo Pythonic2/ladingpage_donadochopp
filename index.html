@@ -7,6 +7,7 @@
     <meta name="description" content="Seja um empreendedor com as choppeiras da dona do chopp Kits prontos para você usar e alcançar sua indepenencia financeira em poucos passos.">
     <meta name="keywords" content="kit choppeira, choppeira, kit choppeira, kit chopeira, kit chopp, kit chop, kit extração de chopp, barril de chopp, co2 para chopeira, bomba de chop, chopeira combustivel, carrinho chopeira, comprar kit de chopeira">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
     <title>Dona do chopp</title>
 <!--
@@ -23,6 +24,10 @@ https://templatemo.com/tm-537-art-factory
     <link rel="stylesheet" type="text/css" href="assets/css/owl-carousel.css">
 
     <style>
+        .bebas-font {
+    font-family: 'Bebas Neue', sans-serif;
+}
+
         nav {
     position: absolute; /* Fixa o menu sobre a imagem */
     top: 0;
@@ -143,21 +148,893 @@ nav ul li a {
     }
 }
 
+/* Container de imagem com fundo amarelo e borda */
+.image-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
 
+.product-image {
+    max-width: 100%;
+    height: auto;
+}
 
+/* Estilos para o texto e título */
+.section-title {
+    color: #F80302; /* Vermelho */
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+h2 {
+    color: #000;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Lista de detalhes do produto */
+.product-details {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.product-details li {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Informações de frete */
+.shipping-info {
+    color: #000;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Preço com desconto e preço original */
+.price {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+    text-align: center;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 10px;
+}
+
+.discounted-price {
+    font-weight: bold;
+    color: #F80302; /* Vermelho */
+    display: block;
+}
+
+/* Opções de cor */
+.color-options {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.color-circle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 2px solid #000;
+}
+
+/* Botão de compra */
+.buy-button {
+    display: inline-block;
+    background-color: #FF6508; /* Laranja */
+    color: #FFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 20px auto 0;
+    display: block;
+    width: 80%;
+    text-align: center;
+}
+
+/* Borda vermelha ao redor do cartão */
+.product-card {
+    padding: 20px;
+    background-color: #FFF;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Media Query para Layout Móvel */
+@media (max-width: 600px) {
+    .product-card {
+        border-width: 3px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .image-container {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.2em;
+        margin-top: 10px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .product-details li {
+        font-size: 0.9em;
+    }
+
+    .shipping-info {
+        font-size: 0.9em;
+    }
+
+    .price {
+        font-size: 1em;
+    }
+
+    .buy-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+
+    .color-options .color-circle {
+        width: 15px;
+        height: 15px;
+    }
+}
+/* Container do cartão do produto com fundo e borda */
+.product-card {
+    background-color: #F80302; /* Fundo vermelho */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Fundo amarelo ao redor da imagem */
+.image-container {
+    background-color: #FFBB08; /* Fundo amarelo */
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+/* Outros estilos permanecem os mesmos */
+
+/* Media Query para Layout Móvel */
+@media (max-width: 600px) {
+    .product-card {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .image-container {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.2em;
+        margin-top: 10px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .product-details li {
+        font-size: 0.9em;
+    }
+
+    .shipping-info {
+        font-size: 0.9em;
+    }
+
+    .price {
+        font-size: 1em;
+    }
+
+    .buy-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+
+    .color-options .color-circle {
+        width: 15px;
+        height: 15px;
+    }
+}
+/* Fundo e borda do cartão de produto */
+.product-card {
+    background-color: #F80302; /* Fundo vermelho */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Fundo amarelo ao redor da imagem */
+.image-container {
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Estilos para o título e texto */
+.section-title {
+    color: #000;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+h2 {
+    color: #000;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.product-details {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.product-details li {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Informações de frete */
+.shipping-info {
+    color: #000;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Preços com desconto e preço original */
+.price {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+    text-align: center;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 10px;
+}
+
+.discounted-price {
+    font-weight: bold;
+    color: #F80302; /* Vermelho */
+    display: block;
+}
+
+/* Opções de cor */
+.color-options {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.color-circle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 2px solid #000;
+}
+
+/* Botão de compra */
+.buy-button {
+    display: inline-block;
+    background-color: #FF6508; /* Laranja */
+    color: #FFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 20px auto 0;
+    display: block;
+    width: 80%;
+    text-align: center;
+}
+
+/* Media Query para Layout Móvel */
+@media (max-width: 600px) {
+    .product-card {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .image-container {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.2em;
+        margin-top: 10px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .product-details li {
+        font-size: 0.9em;
+    }
+
+    .shipping-info {
+        font-size: 0.9em;
+    }
+
+    .price {
+        font-size: 1em;
+    }
+
+    .buy-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+
+    .color-options .color-circle {
+        width: 15px;
+        height: 15px;
+    }
+}
+
+/*  ################################################################################################ */
+
+nav {
+    position: absolute; /* Fixa o menu sobre a imagem */
+    top: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo semitransparente para o menu */
+    z-index: 10; /* Garante que o menu fique acima da imagem */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.background-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    position: relative; /* Posição padrão para a imagem */
+    z-index: 1; /* Mantém a imagem atrás do menu */
+}
+       body {
+            background-color: #ffffff; /* Fundo claro */
+            color: #333333; /* Texto em um tom escuro */
+            font-family: 'Montserrat', sans-serif; /* Fonte moderna */
+        }
+
+        .header-area {
+            background-color:#FFBB08;; /* Fundo do cabeçalho em vermelho */
+        }
+
+        .nav a {
+            color: #ffffff; /* Texto do menu em branco */
+        }
+
+        .main-button-slider {
+            background-color: #F9E79F; /* Botão em amarelo suave */
+            color: #FF1717; /* Texto do botão em vermelho */
+            border-radius: 30px; /* Bordas arredondadas */
+        }
+
+        .main-button-slider:hover {
+            background-color: #e67e22; /* Cor do botão ao passar o mouse */
+        }
+
+        .footer {
+            background-color: #000000; /* Rodapé em preto */
+            color: #F9E79F; /* Texto do rodapé em amarelo */
+        }
+
+        .right-text {
+        padding: 20px;
+        background-color: #f8f8f8; /* Cor de fundo da div */
+        border-radius: 10px;
+        }
+
+        .main-button {
+        display: inline-block;
+        background-color: #28a745; /* Cor de fundo do botão */
+        color: #fff; /* Cor do texto */
+        padding: 10px 20px; /* Tamanho do botão (altura e largura) */
+        border-radius: 30px; /* Torna o botão oval */
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        }
+
+        .main-button:hover {
+        background-color: #218838; /* Cor ao passar o mouse */
+        }
+
+        .main-button i {
+        margin-right: 8px; /* Espaço entre o ícone e o texto */
+        }
+
+        /* Estilo do botão com preço */
+        .price-button {
+        display: inline-block;
+        background-color: #edb338; /* Cor de fundo do botão de preço */
+        color: #fff; /* Cor do texto */
+        padding: 10px 30px; /* Tamanho do botão */
+        border-radius: 30px; /* Torna o botão oval */
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+        }
+
+        .price-button:hover {
+        background-color:  #edb338; /* Cor ao passar o mouse */
+        color: white;
+        }
+        /* Estilos do carrossel */
+.carousel-inner img {
+    max-height: 500px; /* Limite a altura do carrossel */
+    object-fit: cover; /* Ajusta as imagens para cobrir a área sem distorção */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .carousel-inner img {
+        max-height: 300px; /* Ajuste para telas menores */
+    }
+    .carousel-item{
+        margin-left: 6%;
+    }
+    .price-tag{
+        margin-left: -4%;
+    }
+}
+
+/* Container de imagem com fundo amarelo e borda */
+.image-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilos para o texto e título */
+.section-title {
+    color: #F80302; /* Vermelho */
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+h2 {
+    color: #000;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Lista de detalhes do produto */
+.product-details {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.product-details li {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Informações de frete */
+.shipping-info {
+    color: #000;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Preço com desconto e preço original */
+.price {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+    text-align: center;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 10px;
+}
+
+.discounted-price {
+    font-weight: bold;
+    color: #F80302; /* Vermelho */
+    display: block;
+}
+
+/* Opções de cor */
+.color-options {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.color-circle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 2px solid #000;
+}
+
+/* Botão de compra */
+.buy-button {
+    display: inline-block;
+    background-color: #FF6508; /* Laranja */
+    color: #FFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 20px auto 0;
+    display: block;
+    width: 80%;
+    text-align: center;
+}
+
+/* Borda vermelha ao redor do cartão */
+.product-card {
+    padding: 20px;
+    background-color: #FFF;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Media Query para Layout Móvel */
+@media (max-width: 600px) {
+    .product-card {
+        border-width: 3px;
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .image-container {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.2em;
+        margin-top: 10px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .product-details li {
+        font-size: 0.9em;
+    }
+
+    .shipping-info {
+        font-size: 0.9em;
+    }
+
+    .price {
+        font-size: 1em;
+    }
+
+    .buy-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+
+    .color-options .color-circle {
+        width: 15px;
+        height: 15px;
+    }
+}
+/* Container do cartão do produto com fundo e borda */
+.product-card {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Fundo amarelo ao redor da imagem */
+.image-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+/* Outros estilos permanecem os mesmos */
+
+/* Media Query para Layout Móvel */
+@media (max-width: 600px) {
+    .product-card {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .image-container {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.2em;
+        margin-top: 10px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .product-details li {
+        font-size: 0.9em;
+    }
+
+    .shipping-info {
+        font-size: 0.9em;
+    }
+
+    .price {
+        font-size: 1em;
+    }
+
+    .buy-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+
+    .color-options .color-circle {
+        width: 15px;
+        height: 15px;
+    }
+}
+/* Fundo e borda do cartão de produto */
+.product-card {
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Fundo amarelo ao redor da imagem */
+.image-container {
+    background-color: #FFBB08; /* Fundo amarelo */
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Estilos para o título e texto */
+.section-title {
+    color: #000;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+h2 {
+    color: #000;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.product-details {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.product-details li {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Informações de frete */
+.shipping-info {
+    color: #000;
+    font-weight: bold;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Preços com desconto e preço original */
+.price {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+    text-align: center;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-right: 10px;
+}
+
+.discounted-price {
+    font-weight: bold;
+    color: #F80302; /* Vermelho */
+    display: block;
+}
+
+/* Opções de cor */
+.color-options {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.color-circle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 2px solid #000;
+}
+
+/* Botão de compra */
+.buy-button {
+    display: inline-block;
+    background-color: #FF6508; /* Laranja */
+    color: #FFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 20px auto 0;
+    display: block;
+    width: 80%;
+    text-align: center;
+}
+
+/* Media Query para Layout Móvel */
+@media (max-width: 600px) {
+    #about{
+        display: none;
+    }
+    .product-card {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .image-container {
+        padding: 15px;
+    }
+
+    .section-title {
+        font-size: 1.2em;
+        margin-top: 10px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .product-details li {
+        font-size: 0.9em;
+    }
+
+    .shipping-info {
+        font-size: 0.9em;
+    }
+
+    .price {
+        font-size: 1em;
+    }
+
+    .buy-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+
+    .color-options .color-circle {
+        width: 15px;
+        height: 15px;
+    }
+    
+    #fundo {
+        background-color: #F80302; /* Fundo vermelho */
+        padding: 80px 0; /* 20px apenas no topo e no fundo, 0 nos lados */
+        position: relative;
+        overflow: hidden;
+        color: white; /* Cor do texto dentro do container */
+        clip-path: polygon(0% 0%, 100% 2%, 100% 98%, 0% 100%);
+    }   
+}
+@media (min-width: 700px) {
+    #about1 {
+        display:none;
+    }
+}
     </style>
     </head>
     
     <body>
     
     <!-- ***** Preloader Start ***** -->
-    <div id="preloader">
+    <!-- <div id="preloader">
         <div class="jumper">
             <div></div>
             <div></div>
             <div></div>
         </div>
-    </div>  
+    </div>   -->
     <!-- ***** Preloader End ***** -->
     
     
@@ -205,9 +1082,9 @@ nav ul li a {
             <div class="container">
                 <div class="row">
                     <div class="left-text col-lg-6 col-md-6 col-sm-12 col-xs-12 title-page" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s" >
-                        <h1 class="text-light"><strong>Seja</strong><br><strong  style="color:#FFF500">O Primeiro em sua Cidade</strong></h1>
+                        <h1 class="text-light bebas-font"><strong>Seja</strong><br><strong style="color:#FFF500">O Primeiro em sua Cidade</strong></h1>
                         <!-- <p class="text-dark">Alcance sua independecia financeira trabalhando para você mesmo em eventos, festas, confraternizações ou até mesmo em locais publicos como Praias.</p> -->
-                        <a href="#about" class="main-button-slider" style="background-color: #FF1717;">Ver <strong>chopp</strong>eiras</a>
+                        <a href="#produtos" class="main-button-slider" style="background-color: #FF1717;"> <strong>Ver choppeiras</strong></a>
                     </div>
                     <div id="logo-dona" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
                         <img src="assets/images/logo.jpeg" class="rounded img-fluid d-block mx-auto " alt="First Vector Graphic" style="width: 40%;">
@@ -229,40 +1106,443 @@ nav ul li a {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- ***** Features Big Item Start ***** -->
+<!-- MOBILE -->
+ <div id="produtos">
+    <section class="section" id="about1">
+        <div class="container" id="fundo">
+            <div class="product-card" style="background-color: white; width: 80%; margin-left: 10%;">
+                <div class="image-container">
+                    <img src="assets/images/teste.png" class="product-image" alt="Chopp Bomba">
+                </div>
+                <h5 class="section-title" style="color:#F80302">SEJA UM EMPREENDEDOR</h5>
+                <h5 class="section-title">Chopeiras</h5>
+                <ul class="product-details">
+                    <li>Personalize com sua logo</li>
+                    <li>Personalize a cor da Chopeira</li>
+                </ul>
+                <p class=""> Choppeiras personalizadas da sua cor e já com sua logo, com a entrega mais rápida do Brasil e os melhores preços. 😉⛽🍺</p>
+
+                <p class="">
+                    <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                </p>
+                <p class="price">
+                    <span class="discounted-price">R$ 10.490,00 ou 12x SEM JUROS</span>
+                    <span class="pix-discount">PIX: 15% OFF</span>
+                </p>
+                <div class="color-options">
+                    <span class="color-circle" style="background-color: black;"></span>
+                    <span class="color-circle" style="background-color: blue;"></span>
+                    <span class="color-circle" style="background-color: green;"></span>
+                    <span class="color-circle" style="background-color: red;"></span>
+                </div>
+                <a href="#" class="buy-button">comprar agora</a>
+            </div>
+            <div class="product-card" style="background-color: white; width: 80%; margin-left: 10%;">
+                <div class="image-container">
+                    <img src="assets/images/chopeira+kitextra.png" class="product-image" alt="Chopp Bomba">
+                </div>
+                <h5 class="section-title" style="color:#F80302">COMECE COM INOVAÇÃO</h5>
+
+                <h5 class="section-title">Choppeira + Kit Extração
+                </h5>
+                <ul class="product-details">
+                    <li>Kit extração com mangueiras, engates e regulador de pressão</li>
+                    <li>Personalizada com Sua Cor</li>
+                    <li>Personalizada com sua Logo</li>
+                </ul>
+                <p class="">
+                    <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                </p>
+                <p class="price">
+                    <span class="discounted-price">R$ 10.490,00 ou 12x SEM JUROS</span>
+                    <span class="pix-discount">PIX: 15% OFF</span>
+                </p>
+                <div class="color-options">
+                    <span class="color-circle" style="background-color: black;"></span>
+                    <span class="color-circle" style="background-color: blue;"></span>
+                    <span class="color-circle" style="background-color: green;"></span>
+                    <span class="color-circle" style="background-color: red;"></span>
+                </div>
+                <a href="#" class="buy-button">comprar agora</a>
+            </div>
+            
+        </div>
+
+        <div class="container" id="fundo">
+            <div class="product-card" style="background-color: white; width: 80%; margin-left: 10%;">
+                <div class="image-container">
+                    <img src="assets/images/fullcombo.png" class="product-image" alt="Chopp Bomba">
+                </div>
+                <h5 class="section-title" style="color: #F80302;">REVOLUCIONE O SERVIÇO DE CHOPP
+                </h5>
+                <h5 class="section-title">Kit Completo</h5>
+                <ul class="product-details">
+                    <li>Personalizada com Sua Cor</li>
+                    <li>Personalizada com sua Logo
+                    </li>
+                </ul>
+                <p class=""> Kit Completo Choppeira + kit Extração + Barril térmico + Carrinho de transporte. Apenas pegar, e começar a vender. 😉⛽🍺</p>
+
+                <p class="">
+                    <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                </p>
+                <p class="price">
+                    <span class="original-price">R$ 15.490,00</span>
+                    <span class="discounted-price">R$ 14.490,00 ou 12x SEM JUROS</span>
+                    <span class="pix-discount">PIX: 15% OFF</span>
+                </p>
+                <div class="color-options">
+                    <span class="color-circle" style="background-color: black;"></span>
+                    <span class="color-circle" style="background-color: blue;"></span>
+                    <span class="color-circle" style="background-color: green;"></span>
+                    <span class="color-circle" style="background-color: red;"></span>
+                </div>
+                <a href="#" class="buy-button">comprar agora</a>
+            </div>
+            <div class="product-card" style="background-color: white; width: 80%; margin-left: 10%;">
+                <div class="image-container">
+                    <img src="assets/images/kitextracao.png" class="product-image" alt="Chopp Bomba">
+                </div>
+                <h5 class="section-title" style="color: #F80302;">Comece um Negócio Hoje</h5>
+
+                <h5 class="section-title">Kit Extração</h5>
+                <ul class="product-details">
+                    <li><strong>* Cilindro de CO2</strong></li>
+                            <li><strong>* Regulador de Pressão</strong></li>
+                            <li><strong>* Mangueiras</strong></li>
+                            <li><strong>* Conectores de engate</strong></li>
+                </ul>
+                <p class=""> O Kit de extração de chopp é composto pelo cilindro de CO2 CHEIO com capacidade de 6kg, regulador de pressao (manômetro), mangueiras e conectores de engate rápido de fácil manuseio e extratora. Esses equipamentos são necessários para retirar o chopp do Barril. 😉⛽🍺</p>
+                <p class="">
+                    <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                </p>
+                <p class="price">
+                    <span class="original-price">R$ 1.800,00</span>
+                    <span class="discounted-price">R$ 1.500,00 ou 12x SEN JUROS</span>
+                    <span class="pix-discount">PIX: 15% OFF</span>
+
+                </p>
+                <div class="color-options">
+                    <span class="color-circle" style="background-color: black;"></span>
+                    <span class="color-circle" style="background-color: blue;"></span>
+                    <span class="color-circle" style="background-color: green;"></span>
+                    <span class="color-circle" style="background-color: red;"></span>
+                </div>
+                <a href="#" class="buy-button">comprar agora</a>
+            </div>
+            
+        </div>
+
+
+        <div class="container" id="fundo">
+            <div class="product-card" style="background-color: white; width: 80%; margin-left: 10%;">
+                <div class="image-container">
+                    <img src="assets/images/carrinhofundotrans.png" class="product-image" alt="Chopp Bomba">
+                </div>
+                        <h5 class="section-title" style="color: #F80302;">SEJA O PRIMEIRO NA SUA CIDADE</h5>
+                        <h5 class="section-title">Carrinho Transporte</h5>
+
+                        <ul class="product-details">
+                            <li><strong>* Personalizada com Sua Cor</strong></li>
+                        </ul>
+                        <p class=""> Carrinho de transporte para você transportar seu <strong>Kit Chopeira</strong>😉⛽🍺</p>
+
+                        <p class="">
+                            <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                        </p>
+                        <p class="price">
+                            <span class="original-price">R$ 2.100,00</span>
+                            <span class="discounted-price">R$ 2.000,00 ou 12x SEM JUROS</span>
+                            <span class="pix-discount">PIX: 15% OFF</span>
+
+                        </p>
+                <div class="color-options">
+                    <span class="color-circle" style="background-color: black;"></span>
+                    <span class="color-circle" style="background-color: blue;"></span>
+                    <span class="color-circle" style="background-color: green;"></span>
+                    <span class="color-circle" style="background-color: red;"></span>
+                </div>
+                <a href="#" class="buy-button">comprar agora</a>
+            </div>
+            <div class="product-card" style="background-color: white; width: 80%; margin-left: 10%;">
+                <div class="image-container">
+                    <img src="assets/images/barril.png" class="product-image" alt="Chopp Bomba">
+                </div>
+                <h5 class="section-title" style="color: #F80302;">TRABALHE PARA VOCÊ</h5>
+                <h5 class="section-title">Barril de Chopeira</h5>
+                <ul class="product-details">
+                    <li><strong>* Tonel com isolante térmico</strong></li>
+                    <li><strong>* Personalizada com Sua Cor</strong></li>
+                </ul>
+                <p class=""> <strong>Barril isolante térmico</strong> para conservar seu chopp Gelado😉⛽🍺</p>
+
+                <p class="">
+                    <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                </p>
+                <p class="price">
+                    <span class="original-price">R$ 2.100,00</span>
+                    <span class="discounted-price">R$ 2.000,00 ou 12x SEM JUROS</span>
+                    <span class="pix-discount">PIX: 15% OFF</span>
+
+                </p>
+                <div class="color-options">
+                    <span class="color-circle" style="background-color: black;"></span>
+                    <span class="color-circle" style="background-color: blue;"></span>
+                    <span class="color-circle" style="background-color: green;"></span>
+                    <span class="color-circle" style="background-color: red;"></span>
+                </div>
+                <a href="#" class="buy-button">comprar agora</a>
+            </div>
+            
+        </div>
+        
+    </section>
+ </div>
+    
+
+<div id="produtos">
+
     <section class="section" id="about">
-        <div class="container">
+        <div class="container" id="fundo">
             <div class="row align-items-center">
-                <div class="col-lg-7 col-md-12 col-sm-12" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
-                    <img src="assets/images/choppeirasbranco.jpeg" class="rounded img-fluid d-block mx-auto" alt="App" style="width: 100%;">
+                <div class="col-lg-7 col-md-12 col-sm-12 product-card" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <div class="image-container">
+                        <img src="assets/images/teste.png" class="product-image" alt="Chopp Bomba">
+                    </div>
                 </div>
                 <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix">
-                   
                     <div class="right-text">
                         <h5 class="section-title">SEJA UM EMPREENDEDOR</h5>
-
-                        <p>
-                            A <strong>chopeira bomba de combustível</strong> tá saindo a partir de <span class="badge price-badge">10.490</span> reais. Já vai nas cores que escolher e com sua logomarca.
-                        </p>
+                        <h2>Choppeira</h2>
                         <ul class="product-details">
-                            <li><span class="badge price-badge">10.490</span> <strong>chopeira bomba</strong></li>
-                            <li><span class="badge price-badge">1.500</span> <strong>kit extração do chopp</strong></li>
-                            <li><span class="badge price-badge">2.000</span> <strong>carrinho</strong></li>
-                            <li><span class="badge price-badge">1.000</span> <strong>tonel com isolamento térmico</strong></li>
+                            <li><strong>* Personalizada com Sua Cor</strong></li>
+                            <li> <strong>* Personalizada com sua Logo</strong></li>
                         </ul>
-                        <p class="product-info">
-                            Se quiser ela completa sai a 14.990 reais e já vai no ponto de você colocar o <strong>barril</strong> de <strong>chopp</strong> e o gelo e sair abastecendo todo mundo. 😉⛽🍺
+                        <p class=""> Choppeiras personalizadas da sua cor e já com sua logo, com a entrega mais rápida do Brasil e os melhores preços. 😉⛽🍺</p>
+
+                        <p class="">
+                            <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
                         </p>
-                        <p>
-                            <strong>Frete grátis</strong> para retirada nos aeroportos ou podemos verificar valores de frete para entregar em sua residência.
+                        <p class="price">
+                            <span class="original-price">R$ 11.000,00</span>
+                            <span class="discounted-price">R$ 10.490.00 ou 12x SEM JUROS</span>
+                            <span class="pix-discount">PIX: 15% OFF</span>
+
                         </p>
-                        <p>
-                            Até <span class="badge installment-badge">10x</span> sem juros nos cartões ou 15% de desconto no pix
-                        </p>
-                        <div class="price-button-container">
-                            <a href="#" class="price-button">R$10.490,00</a>
-                            <a href="https://api.whatsapp.com/send/?phone=558581423909&text=Olá, Gostaria de comprar a maquina de chopp que vi no site&type=phone_number&app_absent=0" class="main-button"><i class="fa fa-whatsapp"></i> Comprar Kit</a>
+
+                        <div class="color-options">
+                            <span class="color-circle" style="background-color: black;"></span>
+                            <span class="color-circle" style="background-color: blue;"></span>
+                            <span class="color-circle" style="background-color: green;"></span>
+                            <span class="color-circle" style="background-color: red;"></span>
                         </div>
+                        <a href="#" class="buy-button">comprar agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="section" id="about">
+        <div class="container" id="fundo">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-12 col-sm-12 product-card" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <div class="image-container">
+                        <img src="assets/images/chopeira+kitextra.png" class="product-image" alt="Chopp Bomba">
+                    </div>
+                </div>
+                <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix">
+                    <div class="right-text">
+                        <h5 class="section-title">COMECE COM INOVAÇÃO</h5>
+                        <h2>Choppeira + Kit Extração</h2>
+                        <ul class="product-details">
+                            <li><strong>* Kit extração com mangueiras, engates e regulador de pressão</strong></li>
+                            <li><strong>* Personalizada com Sua Cor</strong></li>
+                            <li> <strong>* Personalizada com sua Logo</strong></li>
+                        </ul>
+
+                        <p class="">
+                            <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                        </p>
+                        <p class="price">
+                            <span class="original-price">R$ 12.250,00</span>
+                            <span class="discounted-price">R$ 11.990,00 ou 12x SEM JUROS</span>
+                            <span class="pix-discount">PIX: 15% OFF</span>
+
+                        </p>
+                        <div class="color-options">
+                            <span class="color-circle" style="background-color: black;"></span>
+                            <span class="color-circle" style="background-color: blue;"></span>
+                            <span class="color-circle" style="background-color: green;"></span>
+                            <span class="color-circle" style="background-color: red;"></span>
+                        </div>
+                        <a href="#" class="buy-button">comprar agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="section" id="about">
+        <div class="container" id="fundo">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-12 col-sm-12 product-card" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <div class="image-container">
+                        <img src="assets/images/fullcombo.png" class="product-image" alt="Chopp Bomba">
+                    </div>
+                </div>
+                <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix">
+                    <div class="right-text">
+                        <h5 class="section-title">REVOLUCIONE O SERVIÇO DE CHOPP</h5>
+                        <h2>Kit Completo</h2>
+                        <ul class="product-details">
+                            <li><strong>* Personalizada com Sua Cor</strong></li>
+                            <li> <strong>* Personalizada com sua Logo</strong></li>
+                        </ul>
+                        <p class=""> Quer um kit completo no ponto de você colocar o barril de chopp e o gelo e sair abastecendo todo mundo? 😉⛽🍺</p>
+
+                        <p class="">
+                            <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                        </p>
+                        <p class="price">
+                            <span class="original-price">R$ 15.490,00</span>
+                            <span class="discounted-price">R$ 14.490,00 ou 12x SEM JUROS</span>
+                            <span class="pix-discount">PIX: 15% OFF</span>
+
+                        </p>
+                        <div class="color-options">
+                            <span class="color-circle" style="background-color: black;"></span>
+                            <span class="color-circle" style="background-color: blue;"></span>
+                            <span class="color-circle" style="background-color: green;"></span>
+                            <span class="color-circle" style="background-color: red;"></span>
+                        </div>
+                        <a href="#" class="buy-button">comprar agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section" id="about">
+        <div class="container" id="fundo">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-12 col-sm-12 product-card" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <div class="image-container">
+                        <img src="assets/images/kitextracao.png" class="product-image" alt="Chopp Bomba">
+                    </div>
+                </div>
+                <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix">
+                    <div class="right-text">
+                        <h5 class="section-title">Comece um Negócio Hoje</h5>
+                        <h2>Kit Extração</h2>
+                        <ul class="product-details">
+                            <li><strong>* Cilindro de CO2</strong></li>
+                            <li><strong>* Regulador de Pressão</strong></li>
+                            <li><strong>* Mangueiras</strong></li>
+                            <li><strong>* Conectores de engate</strong></li>
+                        </ul>
+                        <p class=""> O <strong> Kit de extração</strong> de chopp é composto pelo <strong>cilindro de CO2 CHEIO</strong> com capacidade de 6kg, regulador de pressao (manômetro), mangueiras e conectores de engate rápido de fácil manuseio e extratora. Esses equipamentos são necessários para retirar o <strong>chopp</strong> do Barril.  😉⛽🍺</p>
+
+                        <p class="">
+                            <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                        </p>
+                        <p class="price">
+                            <span class="original-price">R$ 1.800,00</span>
+                            <span class="discounted-price">R$ 1.500,00 ou 12x SEN JUROS</span>
+                            <span class="pix-discount">PIX: 15% OFF</span>
+
+                        </p>
+                        <!-- <div class="color-options">
+                            <span class="color-circle" style="background-color: black;"></span>
+                            <span class="color-circle" style="background-color: blue;"></span>
+                            <span class="color-circle" style="background-color: green;"></span>
+                            <span class="color-circle" style="background-color: red;"></span>
+                        </div> -->
+                        <a href="#" class="buy-button">comprar agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="section" id="about">
+        <div class="container" id="fundo">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-12 col-sm-12 product-card" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <div class="image-container">
+                        <img src="assets/images/carrinhofundotrans.png" class="product-image" alt="Chopp Bomba">
+                    </div>
+                </div>
+                <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix">
+                    <div class="right-text">
+                        <h5 class="section-title">SEJA O PRIMEIRO NA SUA CIDADE</h5>
+                        <h2>Carrinho Transporte</h2>
+                        <ul class="product-details">
+                            <li><strong>* Personalizada com Sua Cor</strong></li>
+                        </ul>
+                        <p class=""> Carrinho de transporte para você transportar seu <strong>Kit Chopeira</strong>😉⛽🍺</p>
+
+                        <p class="">
+                            <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                        </p>
+                        <p class="price">
+                            <span class="original-price">R$ 2.100,00</span>
+                            <span class="discounted-price">R$ 2.000,00 ou 12x SEM JUROS</span>
+                            <span class="pix-discount">PIX: 15% OFF</span>
+
+                        </p>
+                        <div class="color-options">
+                            <span class="color-circle" style="background-color: black;"></span>
+                            <span class="color-circle" style="background-color: blue;"></span>
+                            <span class="color-circle" style="background-color: green;"></span>
+                            <span class="color-circle" style="background-color: red;"></span>
+                        </div>
+                        <a href="#" class="buy-button">comprar agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <div class="container" id="fundo">
+            <div class="row align-items-center">
+                <div class="col-lg-7 col-md-12 col-sm-12 product-card" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
+                    <div class="image-container">
+                        <img src="assets/images/barril.png" class="product-image" alt="Chopp Bomba">
+                    </div>
+                </div>
+                <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix">
+                    <div class="right-text">
+                        <h5 class="section-title">TRABALHE PARA VOCÊ</h5>
+                        <h2>Barril da Chopeira</h2>
+                        <ul class="product-details">
+                            <li><strong>* Tonel com isolante térmico</strong></li>
+                            <li><strong>* Personalizada com Sua Cor</strong></li>
+                        </ul>
+                        <p class=""> <strong>Barril isolante térmico</strong> para conservar seu chopp Gelado😉⛽🍺</p>
+
+                        <p class="">
+                            <strong>Frete grátis</strong> para retirada nos <strong>aeroportos</strong> ou podemos verificar valores de frete para entregar em sua residência.
+                        </p>
+                        <p class="price">
+                            <span class="original-price">R$ 2.100,00</span>
+                            <span class="discounted-price">R$ 2.000,00 ou 12x SEM JUROS</span>
+                            <span class="pix-discount">PIX: 15% OFF</span>
+                        </p>
+                        <div class="color-options">
+                            <span class="color-circle" style="background-color: black;"></span>
+                            <span class="color-circle" style="background-color: blue;"></span>
+                            <span class="color-circle" style="background-color: green;"></span>
+                            <span class="color-circle" style="background-color: red;"></span>
+                        </div>
+                        <a href="#" class="buy-button">comprar agora</a>
                     </div>
                 </div>
             </div>
@@ -275,7 +1555,7 @@ nav ul li a {
                 <div class="col-lg-6 col-md-12">
                     <div class="produto-info">
                         <h2>KIT EXTRAÇÃO</h2>
-                        <p>O <strong>Kit Extração de chopp</strong> acompanha xyz xpto adicionado de qualquer convidados</p>
+                        <p>O <strong>Kit Extração de chopp</strong> acompanha Chopeira e kite de extração de chopp</p>
                         <a href="#" class="info-button">COMPRAR</a>
                     </div>
                 </div>
@@ -289,9 +1569,9 @@ nav ul li a {
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
                         </div>
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
+                            <div class="carousel-item active" >
                                 <img src="assets/images/bomba1.jpeg" class="d-block w-120" alt="Chopp Bomba 1">
-                                <div class="price-tag">R$ 11.990,00</div>
+                                    <div class="price-tag">R$ 11.990,00</div>
                             </div>
                             <div class="carousel-item">
                                 <img src="assets/images/bomba2.jpeg" class="d-block w-120" alt="Chopp Bomba 2">
@@ -329,62 +1609,7 @@ nav ul li a {
 
 
     
-    <!-- ***** Features Big Item End ***** -->
-    <section class="section" id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7 col-md-12 col-sm-12 order-lg-2" data-scroll-reveal="enter right move 30px over 0.6s after 0.4s">
-                    <img src="assets/images/carrinhoamarelo.jpg" class="rounded img-fluid d-block mx-auto" alt="App" style="width: 75%;">
-                </div>
-                <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix order-lg-1">
-                    <div class="left-heading">
-                        <h5 style="color: #F80302;">PRECISA DE UM CARRINHO?</h5>
-                    </div>
-                    <div class="right-text">
-                        <p>Já tem uma <strong><strong>chopp</strong>eira?</strong>O <strong>carrinho de transporte</strong> com capacidade de 400kg te da a mobilidade essêncial para o trablho em diversos terrenos.</p>
-                        <p>
-                            <a href="#" class="price-button">R$2.000,00</a>
-
-                        </p>
-                        <a href="https://api.whatsapp.com/send/?phone=558581423909&text=Olá, Gostaria de comprar o carrinho de transporte que vi no site&type=phone_number&app_absent=0" class="main-button"><i class="fa fa-whatsapp"></i> Comprar Carrinho</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="hr"></div>
-                </div>
-            </div>
-        </div>
-    </section>
     
- <!-- ***** Features Big Item Start ***** -->
- <section class="section" id="about">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-7 col-md-12 col-sm-12" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
-                <img src="assets/images/kitextracaoamarelo.jpg" class="rounded img-fluid d-block mx-auto" alt="App" style="width: 75%;">
-            </div>
-            <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix">
-                <div class="left-heading">
-                    <h5 style="color: #F80302;">PRECISA EXTRAIR O <strong>chopp</strong>?</h5>
-                </div>
-                <div class="right-text">
-                    <p>Vamos Extrair o <strong>chopp</strong>? Kit Completo de extração de <strong>chopp</strong> para sua <strong><strong>chopp</strong>eira a bomba</strong>, esse kit conta com regulador de pressão, mangueiras e conectores de engate.    </p>
-                    <p>
-                        <a href="#" class="price-button">R$1.500,00</a>
-
-                    </p>
-                    <a href="https://api.whatsapp.com/send/?phone=558581423909&text=Olá, gostaria de comprar o kit de extração de <strong>chopp</strong> que vi no site&type=phone_number&app_absent=0" class="main-button"><i class="fa fa-whatsapp"></i> Comprar Kit</a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="hr"></div>
-            </div>
-        </div>
-    </div>
 </section>
     <!-- ***** Features Big Item Start ***** -->
     <section class="section" id="about">
@@ -434,7 +1659,10 @@ nav ul li a {
                 </div>
             </div>
         </div>
-    </section>
+</section>
+</div>
+    
+    
 
 
 
@@ -448,213 +1676,202 @@ nav ul li a {
     
     
 
-    <!-- ***** Frequently Question Start ***** -->
     <section class="section" id="frequently-question">
         <div class="container">
-            <!-- ***** Section Title Start ***** -->
+            <!-- Section Title -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-heading">
+                    <div class="section-heading text-center">
                         <h2>Perguntas Frequentes</h2>
-                    </div>
-                </div>
-                <div class="offset-lg-3 col-lg-6">
-                    <div class="section-heading">
+                        <p>Aqui você verá as perguntas mais frequentes feitas em nossos canais de atendimento.</p>
+                        <span>Email: <a href="mailto:donadochopp@gmail.com">donadochopp@gmail.com</a></span>
+                        <br>
+                        <a href="#contact-us" class="main-button mt-3">Contato</a>
                     </div>
                 </div>
             </div>
-            <!-- ***** Section Title End ***** -->
-
-            <div class="row">
-                <div class="left-text col-lg-6 col-md-6 col-sm-12">
-                    <h5 style="color: #F80302;">PERGUNTAS FREQUENTES</h5>
-                    <div class="accordion-text">
-                        <p>Aqui você verá as perguntas mais frequentes feitas em nossos canais de atendimento.</p>
-                        <span>Email: <a href="#">donado<strong>chopp</strong>@gmail.com</a><br></span>
-                        <a href="#contact-us" class="main-button">Contato</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12">
-                    <div class="accordions is-first-expanded">
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Valor do frete?</span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>R$300 <strong>(chopeira + kit extração)</strong>, R$ 800 (carrinho completo)</p>
+    
+            <!-- FAQ Section -->
+            <div class="row mt-4">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="accordion" id="faqAccordion">
+                        
+                        <!-- FAQ Item 1 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Valor do frete?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    R$300 <strong>(chopeira + kit extração)</strong>, R$800 (carrinho completo).
                                 </div>
                             </div>
-                        </article>
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Quantos dias para a entrega?</span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>Temos máquinas a pronta entrega, com diversas cores, podendo ser personalizada com a logomarca da sua empresa, sendo entregue em sua residência de 3 a 8 dias úteis (dependendo do seu Estado).</p>
+                        </div>
+    
+                        <!-- FAQ Item 2 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Quantos dias para a entrega?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Temos máquinas a pronta entrega, com diversas cores, podendo ser personalizada com a logomarca da sua empresa. Entrega em 3 a 8 dias úteis (dependendo do seu Estado).
                                 </div>
                             </div>
-                        </article>
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Funcionamento da <strong>chopeira</strong>?</span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>É uma <strong>chopeira</strong> com sistema de resfriamento a gelo, super simples de manusear. Basta encher o cooler completamente de gelo e conectar as mangueiras ao <strong>barril</strong> de chope. A <strong>chopeira</strong> possui uma capacidade de servir até 50 litros de <strong>chopp</strong> por hora.</p>
+                        </div>
+    
+                        <!-- FAQ Item 3 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Funcionamento da chopeira?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    É uma chopeira com sistema de resfriamento a gelo, super simples de manusear. Basta encher o cooler completamente de gelo e conectar as mangueiras ao barril de chope. A chopeira possui uma capacidade de servir até 50 litros de chopp por hora.
                                 </div>
                             </div>
-                        </article>
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Para que serve o cilindro de CO2?<span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>O cilindro de CO2 serve para retirar o <strong>chopp</strong> do <strong>barril</strong>, ele faz parte do kit extração do <strong>chopp</strong> e já vai com 6 Kg (cheio), cada Kg tem autonomia pra 100 litros de <strong>chopp</strong>, então esse cilindro daria em torno de 600 litros de <strong>chopp</strong>, lembrando que a recarga a cada Kg fica por R$ 15,00 ou R$20,00 em média, ou seja, depois de 600 litros de <strong>chopp</strong> vc teria um gasto de apenas R$90,00 a R$120,00 no máximo pra recarregar.</p>
+                        </div>
+    
+                        <!-- FAQ Item 4 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    Para que serve o cilindro de CO2?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    O cilindro de CO2 serve para retirar o chopp do barril. Ele faz parte do kit extração do chopp e já vai com 6 Kg (cheio). Cada Kg tem autonomia para 100 litros de chopp, então esse cilindro daria em torno de 600 litros de chopp. A recarga custa entre R$15,00 e R$20,00 por Kg.
                                 </div>
                             </div>
-                        </article>
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Qual o tipo de gelo devo utilizar?</span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>O ideal é o gelo escama bem quebradinho para poder o gelo ficar bem colado na serpentina e a troca de calor ser mais rápida.</p>
+                        </div>
+    
+                        <!-- FAQ Item 5 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    Qual o tipo de gelo devo utilizar?
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    O ideal é o gelo escama bem quebradinho para poder o gelo ficar bem colado na serpentina e a troca de calor ser mais rápida.
                                 </div>
                             </div>
-                        </article>
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Quanto gasto de gelo na praia? </span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>O que faz o gelo derreter não é a temperatura do ambiente (calor da praia), e sim o fluxo de saída de <strong>chopp</strong> que sai do <strong>barril</strong> e passa pela serpentina na caixa térmica, onde existe a troca de calor do gelo com o <strong>chopp</strong>. Quanto mais <strong>chopp</strong> você vender na praia mais gelo você vai precisar para manter o <strong>chopp</strong> GELADISSÍMO.
-                                        O gasto médio de gelo na praia para um <strong>barril</strong> de 30 litros é de 26kg com duração de até 6h. O saco de gelo escama de 13kg custa em média 12 a 18 reais.</p>
+                        </div>
+    
+                        <!-- FAQ Item 6 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSix">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                    Quanto gasto de gelo na praia?
+                                </button>
+                            </h2>
+                            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    O que faz o gelo derreter não é a temperatura do ambiente (calor da praia), e sim o fluxo de saída de chopp que sai do barril e passa pela serpentina na caixa térmica, onde existe a troca de calor do gelo com o chopp. Quanto mais chopp você vender na praia mais gelo você vai precisar para manter o chopp GELADISSÍMO.
+                                    O gasto médio de gelo na praia para um barril de 30 litros é de 26kg com duração de até 6h. O saco de gelo escama de 13kg custa em média 12 a 18 reais.
                                 </div>
                             </div>
-                        </article>
-
-
-
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Quanto gasto de gelo em eventos?</span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>O que faz o gelo derreter não é a temperatura do ambiente (calor da praia), e sim o fluxo de saída de <strong>chopp</strong> que sai do <strong>barril</strong> e passa pela serpentina na caixa térmica, onde existe a troca de calor do gelo com o <strong>chopp</strong>. Quanto mais <strong>chopp</strong> você vender na praia mais gelo você vai precisar para manter o <strong>chopp</strong> GELADISSÍMO.
-                                        O gasto médio de gelo na praia para um <strong>barril</strong> de 30 litros é de 26kg com duração de até 6h. O saco de gelo escama de 13kg custa em média 12 a 18 reais.</p>
+                        </div>
+    
+                        <!-- FAQ Item 7 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingSeven">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                    Quanto gasto de gelo em eventos?
+                                </button>
+                            </h2>
+                            <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    O que faz o gelo derreter não é a temperatura do ambiente, e sim o fluxo de saída de chopp que sai do barril e passa pela serpentina na caixa térmica, onde existe a troca de calor do gelo com o chopp. Quanto mais os convidados beberem chopp no evento, mais gelo você vai precisar colocar para manter o chopp GELADISSÍMO.
+                                    Em eventos o fluxo de saída é sempre constante. Os convidados estão toda hora abastecendo e existe uma troca de calor muita rápida devido ao alto consumo. O gasto médio de gelo em eventos para um barril de 30 litros é de 34kg com duração de até 4h. O saco de gelo escama de 13kg custa em média 12 a 18 reais.
                                 </div>
                             </div>
-                        </article>
-
-
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Qual o segredo para o <strong>chopp</strong> sair sempre gelado?</span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>O segredo é manter a caixa térmica sempre cheia de gelo. Fique sempre observando se o gelo virou água, caso isso aconteça, retire a água e coloque mais gelo.
-                                        Não economize no gelo, é seu nome que está em jogo. A <strong>chopeira</strong> para ter seu funcionamento pleno precisa está sempre com gelo até a tampa, cobrindo todo a serpentina e sem água.
-                                        Não coloque sal grosso, nem álcool para economizar gelo, isso vai fazer seu <strong>chopp</strong> congelar e você vai ter que esperar um bom tempo até que descongele.</p>
+                        </div>
+    
+                        <!-- FAQ Item 8 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingEight">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                    Qual o segredo para o chopp sair sempre gelado?
+                                </button>
+                            </h2>
+                            <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    O segredo é manter a caixa térmica sempre cheia de gelo. Observe se o gelo virou água e substitua sempre que necessário. Não economize no gelo, e não adicione sal grosso ou álcool, pois isso pode fazer o chopp congelar.
                                 </div>
                             </div>
-                        </article>
-
-
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Necessita de energia elétrica?</span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>Não, por ser uma <strong>chopeira</strong> a gelo, não é preciso utilizar baterias ou qualquer outro tipo de energia elétrica. O resfriamento é apenas a gelo, por isso vendemos <strong>chopp</strong> até em praias.</p>
+                        </div>
+    
+                        <!-- FAQ Item 9 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingNine">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                    Necessita de energia elétrica?
+                                </button>
+                            </h2>
+                            <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Não, a chopeira funciona com resfriamento a gelo, sem necessidade de baterias ou eletricidade, permitindo que o chopp seja servido até em praias.
                                 </div>
                             </div>
-                        </article>
-
-
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Como posso transportar a <strong>chopeira</strong>?</span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>A <strong>chopeira</strong> pode ser transportada dentro de um carro de passeio, facilitando a sua locomoção e mobilidade.</p>
+                        </div>
+    
+                        <!-- FAQ Item 10 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTen">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                    Como posso transportar a chopeira?
+                                </button>
+                            </h2>
+                            <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    A chopeira pode ser transportada dentro de um carro de passeio, facilitando a sua locomoção.
                                 </div>
                             </div>
-                        </article>
-
-
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Como faço a manutenção?</span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>A <strong>chopeira</strong> por ser em fibra de vidro com pintura automotiva, pode ser lavada com água e sabão para uma limpeza externa. Além disso, ela acompanha ainda um kit manutenção super fácil de utilizar, você precisa apenas conectar a mangueira de entrada do <strong>chopp</strong> em alguma torneira residencial por meio do kit manutenção e fazer a limpeza da serpentina com água corrente.</p>
+                        </div>
+    
+                        <!-- FAQ Item 11 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingEleven">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                    Como faço a manutenção?
+                                </button>
+                            </h2>
+                            <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    A chopeira pode ser lavada com água e sabão para uma limpeza externa. Acompanha um kit de manutenção para limpeza da serpentina com água corrente.
                                 </div>
                             </div>
-                        </article>
-
-
-                        <article class="accordion">
-                            <div class="accordion-head">
-                                <span>Qual a garantia que a empresa oferece?</span>
-                                <span class="icon">
-                                    <i class="icon fa fa-chevron-right"></i>
-                                </span>
-                            </div>
-                            <div class="accordion-body">
-                                <div class="content">
-                                    <p>O que faz o gelo derreter não é a temperatura do ambiente (calor da praia), e sim o fluxo de saída de <strong>chopp</strong> que sai do <strong>barril</strong> e passa pela serpentina na caixa térmica, onde existe a troca de calor do gelo com o <strong>chopp</strong>. Quanto mais <strong>chopp</strong> você vender na praia mais gelo você vai precisar para manter o <strong>chopp</strong> GELADISSÍMO.
-                                        O gasto médio de gelo na praia para um <strong>barril</strong> de 30 litros é de 26kg com duração de até 6h. O saco de gelo escama de 13kg custa em média 12 a 18 reais.</p>
+                        </div>
+    
+                        <!-- FAQ Item 12 -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwelve">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                                    Qual a garantia que a empresa oferece?
+                                </button>
+                            </h2>
+                            <div id="collapseTwelve" class="accordion-collapse collapse" aria-labelledby="headingTwelve" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    A empresa oferece garantia conforme a legislação vigente e de acordo com a política de qualidade do produto.
                                 </div>
                             </div>
-                        </article>
+                        </div>
+    
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    
     <!-- ***** Frequently Question End ***** -->
 
     <section class="section" id="services" style="background-color: #FFBB08;">
@@ -692,28 +1909,30 @@ nav ul li a {
             </div>
         </div>
     </section>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <!-- ***** Footer Start ***** -->
     <footer>
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-md-12 col-sm-12">
                     <p class="copyright">Copyright &copy; 2024 Dona do <strong>chopp</strong>
-                
-                . Design: <a rel="nofollow" href="#">Gest Tech</a></p>
+                    . Design: <a rel="nofollow" href="#">Gest Tech</a></p>
                 </div>
-                <!-- <div class="col-lg-5 col-md-12 col-sm-12">
+                <div class="col-lg-5 col-md-12 col-sm-12">
                     <ul class="social">
-                        <li><a href="#"><i class="fa fa-kwai"></i></a></li>
-                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                        <li><a href="#"><i class="fa fa-tiktok"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google"></i></a></li>
-                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a href="#" id="fb"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="#" id="yt"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="#" id="tw"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#" id="tk"><i class="fab fa-tiktok"></i></a></li>
+                        <li><a href="#" id="ins"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#" id="maps"><i class="fas fa-map-marker-alt"></i></a></li>
                     </ul>
-                </div> -->
+                </div>
             </div>
         </div>
     </footer>
+    
     
     <!-- jQuery -->
     <script src="assets/js/jquery-2.1.0.min.js"></script>
