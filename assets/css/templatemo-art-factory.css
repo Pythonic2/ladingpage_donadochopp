@@ -787,34 +787,92 @@ welcome
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(../images/bgg.jpeg); 
   background-repeat: no-repeat;
 /*
 TRY IT ... with or without CENTER CENTER
   background-position: center center; 
 */
+background-image: url('../images/bgg.jpeg');
   background-size: cover;
   width: 100%;
   height: 105vh;
   margin-top: -10vh;
 }
+.img-hero{
+  display: none;
+}
+.botaomob{
+  display: none;
+}
+.pc{
+  display: block;
+}
+.cacete{
+  display: none;
+}
 @media only screen and (max-width: 768px) {
+  .pc {
+    display: none;
+  }
+  .cacete{
+    display: block;
+  }
+  .video-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo da seção */
+    margin-top: -10%; /* Ajuste conforme necessário */
+  }
+  
+  .video-content {
+    position: relative;
+  }
+  
+  .video-overlay {
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
+    color: rgba(255, 165, 0, 0.8); /* Cor da seta de play */
+    background: rgba(255, 255, 255, 0.6); /* Fundo semitransparente para destaque */
+    border-radius: 50%;
+    padding: 10px;
+  }
+  
+  .header-text h1{
+    margin-top: -380px;
+  }
+  .botao{
+    margin-top: -50% !important;
+    
+  }
+  #welcome {
+    background-image: none; /* Remove o background-image */
+  }
+  .img-hero {
+    display: block; /* Exibe a imagem ocultada */
+  }
   #welcome {
     overflow: hidden;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background-image: url(../images/testemobile.png); */
-    background-image: url(../images/bgg-bombas.jpeg); 
-
+    margin-bottom: -100%;
     background-repeat: no-repeat;
 
     background-size: cover;
     width: 100%;
-    height: 105vh;
-    margin-top: -10vh;
+    height: 120vh;
+    margin-top: 5vh;
   }
+
   .title-page{
     margin-top: -80% !important;
   }
@@ -870,7 +928,7 @@ TRY IT ... with or without CENTER CENTER
     font-size: 36px;
     line-height: 50px;
     color: #fff;
-    margin-bottom: 15px;
+    margin-bottom: 400px !important;
   }
   .welcome-area .header-text h1 span {
     color: #fff;
@@ -2044,3 +2102,98 @@ preloader
   border-radius: 8px;
 }
 
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px; /* Ajuste a distância do rodapé */
+  right: 20px; /* Ajuste a distância da borda direita */
+  width: 60px; /* Tamanho do botão */
+  height: 60px;
+  background-color: white; /* Cor de fundo do WhatsApp */
+  border-radius: 50%; /* Forma circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+  z-index: 1000; /* Certifique-se de que o botão fique acima de outros elementos */
+  transition: transform 0.3s; /* Animação de interação */
+}
+
+.whatsapp-float img {
+  width: 60%; /* Tamanho do ícone dentro do botão */
+  height: 60%;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1); /* Aumenta o botão ao passar o mouse */
+}
+
+/* Estilo da seção */
+.objection-break-section {
+  padding: 60px 20px;
+  background-color: #f3f4f6;
+  text-align: center;
+}
+
+.section-title2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 30px;
+  font-weight: 600;
+  position: relative;
+}
+
+.section-title2::after {
+  content: '';
+  width: 60px;
+  height: 3px;
+  background-color: #FFBB08; /* amarelo */
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* Container das objeções */
+.objections-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Estilo de cada cartão de objeção */
+.objection {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.objection:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.objection h3 {
+  color: #F80302; /* vermelho */
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.objection p {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Animação ao passar o mouse */
+.objection:hover h3 {
+  color: #FFBB08; /* muda para amarelo ao passar o mouse */
+}
+
+.objection:hover p {
+  color: #333; /* texto fica um pouco mais escuro */
+}
