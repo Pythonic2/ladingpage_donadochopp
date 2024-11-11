@@ -821,7 +821,7 @@ background-image: url('../images/bgg.jpeg');
     display: flex;
     flex-direction: column;
     align-items: center; /* Centraliza o conteúdo da seção */
-    margin-top: -10%; /* Ajuste conforme necessário */
+    margin-top: 5%; /* Ajuste conforme necessário */
   }
   
   .video-content {
