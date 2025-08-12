@@ -1,5 +1,5 @@
 services:
-  ladingpage-donadochopp:
+  ladingpage-chopp:
     build:
       context: .
       dockerfile: Dockerfile
@@ -7,17 +7,14 @@ services:
     restart: always
     ports:
       - "8008:8008"
-    # env_file:
-    #   - stack.env
     networks:
       - pi_default
     volumes:
-      - .:/app
-      - dona_data:/var/lib/postgresql/data
-      - dona_app:/app/media
+      - ladingpage_chopp_data:/var/lib/postgresql/data
+      - ladingpage_chopp_app:/app/media
 volumes:
-  dona_data:
-  dona_app:
+  ladingpage_chopp_data:
+  ladingpage_chopp_app:
 networks:
   pi_default:
     external: true
