@@ -12,7 +12,7 @@ services:
     networks:
       - pi_default
     volumes:
-      - ./ladingpage_donadochopp:/app
+      - .:/app
       - dona_data:/var/lib/postgresql/data
       - dona_app:/app/media
 volumes:
