@@ -1,12 +1,23 @@
-version: '3.8'
 services:
-  landingpage:
-    build: .
+  ladingpage-donadochopp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    pull_policy: build
+    restart: always
     ports:
-      - "8081:80"
+      - "8008:8008"
+    # env_file:
+    #   - stack.env
     networks:
-        - pi_default
-
+      - pi_default
+    volumes:
+      - .:/app            # MONTA O CÓDIGO FONTE DO HOST DENTRO DO CONTAINER
+      - dona_data:/var/lib/postgresql/data
+      - dona_app:/app/media
+volumes:
+  dona_data:
+  dona_app:
 networks:
   pi_default:
     external: true

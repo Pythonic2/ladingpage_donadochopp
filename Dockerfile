@@ -1,7 +1,15 @@
-FROM nginx:alpine
-COPY index.html /usr/share/nginx/html/
-COPY assets /usr/share/nginx/html/assets/
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-RUN chmod -R 755 /usr/share/nginx/html
+# Use uma imagem base do Python
+FROM python:3.10
 
-EXPOSE 80
+# Configura o diretório de trabalho
+WORKDIR /app
+
+# Copia os arquivos de requisitos e instala as dependências
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia o restante do código para o contêiner
+COPY . .
+
+# Comando para iniciar o servidor Django
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8008"]
