@@ -10,9 +10,9 @@ def criar_preferencia(item: list, cliente_id: str):
         "items": item,
         "client_id": cliente_id,
         "back_urls": {
-            "failure": "https://www.seusite.com/falha/",
-            "pending": "https://www.seusite.com/pendente/",
-            "success": "https://www.seusite.com/sucesso/"
+            "failure": "https://vendas.donadochopp.com.br/falha/",
+            "pending": "https://vendas.donadochopp.com.br/pendente/",
+            "success": "https://vendas.donadochopp.com.br/sucesso/"
         },
         "notification_url": "https://vendas.donadochopp.com.br/pag/"
     }
