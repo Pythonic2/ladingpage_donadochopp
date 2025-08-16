@@ -3,7 +3,7 @@ import requests
 import requests
 
 def criar_preferencia(item: list, cliente_id: str):
-    api_token = "TEST-7847881527057924-091116-0ccb25f4e7a8318b77ae79bcb1f4c205-162016798"
+    api_token = "TEST-654382218469227-040219-8e0ed7a2863e1f4d290cd4297285598c-718297245"
     url = f"https://api_gateway.gestcloud.com.br/api/v1/preferences/create-preference/{api_token}/"
 
     payload = {
@@ -14,7 +14,7 @@ def criar_preferencia(item: list, cliente_id: str):
             "pending": "https://www.seusite.com/pendente/",
             "success": "https://www.seusite.com/sucesso/"
         },
-        "notification_url": "https://vendas.donadochopp.com.br/notificacao/"
+        "notification_url": "https://vendas.donadochopp.com.br/pag/"
     }
 
     response = requests.post(url, json=payload, verify=False)
