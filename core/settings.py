@@ -27,7 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['vendas.donadochopp.com.br']
 #teste
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://vendas.donadochopp.com.br",
+]
 # Application definition
 
 INSTALLED_APPS = [
