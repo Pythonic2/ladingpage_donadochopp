@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-^0kbg8)m$7mcmjnlkjx@$)uo)$u4hyob2rxks3t21%c-u9qxtg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vendas.donadochopp.com.br']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home'
+    'ckeditor',
+    'home',
 ]
 
 MIDDLEWARE = [

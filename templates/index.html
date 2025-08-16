@@ -234,26 +234,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             {% for produto in produtos%}
                 <div class="product-card" style="background-color: white; width: 80%; margin-left: 10%;">
                 <div class="image-container">
-                    <img src="{% static 'assets/images/bomba2.png' %}" class="product-image" alt="Chopp Bomba">
+                    <img src="{{produto.imagem.url}}" class="product-image" alt="Chopp Bomba">
                 </div>
                 <h5 class="section-title" style="color:#F80302">COMECE COM INOVAÇÃO</h5>
 
-                <h5 class="section-title">{{produto.nome}}
+                <h5 class="section-title">
+                {{produto.nome}}
                 </h5>
-                <p>A <strong>chopeira bomba de gasolina com o kit extração do chopp</strong> já permite você trabalhar em eventos abastecendo todos de uma forma completamente inovadora. Esse produto é sucesso onde chega, além de ser exclusivo e inovador, <b>agrega um valor extraordinário ao seu negócio.</b></p>
-                <p>Essa <strong>chopeira</strong> é para você que deseja inovar no mundo do empreendedorismo ou até mesmo ter um produto <b>EXCLUSIVO</b> em sua casa.</p>
-                
-                <ul class="product-details">
-                    <li><strong>-Personalize com as cores que desejar.</strong></li>
-                    <li><strong>-Coloque sua logomarca.</strong></li>
-                    <li><strong>-Sistema de refrigeração a gelo de fácil utilização</strong></li>
-                    <li><strong>-Pistola de inox 304</strong></li>
-                    <li><strong>-Torneira italiana</strong></li>
-                    <li><strong>-Não precisa utilizar ferramenta</strong></li>
-                </ul>
-                
-                <p><strong>O que acompanha?</strong></p>
-                <p><strong>Kit extração do chopp</strong> composto por cilindro CO2 de 6kg cheio, mangueiras, regulador de pressão (manômetro), extratora e conectores engate rápido de fácil utilização e manutenção.</p>
+                {{produto.descricao}}
                 <p class="">
                     <strong>Frete grátis</strong> para todo o <strong>Brasil.</strong>                </p>
 
@@ -327,25 +315,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="row align-items-center">
                     <div class="col-lg-7 col-md-12 col-sm-12 product-card" data-scroll-reveal="enter left move 30px over 0.6s after 0.4s">
                         <div class="image-container">
-                            <img src="{% static 'assets/images/bomba2.png' %}" class="product-image" alt="Chopp Bomba">
+                            <img src="{{produto.imagem.url}}" class="product-image" alt="Chopp Bomba">
                         </div>
                     </div>
                     <div class="left-text col-lg-5 col-md-12 col-sm-12 mobile-bottom-fix">
                         <div class="right-text">
                             <h5 class="section-title">COMECE COM INOVAÇÃO</h5>
                             <h2>{{produto.nome}}</h2>
-                            <p>A <strong>chopeira bomba de gasolina com o kit extração do chopp</strong> já permite você trabalhar em eventos abastecendo todos de uma forma completamente inovadora. Esse produto é sucesso onde chega, além de ser exclusivo e inovador, <b>agrega um valor extraordinário ao seu negócio.</b></p>
-                    <p>Essa <strong>chopeira</strong> é para você que deseja inovar no mundo do empreendedorismo ou até mesmo ter um produto <b>EXCLUSIVO</b> em sua casa.</p>
-                    
-                    <ul class="product-details">
-                        <li><strong>-Personalize com as cores que desejar.</strong></li>
-                        <li><strong>-Coloque sua logomarca.</strong></li>
-                        <li><strong>-Sistema de refrigeração a gelo de fácil utilização</strong></li>
-                        <li><strong>-Pistola de inox 304</strong></li>
-                        <li><strong>-Torneira italiana</strong></li>
-                        <li><strong>-Não precisa utilizar ferramenta</strong></li>
-                    </ul>
-
+                            
+                            <div class="product-description" style="margin-bottom: 0 !important; padding-bottom:0 !important;">
+                                {{ produto.descricao|safe }}
+                            </div>
                     <p class="">
                         <strong>Frete grátis</strong> para todo o <strong>Brasil.</strong>                </p>
 
