@@ -8,6 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 import json
 import logging
+from .notificacao import send_email
 # Create your views here.
 def home_view(request):
     produtos = Produto.objects.all()
@@ -55,7 +56,7 @@ def cadastrar_pedido(request):
                 return render(request, 'erro_pagamento.html', {'mensagem': 'Não foi possível gerar o link de pagamento. Tente novamente.'})
     else:
         form = PedidoForm()
-    return render(request, 'cadastrar_pedido.html', {'form': form})
+    return render(request, 'cadastrar_user.html', {'form': form})
 
 @csrf_exempt
 def simple_test(request):
@@ -108,51 +109,41 @@ def simple_test(request):
                     telefone_cliente=pedido_user.telefone_cliente,
                     email_cliente=pedido_user.email_cliente,
                     data_nascimento_cliente=pedido_user.data_nascimento_cliente,
-                    produto=pedido_user.produto,
                     quantidade=pedido_user.quantidade,
                     data_pedido=pedido_user.data_pedido,
                     cor_produto=pedido_user.cor_produto,
                     logo=pedido_user.logo,
                 )
                     transacao.save()  # Salvar a transação
-                #     logging.info(f"Transação salva: {transacao.transacao_id}")
-
-                    produtos = pag['items']
-                    produto = Produto.objects.get(nome=produtos[0])
-                    transacao.items.add(produto.id)
-                #     logging.debug(f"Produtos associados à transação: {produtos}")
-                #     logging.debug(f"id evento: {pag['evento']}")
-                #     #carrinho = Carrinho.objects.get(usuario=user, id=int(pag['evento']))
-                #     #print(f"----cart: {carrinho}")
-                #     id_evento = pag['evento']
-                    
-                #     evento = Evento.objects.get(usuario=user, id=id_evento)
-                #     print(f'---------{evento}------------EVENTO')
-                #     logging.debug(f"consulta evento: {evento}")
-
-
-                #     print(f'status ----------------------{status}')
-
-                #     #carrinho.status = 'Pago'
-                #     evento.status = 'Pago'
-                #     evento.save()
-                #     carrinho = Carrinho.objects.get(id=int(pag['carrinho_id']))
-                #     #carrinho.save()
-                    
-                #     itens = ItemCarrinho.objects.filter(carrinho=carrinho)
-                #     criar_evento(evento_id=id_evento, produtos=itens)
-                    
-                #     carrinho.delete()
-                #     logging.info(f"Carrinho e evento atualizados para 'Pago': {carrinho.id}, {evento.id}")
-
-                #     send_email(
-                #         subject=f"Nova Compra Realizada",
-                #         body=f"Evento: {evento.tipo_evento}\nData: {evento.data_evento}\nBairro: {evento.bairro}\nRua: {evento.endereco}\nValor da Compra: {evento.valor}\nCliente: {user.nome}\nContato: {evento.celular}\nProdutos: {produtos}",
-                #         sender_email="noticacoes@gmail.com",
-                #         sender_password="lqxvsvybjfumjflo",
-                #         recipient_emails=["igoormarinhosilva@gmail.com", "igormarinhosilva@gmail.com",f"{user.email}"]
-                #     )
-                #     logging.info(f"E-mail enviado para notificações")
+                    pedido_user.delete()  # Excluir o pedido
+                    send_email(
+                    subject=f"Nova Compra Realizada",
+                    body=(
+                        f"Status: {transacao.status}\n"
+                        f"Data: {transacao.data}\n"
+                        f"ID do Pagamento: {transacao.pagamento_id}\n"
+                        f"Tipo de Pagamento: {transacao.payment_type}\n"
+                        f"Valor da Compra: {transacao.valor}\n"
+                        f"Nome do Cliente: {transacao.nome_cliente}\n"
+                        f"CPF do Cliente: {transacao.cpf_cliente}\n"
+                        f"E-mail do Cliente: {transacao.email_cliente}\n"
+                        f"Telefone do Cliente: {transacao.telefone_cliente}\n"
+                        f"Endereço do Cliente: {transacao.endereco_cliente}\n"
+                        f"Data de Nascimento: {transacao.data_nascimento_cliente}\n"
+                        f"Quantidade: {transacao.quantidade}\n"
+                        f"Data do Pedido: {transacao.data_pedido}\n"
+                        f"Cor do Produto: {transacao.cor_produto}\n"
+                       
+                    ),
+                    sender_email="noticacoes@gmail.com",
+                    sender_password="lqxvsvybjfumjflo",
+                    recipient_emails=[
+                        "igoormarinhosilva@gmail.com",
+                        "igormarinhosilva@gmail.com",
+                        
+                    ]
+                )
+                    logging.info(f"E-mail enviado para notificações")
                     return JsonResponse({'status': 'success'})
                 else:
                     print(status)
