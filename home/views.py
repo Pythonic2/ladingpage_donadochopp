@@ -165,3 +165,17 @@ def simple_test(request):
 
     logging.warning("Método HTTP não permitido")
     return JsonResponse({'status': 'method_not_allowed'}, status=405)
+
+
+
+
+def sucesso_view(request):
+    payment_id = request.GET.get('payment_id')
+    # Você pode passar para o template se quiser exibir ou processar
+    return render(request, 'sucesso.html', {'payment_id': payment_id})
+
+def failure_view(request):
+    return render(request, 'failure.html')
+
+def pending_view(request):
+    return render(request, 'pending.html')

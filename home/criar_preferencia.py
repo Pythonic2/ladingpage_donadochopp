@@ -9,6 +9,11 @@ def criar_preferencia(item: list, cliente_id: str):
     payload = {
         "items": item,
         "client_id": cliente_id,
+        "back_urls": {
+            "failure": "https://www.seusite.com/falha/",
+            "pending": "https://www.seusite.com/pendente/",
+            "success": "https://www.seusite.com/sucesso/"
+        },
         "notification_url": "https://vendas.donadochopp.com.br/pag/"
     }
 

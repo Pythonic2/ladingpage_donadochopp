@@ -9,6 +9,7 @@ urlpatterns = [
     path('cadastrar-usuario/<int:produto_id>/', cadastrar_usuario_view, name='cadastrar-usuario'),
     path('cadastrar-pedido/', cadastrar_pedido, name='cadastrar-pedido'),
     path('pag/', simple_test, name='pagamento'),
+    path('sucesso/', sucesso_view, name='sucesso'),
 ]
 
 if settings.DEBUG:

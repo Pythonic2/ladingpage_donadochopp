@@ -1,0 +1,21 @@
+<!-- filepath: templates/failure.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagamento Falhou</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; background: #fff6f6; }
+        .container { margin-top: 10vh; }
+        h1 { color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ops! Pagamento não aprovado 😢</h1>
+        <p>Seu pagamento não foi aprovado.<br>
+        Tente novamente ou escolha outra forma de pagamento.</p>
+        <a href="{% url 'home' %}">Voltar para a página inicial</a>
+    </div>
+</body>
+</html>
