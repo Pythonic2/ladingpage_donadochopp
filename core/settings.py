@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-^0kbg8)m$7mcmjnlkjx@$)uo)$u4hyob2rxks3t21%c-u9qxtg
 DEBUG = True
 
 ALLOWED_HOSTS = ['https://vendas.donadochopp.com.br']
+#teste
 
 # Application definition
 
