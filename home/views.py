@@ -116,7 +116,7 @@ def simple_test(request):
                 )
                     for prod in pag['items']:
                         try:
-                            produto_obj = Produto.objects.get(id=prod['id'])
+                            produto_obj = Produto.objects.get(nome=prod)
                             transacao.items.add(produto_obj)
                         except Produto.DoesNotExist:
                             pass  # ou trate o erro conforme necessário
@@ -173,8 +173,6 @@ def simple_test(request):
 
     logging.warning("Método HTTP não permitido")
     return JsonResponse({'status': 'method_not_allowed'}, status=405)
-
-
 
 
 def sucesso_view(request):
