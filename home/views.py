@@ -93,33 +93,33 @@ def simple_test(request):
                 print(f'-----------------{pd_id}-----------------')
                 if status == 'approved' and tipo == 'payment':
                     print(f"pag {pag}")
+                    print(f"items:{pag['items'][0]}")
                 #     logging.debug("Pagamento aprovado, processando transação...")
                     pedido_user = Pedido.objects.get(cpf_cliente=pag['usuario'])
                     user = pedido_user.nome_cliente
                     print(user)
                     transacao = Transacao(
-                    pagamento_id=pag['id'],
-                    data=pag['data'],
-                    valor=pag['valor'],
-                    status=pag['status'],
-                    payment_type = pag['payment_type'],
-                    nome_cliente=pedido_user.nome_cliente,
-                    cpf_cliente=pedido_user.cpf_cliente,
-                    endereco_cliente=pedido_user.endereco_cliente,
-                    telefone_cliente=pedido_user.telefone_cliente,
-                    email_cliente=pedido_user.email_cliente,
-                    data_nascimento_cliente=pedido_user.data_nascimento_cliente,
-                    quantidade=pedido_user.quantidade,
-                    data_pedido=pedido_user.data_pedido,
-                    cor_produto=pedido_user.cor_produto,
-                    logo=pedido_user.logo,
-                )
-                    for prod in pag['items']:
-                        try:
-                            produto_obj = Produto.objects.get(nome=prod)
-                            transacao.items.add(produto_obj)
-                        except Produto.DoesNotExist:
-                            pass  # ou trate o erro conforme necessário
+                        pagamento_id=pag['id'],
+                        data=pag['data'],
+                        valor=pag['valor'],
+                        status=pag['status'],
+                        payment_type = pag['payment_type'],
+                        nome_cliente=pedido_user.nome_cliente,
+                        cpf_cliente=pedido_user.cpf_cliente,
+                        endereco_cliente=pedido_user.endereco_cliente,
+                        telefone_cliente=pedido_user.telefone_cliente,
+                        email_cliente=pedido_user.email_cliente,
+                        data_nascimento_cliente=pedido_user.data_nascimento_cliente,
+                        quantidade=pedido_user.quantidade,
+                        data_pedido=pedido_user.data_pedido,
+                        cor_produto=pedido_user.cor_produto,
+                        logo=pedido_user.logo,
+                    )
+                    transacao.save()  # Salve primeiro para gerar o ID
+
+                    produto_obj = Produto.objects.get(nome=pag['items'][0])
+                    transacao.items.add(produto_obj)
+                
 
                     transacao.save() # Salvar a transação
                     pedido_user.delete()  # Excluir o pedido
@@ -131,7 +131,7 @@ def simple_test(request):
                         f"ID do Pagamento: {transacao.pagamento_id}\n"
                         f"Tipo de Pagamento: {transacao.payment_type}\n"
                         f"Valor da Compra: {transacao.valor}\n"
-                        f"Itens da Compra: {', '.join(transacao.items)}\n"
+                        f"Itens da Compra: {', '.join([str(item) for item in transacao.items.all()])}\n"
                         f"Nome do Cliente: {transacao.nome_cliente}\n"
                         f"CPF do Cliente: {transacao.cpf_cliente}\n"
                         f"E-mail do Cliente: {transacao.email_cliente}\n"
