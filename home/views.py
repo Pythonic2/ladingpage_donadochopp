@@ -103,6 +103,7 @@ def simple_test(request):
                     valor=pag['valor'],
                     status=pag['status'],
                     payment_type = pag['payment_type'],
+                    items=pag['items'],
                     nome_cliente=pedido_user.nome_cliente,
                     cpf_cliente=pedido_user.cpf_cliente,
                     endereco_cliente=pedido_user.endereco_cliente,
@@ -124,6 +125,7 @@ def simple_test(request):
                         f"ID do Pagamento: {transacao.pagamento_id}\n"
                         f"Tipo de Pagamento: {transacao.payment_type}\n"
                         f"Valor da Compra: {transacao.valor}\n"
+                        f"Itens da Compra: {', '.join(transacao.items)}\n"
                         f"Nome do Cliente: {transacao.nome_cliente}\n"
                         f"CPF do Cliente: {transacao.cpf_cliente}\n"
                         f"E-mail do Cliente: {transacao.email_cliente}\n"
