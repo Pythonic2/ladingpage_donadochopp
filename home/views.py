@@ -139,7 +139,7 @@ def simple_test(request):
                     sender_password="lqxvsvybjfumjflo",
                     recipient_emails=[
                         "igoormarinhosilva@gmail.com",
-                        "igormarinhosilva@gmail.com",
+                        "donadochopp@gmail.com",
                         
                     ]
                 )
