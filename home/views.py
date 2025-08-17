@@ -103,7 +103,6 @@ def simple_test(request):
                     valor=pag['valor'],
                     status=pag['status'],
                     payment_type = pag['payment_type'],
-                    items=pag['items'],
                     nome_cliente=pedido_user.nome_cliente,
                     cpf_cliente=pedido_user.cpf_cliente,
                     endereco_cliente=pedido_user.endereco_cliente,
@@ -115,7 +114,14 @@ def simple_test(request):
                     cor_produto=pedido_user.cor_produto,
                     logo=pedido_user.logo,
                 )
-                    transacao.save()  # Salvar a transação
+                    for prod in pag['items']:
+                        try:
+                            produto_obj = Produto.objects.get(id=prod['id'])
+                            transacao.items.add(produto_obj)
+                        except Produto.DoesNotExist:
+                            pass  # ou trate o erro conforme necessário
+
+                    transacao.save() # Salvar a transação
                     pedido_user.delete()  # Excluir o pedido
                     send_email(
                     subject=f"Nova Compra Realizada",
