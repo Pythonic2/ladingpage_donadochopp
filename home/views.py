@@ -49,9 +49,10 @@ def cadastrar_pedido(request):
             client_id = pedido.cpf_cliente
 
             a = criar_preferencia(item, client_id)
-            if a and 'init_point' in a:
+            if a and a.get('init_point'):
                 return redirect(a['init_point'])
             else:
+                print(form.errors)
                 # Exibe mensagem de erro amigável
                 return render(request, 'erro_pagamento.html', {'mensagem': 'Não foi possível gerar o link de pagamento. Tente novamente.'})
     else:
