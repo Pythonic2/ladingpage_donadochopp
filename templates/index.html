@@ -241,7 +241,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <h5 class="section-title">
                 {{produto.nome}}
                 </h5>
-                <p class="product-description">{{produto.descricao}}</p>
+                <p class="product-description">{{produto.descricao|safe}}</p>
                 <p class="">
                     <strong>Frete grátis</strong> para todo o <strong>Brasil.</strong>                </p>
 
@@ -323,9 +323,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                             <h5 class="section-title">COMECE COM INOVAÇÃO</h5>
                             <h2>{{produto.nome}}</h2>
                             
-                            <div class="product-description" style="margin-bottom: 0 !important; padding-bottom:0 !important;">
-                                {{ produto.descricao|safe }}
-                            </div>
+                                            <p class="product-description">{{produto.descricao|safe}}</p>
+
                     <p class="">
                         <strong>Frete grátis</strong> para todo o <strong>Brasil.</strong>                </p>
 
