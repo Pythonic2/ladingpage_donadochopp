@@ -26,6 +26,19 @@ class Produto(models.Model):
     
 
 class Pedido(models.Model):
+    CORES_CHOICES = [
+        ('amarela_vermelha', 'Amarela e vermelha'),
+        ('amarela_preta', 'Amarela e preta'),
+        ('laranja_preta', 'Laranja e preta'),
+        ('branca_preta', 'Branca e preta'),
+        ('vermelha', 'Vermelha'),
+        ('rosa_preta', 'Rosa e preta'),
+        ('verde_branca', 'Verde e branca'),
+        ('vermelha_preta', 'Vermelha e preta'),
+        ('preta_verde', 'Preta e verde'),
+        ('azul_vermelha', 'Azul e vermelha'),
+    ]
+
     nome_cliente = models.CharField(max_length=100)
     cpf_cliente = models.CharField(max_length=11, unique=True)
     endereco_cliente = models.CharField(max_length=255)
@@ -35,7 +48,12 @@ class Pedido(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField()
     data_pedido = models.DateTimeField(auto_now_add=True)
-    cor_produto = models.CharField(max_length=50, blank=True, null=True)
+    cor_produto = models.CharField(
+        max_length=50,
+        choices=CORES_CHOICES,
+        blank=True,
+        null=True
+    )
     logo = models.ImageField(upload_to=logo_upload_path, blank=True, null=True)
 
     def __str__(self):

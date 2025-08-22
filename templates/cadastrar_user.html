@@ -1,3 +1,4 @@
+{% load static%}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -570,6 +571,9 @@
                 {% csrf_token %}
                 <div class="form-group">
                     {{ form }}
+                        
+                    <img id="cor-preview" src="" alt="Cor escolhida" style="max-width:200px; display:none; margin:10px 0;">
+
                     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 10px;">
                         {% if produto.imagem %}
                             <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" style="width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid #eee;">
@@ -583,6 +587,34 @@
                 </div>
                 <button type="submit" class="submit-btn">🚀 Finalizar Pedido</button>
             </form>
+            <script>
+const corSelect = document.getElementById("id_cor_produto");
+const corPreview = document.getElementById("cor-preview");
+
+// Mapeie o valor do select para o caminho da imagem correspondente
+const corImagens = {
+    "amarela_vermelha": "{% static 'assets/images/amarela_vermelha.jpg' %}",
+    "amarela_preta": "{% static 'assets/images/amarela_preta.jpg' %}",
+    "laranja_preta": "{% static 'assets/images/laranja_preta.jpg' %}",
+    "branca_preta": "{% static 'assets/images/branca_preta.jpg' %}",
+    "vermelha": "{% static 'assets/images/vermelha.jpg' %}",
+    "rosa_preta": "{% static 'assets/images/rosa_preta.jpg' %}",
+    "verde_branca": "{% static 'assets/images/verde_branca.jpg' %}",
+    "vermelha_preta": "{% static 'assets/images/vermelha_preta.jpg' %}",
+    "preta_verde": "{% static 'assets/images/preta_verde.jpg' %}",
+    "azul_vermelha": "{% static 'assets/images/azul_vermelha.jpg' %}",
+};
+
+corSelect.addEventListener("change", function() {
+    const cor = corSelect.value;
+    if (corImagens[cor]) {
+        corPreview.src = corImagens[cor];
+        corPreview.style.display = "block";
+    } else {
+        corPreview.style.display = "none";
+    }
+});
+</script>
         </div>
     </section>
 

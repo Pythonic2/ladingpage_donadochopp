@@ -25,11 +25,12 @@ SECRET_KEY = 'django-insecure-^0kbg8)m$7mcmjnlkjx@$)uo)$u4hyob2rxks3t21%c-u9qxtg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vendas.donadochopp.com.br']
-#teste
-CSRF_TRUSTED_ORIGINS = [
-    "https://vendas.donadochopp.com.br",
-]
+# ALLOWED_HOSTS = ['vendas.donadochopp.com.br']
+# #teste
+# CSRF_TRUSTED_ORIGINS = [
+#     "https://vendas.donadochopp.com.br",
+# ]
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
@@ -77,13 +78,25 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cloudbooster_db',
+        'USER': 'cloud_user',
+        'PASSWORD':'37192541aaSS@',
+        'HOST':  '192.168.15.6',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=ladingpageddc'
+        }
     }
-}
-
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

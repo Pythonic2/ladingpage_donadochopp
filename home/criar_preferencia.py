@@ -3,7 +3,7 @@ import requests
 import requests
 
 def criar_preferencia(item: list, cliente_id: str):
-    api_token = "TEST-654382218469227-040219-8e0ed7a2863e1f4d290cd4297285598c-718297245"
+    api_token = "APP_USR-7550924195079584-082016-1c30a22b4758afcd630361ba8b415c1b-718297245"
     url = f"https://api_gateway.gestcloud.com.br/api/v1/preferences/create-preference/{api_token}/"
     #fgsgesf
     payload = {

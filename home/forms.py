@@ -34,6 +34,6 @@ class PedidoForm(forms.ModelForm):
             'endereco_cliente': forms.TextInput(attrs={'class': 'form-group'}),
             'data_nascimento_cliente': forms.DateInput(attrs={'class': 'form-group', 'type': 'date'}),
             'quantidade': forms.NumberInput(attrs={'class': 'form-group'}),
-            'cor_produto': forms.ColorInput(attrs={'class': 'form-group'}),
+            'cor_produto': forms.Select(attrs={'class': 'form-group'}),
             'logo': forms.FileInput(attrs={'class': 'form-group'}),
         }

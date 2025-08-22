@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 # Substitua pelo seu token de acesso do Mercado Pago
-ACCESS_TOKEN = "TEST-654382218469227-040219-8e0ed7a2863e1f4d290cd4297285598c-718297245"
+ACCESS_TOKEN = "APP_USR-7550924195079584-082016-1c30a22b4758afcd630361ba8b415c1b-718297245"
 #fsf
 # Inicializar o SDK do Mercado Pago
 sdk = mercadopago.SDK(ACCESS_TOKEN)
