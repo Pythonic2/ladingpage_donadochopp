@@ -14,6 +14,7 @@ class Produto(models.Model):
     nome = models.CharField(max_length=100)
     descricao = RichTextField()
     preco = models.DecimalField(max_digits=10, decimal_places=2)
+    preco_sem_desconto = models.DecimalField(max_digits=10, decimal_places=2,default=0.0)
     estoque = models.PositiveIntegerField()
     peso = models.DecimalField(max_digits=5, decimal_places=2, help_text="Peso em kg")
     altura = models.DecimalField(max_digits=5, decimal_places=2, help_text="Altura em cm")

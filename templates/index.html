@@ -246,7 +246,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <strong>Frete grátis</strong> para todo o <strong>Brasil.</strong>                </p>
 
                 <p class="price">
-                    <span class="original-price">R$ 12.990,00</span>
+                    <span class="original-price">{{produto.preco_sem_desconto|reais}}</span>
                     <span class="discounted-price">{{ produto.preco|reais }} ou 10x SEM JUROS</span>
                     
                     
@@ -329,7 +329,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <strong>Frete grátis</strong> para todo o <strong>Brasil.</strong>                </p>
 
                             <p class="price">
-                                <span class="original-price">R$ 12.990,00</span>
+                                <span class="original-price">{{produto.preco_sem_desconto|reais}}</span>
                                 <span class="discounted-price">R$ {{produto.preco|reais}} ou 10x SEM JUROS</span>
                                 <span class="pix-discount">PIX: 10% OFF</span>
 
