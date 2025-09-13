@@ -12,4 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Comando para iniciar o servidor Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8008"]
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8008"]
+#CMD exec python manage.py runserver 0.0.0.0:$PORT
+CMD exec gunicorn --bind 0.0.0.0:$PORT projeto.wsgi:application
+
