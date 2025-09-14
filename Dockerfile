@@ -13,10 +13,13 @@ COPY . .
 
 # Comando para iniciar o servidor Django
 #CMD ["python", "manage.py", "runserver", "0.0.0.0:8008"]
-CMD exec python manage.py runserver 0.0.0.0:$PORT
+#CMD exec python manage.py runserver 0.0.0.0:$PORT
 #RUN pip install gunicorn
 
 #CMD ["sh", "-c", "gunicorn core.wsgi:application --bind 0.0.0.0:$PORT"]
+RUN pip install gunicorn
+
+CMD ["sh", "-c", "gunicorn core.wsgi:application --bind 0.0.0.0:$PORT"]
 
 
 
