@@ -87,7 +87,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cloudbooster_db',
+        'NAME': 'gesttechdb',
         'USER': 'postgres',
         'PASSWORD':'37192541aaSS@',
         'HOST':  '34.95.149.190',
