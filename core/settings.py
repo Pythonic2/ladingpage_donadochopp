@@ -88,13 +88,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'cloudbooster_db',
-        'USER': 'cloud_user',
+        'USER': 'postgres',
         'PASSWORD':'37192541aaSS@',
-        'HOST':  '192.168.15.6',
+        'HOST':  '34.95.149.190',
         'PORT': '5432',
-        'OPTIONS': {
-            'options': '-c search_path=ladingpageddc'
-        }
+        
     }
     }
 
