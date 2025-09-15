@@ -92,8 +92,11 @@ DATABASES = {
         'PASSWORD':'37192541aaSS@',
         'HOST':  '34.95.149.190',
         'PORT': '5432',
-        
+        'OPTIONS': {
+            'options': '-c search_path=ladingpageddc'
+        }
     }
+    
     }
 
 # Password validation
