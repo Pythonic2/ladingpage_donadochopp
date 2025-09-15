@@ -18,8 +18,10 @@ COPY . .
 
 #CMD ["sh", "-c", "gunicorn core.wsgi:application --bind 0.0.0.0:$PORT"]
 RUN pip install gunicorn
-
+RUN python manage.py makemigrations
+RUN python manage.py migrate
 CMD ["sh", "-c", "gunicorn core.wsgi:application --bind 0.0.0.0:$PORT"]
+
 
 
 
