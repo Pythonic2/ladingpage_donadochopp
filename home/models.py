@@ -36,6 +36,24 @@ class Produto(models.Model):
         return self.nome
 
 
+class Evento(models.Model):
+    imagem = models.ImageField(upload_to="eventos/")
+    categoria = models.CharField(max_length=80, default="Evento")
+    titulo = models.CharField(max_length=120)
+    descricao = models.CharField(max_length=180, blank=True)
+    ordem = models.PositiveIntegerField(default=0)
+    ativo = models.BooleanField(default=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["ordem", "-criado_em"]
+        verbose_name = "Evento"
+        verbose_name_plural = "Eventos"
+
+    def __str__(self):
+        return self.titulo
+
+
 class Pedido(models.Model):
     CORES_CHOICES = [
         ("amarela_vermelha", "Amarela e vermelha"),

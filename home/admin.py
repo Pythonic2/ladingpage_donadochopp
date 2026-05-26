@@ -1,10 +1,18 @@
 from django.contrib import admin
-from .models import Produto, Pedido, Transacao, Pergunta
+from .models import Produto, Pedido, Transacao, Pergunta, Evento
 
 # Register your models here.
 admin.site.register(Produto)
 admin.site.register(Pedido)
 admin.site.register(Transacao)
+
+
+@admin.register(Evento)
+class EventoAdmin(admin.ModelAdmin):
+    list_display = ("titulo", "categoria", "ordem", "ativo", "criado_em")
+    list_editable = ("ordem", "ativo")
+    list_filter = ("ativo", "criado_em")
+    search_fields = ("titulo", "categoria", "descricao")
 
 
 @admin.register(Pergunta)
