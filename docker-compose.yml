@@ -10,11 +10,8 @@ services:
     networks:
       - pi_default
     volumes:
-      - ladingpage2_chopp_data:/var/lib/postgresql/data
-      - ladingpage2_chopp_app:/app/media
-volumes:
-  ladingpage2_chopp_data:
-  ladingpage2_chopp_app:
+      - ./db.sqlite3:/app/db.sqlite3
+      - ./media:/app/media
 networks:
   pi_default:
     external: true
