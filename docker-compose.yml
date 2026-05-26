@@ -27,7 +27,14 @@ services:
       - DB_PORT=5432
       - DB_SCHEMA=ladingpageddc
     volumes:
-      - ladingpage2_chopp_app:/app/media
+      - type: volume
+        source: ladingpage2_chopp_app
+        target: /app/media
+        volume:
+          nocopy: true
+volumes:
+  ladingpage2_chopp_app:
+    name: ladingpage2_chopp_app
 networks:
   pi_default:
     external: true
