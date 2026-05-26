@@ -1,0 +1,10 @@
+.git
+.gitignore
+.dockerignore
+.agents
+.codex
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+media/
