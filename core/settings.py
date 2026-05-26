@@ -19,6 +19,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Ambiente: 'production' ou 'development'
 ENVIRONMENT = os.environ.get("DJANGO_ENV", "development")
 
+
+def _list_from_env(name, default):
+    value = os.environ.get(name)
+    if not value:
+        return default
+    return [item.strip() for item in value.split(",") if item.strip()]
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -32,16 +39,26 @@ SECRET_KEY = os.environ.get(
 DEBUG = ENVIRONMENT == "development"
 
 if ENVIRONMENT == "production":
-    ALLOWED_HOSTS = ["vendas.donadochopp.com.br"]
-    CSRF_TRUSTED_ORIGINS = [
+    ALLOWED_HOSTS = _list_from_env("DJANGO_ALLOWED_HOSTS", [
+        "vendas.donadochopp.com.br",
+        "192.168.1.7",
+    ])
+    CSRF_TRUSTED_ORIGINS = _list_from_env("DJANGO_CSRF_TRUSTED_ORIGINS", [
         "https://vendas.donadochopp.com.br",
-    ]
+        "http://192.168.1.7:8010",
+    ])
 else:
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
-    CSRF_TRUSTED_ORIGINS = [
+    ALLOWED_HOSTS = _list_from_env("DJANGO_ALLOWED_HOSTS", [
+        "localhost",
+        "127.0.0.1",
+        "0.0.0.0",
+        "192.168.1.7",
+    ])
+    CSRF_TRUSTED_ORIGINS = _list_from_env("DJANGO_CSRF_TRUSTED_ORIGINS", [
         "http://localhost",
         "http://127.0.0.1",
-    ]
+        "http://192.168.1.7:8010",
+    ])
 # Application definition
 
 INSTALLED_APPS = [
