@@ -10,9 +10,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia o restante do código para o contêiner
 COPY . .
-EXPOSE 8010
+
 # Comando para iniciar o servidor Django
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8010"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8010"]
 #CMD exec python manage.py runserver 0.0.0.0:$PORT
 #RUN pip install gunicorn
 
