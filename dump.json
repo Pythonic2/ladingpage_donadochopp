@@ -1,0 +1,731 @@
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$EdUG6bRBy2U6r3Ff2qhWIZ$0m716JHSsBgXFw7jAn3T9kg7cPWHdk6dz48wzDPLZgE=",
+    "last_login": "2026-03-24T02:25:56.237Z",
+    "is_superuser": true,
+    "username": "admin_ddc",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-08-22T02:38:16.665Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "cknpy8dyu2i3itpnr2i4agf8h41kgm36",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pChQCgu3XsGMjCDVA0kpV013t2QdKHb_977hwi4byXsndewkLgKJS6_W8T04joAPbE-mkytbusS5VDkSbu8N-L37XT_Dgr2MuoE4Kxj9swWIk5kICqi6HNy6NmwmlkptslP1muYCaPORmtNGhJk8fkCBa04gg:1vP1aW:5kVJE9JPWGe2eEsI_8re-KC9Y501oKGzj7iWTs3DGi8",
+    "expire_date": "2025-12-12T16:44:52.810Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "dfododfu194jv02c28npsimy9mya9pha",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pChQCgu3XsGMjCDVA0kpV013t2QdKHb_977hwi4byXsndewkLgKJS6_W8T04joAPbE-mkytbusS5VDkSbu8N-L37XT_Dgr2MuoE4Kxj9swWIk5kICqi6HNy6NmwmlkptslP1muYCaPORmtNGhJk8fkCBa04gg:1v4M4k:Rd3FiuXbx5Xj3s5ybZfKh851qatJQg025_jPMIyH1Mk",
+    "expire_date": "2025-10-16T16:22:38.633Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ebladax5tplc00esc91119ooipx8ktt8",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pChQCgu3XsGMjCDVA0kpV013t2QdKHb_977hwi4byXsndewkLgKJS6_W8T04joAPbE-mkytbusS5VDkSbu8N-L37XT_Dgr2MuoE4Kxj9swWIk5kICqi6HNy6NmwmlkptslP1muYCaPORmtNGhJk8fkCBa04gg:1v3wl0:TCymwiEjrgZV-sFyiNF_vrAo82yjNNp9gnpQJA0ovBg",
+    "expire_date": "2025-10-15T13:20:34.316Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "k6rzfxvf8fbptrbfl4t1b4diihguurem",
+  "fields": {
+    "session_data": ".eJxVjDsOAjEMBe-SGkXykjgxJT1niBw7IgsokfZTIe7OrrQFtG9m3tskXpea1rlMaVRzMWBOv1tmeZa2A31wu3crvS3TmO2u2IPO9ta1vK6H-3dQea5bjXQmQXBEhM6LJwUgEZJMkSEwBogwZEVXIKtoCAP5GMqGnfPI5vMFvTY3FA:1upHfx:LsXB18rFoVvUurMIYJ1HuMW7Nhc3co-bN98K8FgDee4",
+    "expire_date": "2025-09-05T02:38:45.174Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "se4ue903od33x0rowa70b8kfjj5crgbs",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2pChQCgu3XsGMjCDVA0kpV013t2QdKHb_977hwi4byXsndewkLgKJS6_W8T04joAPbE-mkytbusS5VDkSbu8N-L37XT_Dgr2MuoE4Kxj9swWIk5kICqi6HNy6NmwmlkptslP1muYCaPORmtNGhJk8fkCBa04gg:1w4rSu:jSdPMCtBYmcwsllD4OPYyjkzg-Y8Nd1PCmuvh2ijJkA",
+    "expire_date": "2026-04-07T02:25:56.244Z"
+  }
+},
+{
+  "model": "home.produto",
+  "pk": 1,
+  "fields": {
+    "imagem": "produtos/bomba2_CAZfJDv.png",
+    "nome": "Chopeira + Kit Extração",
+    "descricao": "<p>O que acompanha? Kit extra&ccedil;&atilde;o do chopp composto por cilindro CO2 de 6kg cheio, mangueiras, regulador de press&atilde;o (man&ocirc;metro), extratora e conectores engate r&aacute;pido de f&aacute;cil utiliza&ccedil;&atilde;o e manuten&ccedil;&atilde;o.&nbsp;<br />\r\n&nbsp;</p>\r\n\r\n<p>* Personalize com as cores que desejar<br />\r\n* Coloque sua logomarca<br />\r\n* Sistema de refrigera&ccedil;&atilde;o a gelo de f&aacute;cil utiliza&ccedil;&atilde;o<br />\r\n* Pistola de inox 304<br />\r\n* Torneira italiana<br />\r\n* N&atilde;o precisa utilizar ferramenta&nbsp;</p>",
+    "preco": "11990.00",
+    "preco_sem_desconto": "12990.00",
+    "estoque": 5,
+    "peso": "10.00",
+    "altura": "10.00",
+    "largura": "10.00",
+    "comprimento": "10.00",
+    "cep_origem": "58074158"
+  }
+},
+{
+  "model": "home.produto",
+  "pk": 2,
+  "fields": {
+    "imagem": "produtos/fullcombo_b30mPRx.png",
+    "nome": "Carrinho Completo",
+    "descricao": "<p>O que acompanha? Kit extra&ccedil;&atilde;o do chopp composto por cilindro CO2 de 6kg cheio, mangueiras, regulador de press&atilde;o (man&ocirc;metro), extratora e conectores engate r&aacute;pido de f&aacute;cil utiliza&ccedil;&atilde;o e manuten&ccedil;&atilde;o. Tonel com porta para acomoda&ccedil;&atilde;o do barril. Carrinho de chopp com capacidade de transportar at&eacute; 400kg e com pneus adaptados para andar at&eacute; na areia da praia.</p>\r\n\r\n<p>* Personalize com as cores que desejar<br />\r\n* Coloque sua logomarca<br />\r\n* Sistema de refrigera&ccedil;&atilde;o a gelo de f&aacute;cil utiliza&ccedil;&atilde;o<br />\r\n* Pistola de inox 304<br />\r\n* Torneira italiana<br />\r\n* N&atilde;o precisa utilizar ferramenta<br />\r\n* Tonel com porta para acomoda&ccedil;&atilde;o do barril<br />\r\n* Carrinho de Transporte</p>",
+    "preco": "14990.00",
+    "preco_sem_desconto": "15990.00",
+    "estoque": 10,
+    "peso": "28.00",
+    "altura": "200.00",
+    "largura": "70.00",
+    "comprimento": "130.00",
+    "cep_origem": "60410305"
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 1,
+  "fields": {
+    "nome_cliente": "Tayana Rezende Farias",
+    "cpf_cliente": "93686404249",
+    "endereco_cliente": "Rua São Joaquim núcleo 12 cidade nova 2",
+    "telefone_cliente": "92982305789",
+    "email_cliente": "tayanacabral28@gmail.com",
+    "data_nascimento_cliente": "2010-08-01",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2025-09-05T00:21:15.923Z",
+    "cor_produto": "branca_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 2,
+  "fields": {
+    "nome_cliente": "Giselle passos morais",
+    "cpf_cliente": "00134332539",
+    "endereco_cliente": "E",
+    "telefone_cliente": "71987623655",
+    "email_cliente": "gpmorais@yahoo.com.br",
+    "data_nascimento_cliente": "2025-09-25",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2025-09-16T19:01:13.921Z",
+    "cor_produto": "vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 3,
+  "fields": {
+    "nome_cliente": "Caique",
+    "cpf_cliente": "46565002835",
+    "endereco_cliente": "Itanhaem",
+    "telefone_cliente": "11972161002",
+    "email_cliente": "caique_1996@hotmail.com",
+    "data_nascimento_cliente": "2025-09-22",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2025-09-22T03:43:55.835Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 4,
+  "fields": {
+    "nome_cliente": "FABIANA DIAS DE OLIVEIRA",
+    "cpf_cliente": "088.598.286",
+    "endereco_cliente": "Rua Miguel Mário Costa 138",
+    "telefone_cliente": "33 99986-1045",
+    "email_cliente": "fabydias864@gmail.com",
+    "data_nascimento_cliente": "1981-03-14",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2025-10-02T10:35:26.711Z",
+    "cor_produto": "vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 5,
+  "fields": {
+    "nome_cliente": "Mariane de Oliveira Santos",
+    "cpf_cliente": "14524238735",
+    "endereco_cliente": "Rua Gustavo doria 101",
+    "telefone_cliente": "21974556259",
+    "email_cliente": "deoliveirasantosmariane2@gmail.com",
+    "data_nascimento_cliente": "1992-06-29",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2025-10-17T01:56:31.979Z",
+    "cor_produto": "rosa_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 6,
+  "fields": {
+    "nome_cliente": "Graziele ramalho dos santos",
+    "cpf_cliente": "03493788517",
+    "endereco_cliente": "Rua via dos esportes número 12",
+    "telefone_cliente": "(79) 998832730",
+    "email_cliente": "ramalhograzy24@gmail.com",
+    "data_nascimento_cliente": "1988-05-21",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2025-10-25T01:29:05.479Z",
+    "cor_produto": "rosa_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 7,
+  "fields": {
+    "nome_cliente": "Rosângela",
+    "cpf_cliente": "0774383550",
+    "endereco_cliente": "Rua 7 de setembro olaria",
+    "telefone_cliente": "11985548389",
+    "email_cliente": "rosangela.9827@outlook.com",
+    "data_nascimento_cliente": "1998-07-08",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2025-10-27T04:04:54.996Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 8,
+  "fields": {
+    "nome_cliente": "Leonir Oliveira",
+    "cpf_cliente": "06687758667",
+    "endereco_cliente": "60030160",
+    "telefone_cliente": "21920124437",
+    "email_cliente": "lposssani@gmail.com",
+    "data_nascimento_cliente": "1984-07-30",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2025-10-29T02:20:42.537Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 9,
+  "fields": {
+    "nome_cliente": "Luana Oliveira",
+    "cpf_cliente": "687210000",
+    "endereco_cliente": "Rua. Clodomiro Barros n 150",
+    "telefone_cliente": "91982623464",
+    "email_cliente": "luananeto1@icloud.com",
+    "data_nascimento_cliente": "1980-07-09",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2025-11-05T18:19:40.140Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 10,
+  "fields": {
+    "nome_cliente": "Barbara",
+    "cpf_cliente": "82029903272",
+    "endereco_cliente": "Rua ilhota 817",
+    "telefone_cliente": "47999468334",
+    "email_cliente": "barbaratst15@gmail.com",
+    "data_nascimento_cliente": "1989-04-01",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2025-11-09T16:58:04.982Z",
+    "cor_produto": "branca_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 11,
+  "fields": {
+    "nome_cliente": "Danilo",
+    "cpf_cliente": "43615569890",
+    "endereco_cliente": "Rua doutor lauto parente",
+    "telefone_cliente": "11951477918",
+    "email_cliente": "danilohviana@gmail.com",
+    "data_nascimento_cliente": "1994-11-21",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2025-11-14T02:55:06.115Z",
+    "cor_produto": "amarela_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 12,
+  "fields": {
+    "nome_cliente": "Matheus Santos",
+    "cpf_cliente": "70503590410",
+    "endereco_cliente": "Rua nossa senhora do Rosário",
+    "telefone_cliente": "+5583987717311",
+    "email_cliente": "matheusantosilva32173179@gmail.com",
+    "data_nascimento_cliente": "2000-10-16",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2025-11-16T22:54:15.306Z",
+    "cor_produto": "vermelha_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 13,
+  "fields": {
+    "nome_cliente": "Luciano viana",
+    "cpf_cliente": "18514918800",
+    "endereco_cliente": "Avenida São Sebastião 905 vila camargo limeira",
+    "telefone_cliente": "19996687447",
+    "email_cliente": "monicanoivas.hutterer@gmail.com",
+    "data_nascimento_cliente": "2025-12-28",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2025-11-27T12:02:01.007Z",
+    "cor_produto": "vermelha_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 14,
+  "fields": {
+    "nome_cliente": "Rodrigo Silveira",
+    "cpf_cliente": "08162899480",
+    "endereco_cliente": "Rua da praia -barra grande /Maragogi -al",
+    "telefone_cliente": "81995393152",
+    "email_cliente": "rodrigocr7realmadrid@gmail.com",
+    "data_nascimento_cliente": "2025-12-01",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2025-12-01T22:20:31.638Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 15,
+  "fields": {
+    "nome_cliente": "Ruan Reis coqueiro",
+    "cpf_cliente": "61307852327",
+    "endereco_cliente": "Rua São Raimundo vila tamer, araçagy São José de Ribamar",
+    "telefone_cliente": "98987067553",
+    "email_cliente": "ruanreis8771@gmail.com",
+    "data_nascimento_cliente": "1999-02-04",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2025-12-04T22:44:15.975Z",
+    "cor_produto": "rosa_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 16,
+  "fields": {
+    "nome_cliente": "Lucas De Sousa Alexandrino",
+    "cpf_cliente": "61099527376",
+    "endereco_cliente": "Rua Eudóxio infante vieira",
+    "telefone_cliente": "32988756559",
+    "email_cliente": "lucasdesousaalexandrino@gmail.com",
+    "data_nascimento_cliente": "1996-08-02",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2025-12-05T16:59:20.219Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 17,
+  "fields": {
+    "nome_cliente": "Micaelle perazzo",
+    "cpf_cliente": "09021228432",
+    "endereco_cliente": "Vila nova da rainha 169",
+    "telefone_cliente": "83988257168",
+    "email_cliente": "micaelleeperazzo@icloud.com",
+    "data_nascimento_cliente": "1992-07-08",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2025-12-20T18:43:41.715Z",
+    "cor_produto": "laranja_preta",
+    "logo": "logos/09021228432_logo.jpeg"
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 18,
+  "fields": {
+    "nome_cliente": "Andreni",
+    "cpf_cliente": "12196840742",
+    "endereco_cliente": "Rua Bernardo de Vasconcelos 648 cascatinha",
+    "telefone_cliente": "21993753182",
+    "email_cliente": "minteirorepresentacaorio@gmail.com",
+    "data_nascimento_cliente": "1988-10-19",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2025-12-25T22:42:09.536Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 19,
+  "fields": {
+    "nome_cliente": "João Vinícius Silva Marques",
+    "cpf_cliente": "70965541495",
+    "endereco_cliente": "Rua Ubatã 15",
+    "telefone_cliente": "81997296469",
+    "email_cliente": "j.marques7638708@gmail.com",
+    "data_nascimento_cliente": "2000-03-12",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2026-01-27T13:41:40.205Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 20,
+  "fields": {
+    "nome_cliente": "Matheus",
+    "cpf_cliente": "14716572480",
+    "endereco_cliente": "Rua Valdemar Naziazeno 70",
+    "telefone_cliente": "83988213793",
+    "email_cliente": "matheusmagalhaes083@gmail.com",
+    "data_nascimento_cliente": "2006-06-28",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2026-02-19T17:12:27.852Z",
+    "cor_produto": "vermelha_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 21,
+  "fields": {
+    "nome_cliente": "Gustavo",
+    "cpf_cliente": "76322483404",
+    "endereco_cliente": "Recife",
+    "telefone_cliente": "81992154757",
+    "email_cliente": "lgngomes@msn.com",
+    "data_nascimento_cliente": "1974-07-25",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2026-02-20T08:53:05.338Z",
+    "cor_produto": "vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 22,
+  "fields": {
+    "nome_cliente": "francisco matheus de souza gomes",
+    "cpf_cliente": "60644840390",
+    "endereco_cliente": "croata sao gonçalo do amarante ce",
+    "telefone_cliente": "85991928231",
+    "email_cliente": "matheusgomess2504@gmail.com",
+    "data_nascimento_cliente": "1999-04-25",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2026-02-20T10:21:02.545Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 23,
+  "fields": {
+    "nome_cliente": "Kely dayane Costa bezerra",
+    "cpf_cliente": "77072022287",
+    "endereco_cliente": "Rua tim maia 267 canta",
+    "telefone_cliente": "(95) 98129-6625",
+    "email_cliente": "uniaorural@hotmail.com",
+    "data_nascimento_cliente": "1983-06-01",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2026-02-24T03:25:49.135Z",
+    "cor_produto": "vermelha_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 24,
+  "fields": {
+    "nome_cliente": "Carlos Eduardo Andrade machado",
+    "cpf_cliente": "21791216870",
+    "endereco_cliente": "Rua Joaquim da Silva lima 207, ap 401, ed palmares",
+    "telefone_cliente": "+5527998070749",
+    "email_cliente": "eduardosiscom@hotmail.com",
+    "data_nascimento_cliente": "1981-12-28",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2026-03-07T16:28:55.471Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": "logos/21791216870_logo.jpg"
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 25,
+  "fields": {
+    "nome_cliente": "Silvaney",
+    "cpf_cliente": "00454825510",
+    "endereco_cliente": "Rua três de Maio",
+    "telefone_cliente": "77998276819",
+    "email_cliente": "silvaneymontalvao@gmail.com",
+    "data_nascimento_cliente": "1981-01-19",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2026-03-19T14:01:13.036Z",
+    "cor_produto": "vermelha_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 26,
+  "fields": {
+    "nome_cliente": "Douglas",
+    "cpf_cliente": "008.644.023",
+    "endereco_cliente": "Avenida valparaiso 598",
+    "telefone_cliente": "+5585981656541",
+    "email_cliente": "luizclosenilson4178@gmail.com",
+    "data_nascimento_cliente": "1985-03-11",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2026-03-23T15:51:27.307Z",
+    "cor_produto": "amarela_vermelha",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 27,
+  "fields": {
+    "nome_cliente": "Yasmin Arruda Novaes",
+    "cpf_cliente": "22229001744",
+    "endereco_cliente": "Angra dos Reis parque Mambucaba rua 7 número 623",
+    "telefone_cliente": "24998586191",
+    "email_cliente": "josedelfindossantos@gmail.com",
+    "data_nascimento_cliente": "2000-11-30",
+    "produto": 1,
+    "quantidade": 1,
+    "data_pedido": "2026-04-01T20:42:22.230Z",
+    "cor_produto": "rosa_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "home.pedido",
+  "pk": 28,
+  "fields": {
+    "nome_cliente": "Luciana Aparecida Martins",
+    "cpf_cliente": "09493317919",
+    "endereco_cliente": "Alvino Voigt",
+    "telefone_cliente": "(47) 99281-0671",
+    "email_cliente": "lucytchebe221@gmail.com",
+    "data_nascimento_cliente": "1994-09-02",
+    "produto": 2,
+    "quantidade": 1,
+    "data_pedido": "2026-04-07T10:51:51.479Z",
+    "cor_produto": "rosa_preta",
+    "logo": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-08-22T02:40:02.879Z",
+    "user": [
+      "admin_ddc"
+    ],
+    "content_type": [
+      "home",
+      "produto"
+    ],
+    "object_id": "1",
+    "object_repr": "Chopeira + Kit Extração",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-08-22T02:40:23.610Z",
+    "user": [
+      "admin_ddc"
+    ],
+    "content_type": [
+      "home",
+      "produto"
+    ],
+    "object_id": "1",
+    "object_repr": "Chopeira + Kit Extração",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Imagem\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-08-22T02:42:46.844Z",
+    "user": [
+      "admin_ddc"
+    ],
+    "content_type": [
+      "home",
+      "produto"
+    ],
+    "object_id": "2",
+    "object_repr": "Carrinho Completo",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-10-02T16:24:11.145Z",
+    "user": [
+      "admin_ddc"
+    ],
+    "content_type": [
+      "home",
+      "produto"
+    ],
+    "object_id": "2",
+    "object_repr": "Carrinho Completo",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Peso\", \"Altura\", \"Largura\", \"Comprimento\", \"Cep origem\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-10-02T16:24:37.742Z",
+    "user": [
+      "admin_ddc"
+    ],
+    "content_type": [
+      "home",
+      "produto"
+    ],
+    "object_id": "1",
+    "object_repr": "Chopeira + Kit Extração",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Descricao\", \"Estoque\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-10-02T16:25:07.355Z",
+    "user": [
+      "admin_ddc"
+    ],
+    "content_type": [
+      "home",
+      "produto"
+    ],
+    "object_id": "1",
+    "object_repr": "Chopeira + Kit Extração",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-10-02T16:26:13.313Z",
+    "user": [
+      "admin_ddc"
+    ],
+    "content_type": [
+      "home",
+      "produto"
+    ],
+    "object_id": "2",
+    "object_repr": "Carrinho Completo",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Altura\", \"Largura\", \"Comprimento\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2026-03-24T02:27:32.258Z",
+    "user": [
+      "admin_ddc"
+    ],
+    "content_type": [
+      "home",
+      "produto"
+    ],
+    "object_id": "2",
+    "object_repr": "Carrinho Completo",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Descricao\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2026-03-24T02:28:51.064Z",
+    "user": [
+      "admin_ddc"
+    ],
+    "content_type": [
+      "home",
+      "produto"
+    ],
+    "object_id": "1",
+    "object_repr": "Chopeira + Kit Extração",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Descricao\"]}}]"
+  }
+}
+]

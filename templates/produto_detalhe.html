@@ -1,0 +1,516 @@
+{% load static %}
+{% load format_filters %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ produto.nome }} - Dona do Chopp</title>
+    <meta name="description" content="{{ produto.nome }} - Chopeira artesanal estilo bomba vintage. Dona do Chopp." />
+    <!-- Open Graph for Instagram / Social -->
+    <meta property="og:title" content="{{ produto.nome }} - Dona do Chopp" />
+    <meta property="og:description" content="Chopeira artesanal personalizada. Pronta para faturar!" />
+    {% if produto.imagem %}
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ produto.imagem.url }}" />
+    {% endif %}
+    <meta property="og:type" content="product" />
+    <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
+    <link rel="icon" type="image/png" href="{% static 'assets/images/logo.jpeg' %}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#fbf9f4',
+                        foreground: '#241a16',
+                        primary: '#f5a524',
+                        secondary: '#e74236',
+                        muted: '#7b6f68',
+                        card: '#ffffff',
+                    },
+                    fontFamily: {
+                        display: ['Georgia', 'Times New Roman', 'serif'],
+                        body: ['Inter', 'Segoe UI', 'Arial', 'sans-serif']
+                    },
+                    boxShadow: {
+                        soft: '0 10px 30px rgba(0,0,0,.08)',
+                        strong: '0 20px 50px rgba(0,0,0,.12)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fbf9f4;
+            color: #241a16;
+        }
+
+        .container-max {
+            max-width: 1200px;
+        }
+
+        .glass {
+            backdrop-filter: blur(12px);
+            background: rgba(251, 249, 244, .92);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #f5a524, #e74236);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .desc-content h2,
+        .desc-content h3 {
+            font-family: Georgia, serif;
+            margin-bottom: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .desc-content ul {
+            list-style: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .desc-content li {
+            margin-bottom: 0.25rem;
+        }
+
+        .desc-content p {
+            margin-bottom: 0.75rem;
+            line-height: 1.7;
+        }
+
+        .desc-content strong {
+            color: #241a16;
+        }
+
+        /* 3D product card */
+        .product-3d-wrapper {
+            perspective: 1200px;
+        }
+
+        .product-3d {
+            transform-style: preserve-3d;
+            cursor: grab;
+            user-select: none;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .product-3d:active {
+            cursor: grabbing;
+        }
+
+        .product-3d .shine {
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+        }
+
+        .product-3d.dragging .shine,
+        .product-3d:hover .shine {
+            opacity: 1;
+        }
+
+        .product-3d-hint {
+            animation: hint-pulse 2s ease-in-out 3;
+            pointer-events: none;
+        }
+
+        @keyframes hint-pulse {
+
+            0%,
+            100% {
+                opacity: 0.7;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+    </style>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-W8M4FXSH');</script>
+</head>
+
+<body class="font-body text-foreground">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8M4FXSH" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass shadow-lg">
+        <div class="container-max mx-auto flex items-center justify-between py-3 px-4">
+            <a href="{% url 'home' %}" class="flex items-center gap-3">
+                <img src="{% static 'assets/images/logo2.png' %}" alt="Dona do Chopp" class="h-12 rounded-full" />
+                <span class="font-display text-xl font-bold text-foreground">Dona do <span
+                        class="text-primary">Chopp</span></span>
+            </a>
+            <nav class="hidden lg:flex items-center gap-6">
+                <a href="{% url 'home' %}"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Início</a>
+                <a href="{% url 'home' %}#produtos"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Chopeiras</a>
+                <a href="https://wa.me/5585991803678" target="_blank"
+                    class="inline-flex items-center justify-center rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:scale-[1.02] hover:bg-secondary/90">Fale
+                    Conosco</a>
+            </nav>
+            <button id="menuBtn"
+                class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-foreground shadow-soft"
+                aria-label="Abrir menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobileMenu" class="mobile-panel lg:hidden border-t border-black/5 bg-white/95 px-4"
+            style="max-height:0;overflow:hidden;transition:max-height .35s ease;">
+            <div class="container-max mx-auto flex flex-col gap-3 py-4">
+                <a href="{% url 'home' %}" class="py-2">Início</a>
+                <a href="{% url 'home' %}#produtos" class="py-2">Chopeiras</a>
+                <a href="https://wa.me/5585991803678" target="_blank" class="py-2 text-secondary font-semibold">Fale
+                    Conosco</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-24">
+        <!-- Breadcrumb -->
+        <div class="container-max mx-auto px-4 mb-6">
+            <nav class="text-sm text-black/50">
+                <a href="{% url 'home' %}" class="hover:text-primary transition-colors">Início</a>
+                <span class="mx-2">/</span>
+                <a href="{% url 'home' %}#produtos" class="hover:text-primary transition-colors">Chopeiras</a>
+                <span class="mx-2">/</span>
+                <span class="text-foreground">{{ produto.nome }}</span>
+            </nav>
+        </div>
+
+        <!-- Product Detail -->
+        <section class="container-max mx-auto px-4 pb-16">
+            <div class="grid gap-10 lg:grid-cols-2">
+                <!-- Image -->
+                <div>
+                    {% if produto.imagem %}
+                    <div class="product-3d-wrapper">
+                        <div id="product3d"
+                            class="product-3d overflow-hidden rounded-3xl bg-white shadow-soft relative">
+                            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}"
+                                class="w-full object-cover pointer-events-none" draggable="false" />
+                            <div class="shine"></div>
+                        </div>
+                        <p id="dragHint"
+                            class="product-3d-hint mt-3 text-center text-xs text-black/40 flex items-center justify-center gap-1.5">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-black/30">
+                                <path d="M14 4l-4 4 4 4" />
+                                <path d="M10 4l4 4-4 4" />
+                                <line x1="3" y1="8" x2="21" y2="8" />
+                            </svg>
+                            Arraste para girar o produto em 3D
+                        </p>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <!-- Info -->
+                <div class="flex flex-col justify-center">
+                    <span
+                        class="mb-3 inline-block w-fit rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">⛽
+                        Chopeira Bomba de Gasolina</span>
+                    <h1 class="mb-4 font-display text-4xl md:text-5xl text-foreground">{{ produto.nome }}</h1>
+
+                    <!-- Price -->
+                    <div class="mb-6">
+                        {% if produto.preco_sem_desconto > 0 %}
+                        <span class="text-lg text-black/40 line-through mr-3">{{ produto.preco_sem_desconto|reais
+                            }}</span>
+                        {% endif %}
+                        <span class="font-display text-4xl text-secondary">{{ produto.preco|reais }}</span>
+                        <div class="mt-2 flex flex-wrap gap-3">
+                            <span
+                                class="inline-block rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold text-primary">10x
+                                sem juros</span>
+                            <span
+                                class="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">PIX:
+                                10% OFF</span>
+                        </div>
+                    </div>
+
+                    <!-- Short highlights -->
+                    <div class="mb-8 space-y-3">
+                        <div class="flex items-center gap-3 text-sm text-black/70"><span
+                                class="text-green-500 text-lg">✓</span> Frete grátis para todo Brasil</div>
+                        <div class="flex items-center gap-3 text-sm text-black/70"><span
+                                class="text-green-500 text-lg">✓</span> Entrega em até 15 dias</div>
+                        <div class="flex items-center gap-3 text-sm text-black/70"><span
+                                class="text-green-500 text-lg">✓</span> Garantia de 1 ano</div>
+                        <div class="flex items-center gap-3 text-sm text-black/70"><span
+                                class="text-green-500 text-lg">✓</span> Personalização com sua marca e cores</div>
+                        {% if produto.estoque > 0 %}
+                        <div class="flex items-center gap-3 text-sm text-green-600 font-semibold"><span
+                                class="text-lg">📦</span> Em estoque</div>
+                        {% else %}
+                        <div class="flex items-center gap-3 text-sm text-red-500 font-semibold"><span
+                                class="text-lg">⏳</span> Sob encomenda</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col gap-3 sm:flex-row">
+                        <a href="{% url 'cadastrar-usuario' produto.id %}"
+                            class="inline-flex items-center justify-center rounded-full bg-secondary px-8 py-4 text-lg font-bold text-white shadow-soft transition hover:scale-[1.02] hover:bg-secondary/90">Comprar
+                            Agora</a>
+                        <a href="https://wa.me/5585991803678?text=Olá!%20Tenho%20interesse%20no%20produto:%20{{ produto.nome }}"
+                            target="_blank"
+                            class="inline-flex items-center justify-center rounded-full border-2 border-primary bg-white px-8 py-4 text-lg font-bold text-primary transition hover:bg-primary hover:text-white">💬
+                            Perguntar no WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mt-16 rounded-3xl bg-white p-8 md:p-12 shadow-soft">
+                <h2 class="mb-6 font-display text-3xl text-foreground">Descrição do Produto</h2>
+                <div class="desc-content text-black/70 text-base leading-relaxed">
+                    {{ produto.descricao|safe }}
+                </div>
+            </div>
+
+            <!-- Product Specs -->
+            <div class="mt-8 rounded-3xl bg-white p-8 md:p-12 shadow-soft">
+                <h2 class="mb-6 font-display text-3xl text-foreground">Especificações</h2>
+                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    <div class="rounded-2xl border border-black/10 p-5 text-center">
+                        <p class="text-2xl mb-1">⚖️</p>
+                        <p class="font-display text-xl text-primary">{{ produto.peso }} kg</p>
+                        <p class="text-xs text-black/50">Peso</p>
+                    </div>
+                    <div class="rounded-2xl border border-black/10 p-5 text-center">
+                        <p class="text-2xl mb-1">📐</p>
+                        <p class="font-display text-xl text-primary">{{ produto.altura }} cm</p>
+                        <p class="text-xs text-black/50">Altura</p>
+                    </div>
+                    <div class="rounded-2xl border border-black/10 p-5 text-center">
+                        <p class="text-2xl mb-1">↔️</p>
+                        <p class="font-display text-xl text-primary">{{ produto.largura }} cm</p>
+                        <p class="text-xs text-black/50">Largura</p>
+                    </div>
+                    <div class="rounded-2xl border border-black/10 p-5 text-center">
+                        <p class="text-2xl mb-1">📏</p>
+                        <p class="font-display text-xl text-primary">{{ produto.comprimento }} cm</p>
+                        <p class="text-xs text-black/50">Comprimento</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other Products -->
+        {% if outros_produtos %}
+        <section class="bg-white py-16">
+            <div class="container-max mx-auto px-4">
+                <h2 class="mb-10 text-center font-display text-3xl">Veja Também</h2>
+                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    {% for p in outros_produtos %}
+                    <div
+                        class="rounded-3xl border border-black/10 bg-card overflow-hidden shadow-soft transition hover:-translate-y-2 hover:shadow-strong">
+                        {% if p.imagem %}
+                        <a href="{% url 'produto-detalhe' p.id %}">
+                            <img src="{{ p.imagem.url }}" alt="{{ p.nome }}" class="w-full h-56 object-cover" />
+                        </a>
+                        {% endif %}
+                        <div class="p-5">
+                            <h3 class="mb-2 font-display text-lg">{{ p.nome }}</h3>
+                            <span class="font-display text-xl text-secondary">{{ p.preco|reais }}</span>
+                            <a href="{% url 'produto-detalhe' p.id %}"
+                                class="mt-3 block text-center rounded-full border-2 border-primary py-2 text-sm font-semibold text-primary transition hover:bg-primary hover:text-white">Ver
+                                Detalhes</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+        <!-- CTA WhatsApp -->
+        <section class="bg-foreground py-16 text-white">
+            <div class="container-max mx-auto px-4 text-center">
+                <h2 class="mb-4 font-display text-3xl md:text-4xl text-white">Ficou com Dúvida?</h2>
+                <p class="mb-8 text-white/70">Fale com nossa equipe no WhatsApp. Estamos prontos para ajudar!</p>
+                <a href="https://wa.me/5585991803678?text=Olá!%20Tenho%20interesse%20no%20produto:%20{{ produto.nome }}"
+                    target="_blank"
+                    class="inline-flex items-center justify-center gap-3 rounded-full bg-green-500 px-10 py-5 text-lg font-bold text-white shadow-lg transition hover:scale-[1.02] hover:bg-green-600">💬
+                    Chamar no WhatsApp</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-foreground border-t border-white/10 py-10 text-white/80">
+        <div class="container-max mx-auto px-4">
+            <div class="flex flex-col items-center gap-4 md:flex-row md:justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="{% static 'assets/images/logo2.png' %}" alt="Logo" class="h-10 rounded-full" />
+                    <span class="font-display text-lg text-white">Dona do <span class="text-primary">Chopp</span></span>
+                </div>
+                <div class="flex gap-6 text-sm">
+                    <a href="{% url 'home' %}" class="hover:text-primary transition-colors">Início</a>
+                    <a href="https://wa.me/5585991803678" target="_blank"
+                        class="hover:text-green-400 transition-colors">WhatsApp</a>
+                    <a href="https://instagram.com/donadochopp" target="_blank"
+                        class="hover:text-pink-400 transition-colors">Instagram</a>
+                </div>
+                <p class="text-xs text-white/40">© 2026 Dona do Chopp</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn?.addEventListener('click', () => {
+            const isOpen = mobileMenu.style.maxHeight !== '0px';
+            mobileMenu.style.maxHeight = isOpen ? '0px' : '500px';
+        });
+
+        // 3D drag-to-rotate with inertia (mouse + touch)
+        const card = document.getElementById('product3d');
+        const hint = document.getElementById('dragHint');
+        if (card) {
+            let isDragging = false;
+            let startX, startY, currentX = 0, currentY = 0;
+            let rotX = 0, rotY = 0;
+            let velX = 0, velY = 0;
+            let lastX = 0, lastY = 0, lastTime = 0;
+            let animId = null;
+            const sensitivity = 0.4;
+            const friction = 0.95;
+            const maxAngle = 40;
+
+            function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+            function updateTransform() {
+                card.style.transform = `rotateX(${clamp(rotX, -maxAngle, maxAngle)}deg) rotateY(${clamp(rotY, -maxAngle, maxAngle)}deg)`;
+                // Update shine based on rotation
+                const mx = 50 + (rotY / maxAngle) * 40;
+                const my = 50 - (rotX / maxAngle) * 40;
+                card.style.setProperty('--mx', mx + '%');
+                card.style.setProperty('--my', my + '%');
+            }
+
+            function onStart(x, y) {
+                isDragging = true;
+                card.classList.add('dragging');
+                startX = x; startY = y;
+                lastX = x; lastY = y;
+                lastTime = Date.now();
+                velX = 0; velY = 0;
+                if (animId) { cancelAnimationFrame(animId); animId = null; }
+                if (hint) hint.style.display = 'none';
+            }
+
+            function onMove(x, y) {
+                if (!isDragging) return;
+                const dx = x - lastX;
+                const dy = y - lastY;
+                const now = Date.now();
+                const dt = Math.max(now - lastTime, 1);
+                velX = dx / dt * 16;
+                velY = dy / dt * 16;
+                rotY += dx * sensitivity;
+                rotX -= dy * sensitivity;
+                rotX = clamp(rotX, -maxAngle, maxAngle);
+                rotY = clamp(rotY, -maxAngle, maxAngle);
+                lastX = x; lastY = y; lastTime = now;
+                updateTransform();
+            }
+
+            function onEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                card.classList.remove('dragging');
+                inertia();
+            }
+
+            function inertia() {
+                if (Math.abs(velX) < 0.05 && Math.abs(velY) < 0.05) {
+                    snapBack();
+                    return;
+                }
+                rotY += velX;
+                rotX -= velY;
+                rotX = clamp(rotX, -maxAngle, maxAngle);
+                rotY = clamp(rotY, -maxAngle, maxAngle);
+                velX *= friction;
+                velY *= friction;
+                updateTransform();
+                animId = requestAnimationFrame(inertia);
+            }
+
+            function snapBack() {
+                const snapFriction = 0.9;
+                function step() {
+                    rotX *= snapFriction;
+                    rotY *= snapFriction;
+                    updateTransform();
+                    if (Math.abs(rotX) > 0.2 || Math.abs(rotY) > 0.2) {
+                        animId = requestAnimationFrame(step);
+                    } else {
+                        rotX = 0; rotY = 0;
+                        updateTransform();
+                    }
+                }
+                animId = requestAnimationFrame(step);
+            }
+
+            // Mouse events
+            card.addEventListener('mousedown', (e) => { e.preventDefault(); onStart(e.clientX, e.clientY); });
+            window.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
+            window.addEventListener('mouseup', onEnd);
+
+            // Touch events
+            card.addEventListener('touchstart', (e) => {
+                const t = e.touches[0];
+                onStart(t.clientX, t.clientY);
+            }, { passive: true });
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const t = e.touches[0];
+                onMove(t.clientX, t.clientY);
+            }, { passive: true });
+            window.addEventListener('touchend', onEnd);
+
+            // Double click to reset
+            card.addEventListener('dblclick', () => {
+                if (animId) { cancelAnimationFrame(animId); animId = null; }
+                velX = 0; velY = 0;
+                snapBack();
+            });
+        }
+    </script>
+</body>
+
+</html>

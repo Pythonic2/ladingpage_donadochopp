@@ -1,0 +1,617 @@
+{% load static %}
+{% load format_filters %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dona do Chopp - Chopeiras Personalizadas</title>
+    <meta name="description"
+        content="Chopeiras artesanais estilo bomba vintage. Monte seu negócio de chopp com equipamentos exclusivos!" />
+    <meta name="keywords"
+        content="chopeira, bomba de gasolina, chopeira bomba, kit chopeira, chopeira personalizada, carrinho de chopp, chopp na praia" />
+    <link rel="icon" type="image/png" href="{% static 'assets/images/logo.jpeg' %}" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#fbf9f4',
+                        foreground: '#241a16',
+                        primary: '#f5a524',
+                        secondary: '#e74236',
+                        muted: '#7b6f68',
+                        card: '#ffffff',
+                        border: 'rgba(36,26,22,.10)'
+                    },
+                    fontFamily: {
+                        display: ['Georgia', 'Times New Roman', 'serif'],
+                        body: ['Inter', 'Segoe UI', 'Arial', 'sans-serif']
+                    },
+                    boxShadow: {
+                        soft: '0 10px 30px rgba(0,0,0,.08)',
+                        strong: '0 20px 50px rgba(0,0,0,.12)',
+                        glow: '0 0 40px rgba(245,165,36,.3)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fbf9f4;
+            color: #241a16;
+        }
+
+        .container-max {
+            max-width: 1200px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: all .8s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass {
+            backdrop-filter: blur(12px);
+            background: rgba(251, 249, 244, .92);
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, rgb(251, 249, 244) 0%, rgba(245, 165, 36, 0.08) 40%, rgba(245, 165, 36, 0.15) 70%, rgba(231, 66, 54, 0.06) 100%);
+        }
+
+        .section-warm {
+            background: linear-gradient(rgb(255, 255, 255) 0%, rgba(245, 165, 36, 0.06) 50%, rgb(255, 255, 255) 100%);
+        }
+
+        .section-red {
+            background: linear-gradient(rgb(255, 255, 255) 0%, rgba(231, 66, 54, 0.04) 30%, rgba(231, 66, 54, 0.08) 70%, rgb(255, 255, 255) 100%);
+        }
+
+        .stats-dark {
+            background: #241a16;
+        }
+
+        .gallery-item img {
+            transition: transform .5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.06);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(36, 26, 22, 0);
+            transition: background .3s ease;
+        }
+
+        .gallery-item:hover::after {
+            background: rgba(36, 26, 22, .08);
+        }
+
+        .mobile-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .35s ease;
+        }
+
+        .mobile-panel.open {
+            max-height: 500px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #f5a524, #e74236);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .price-card {
+            transition: all .3s ease;
+        }
+
+        .price-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(245, 165, 36, .15);
+        }
+    </style>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-W8M4FXSH');</script>
+</head>
+
+<body class="font-body text-foreground">
+    <!-- GTM noscript -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8M4FXSH" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass shadow-lg">
+        <div class="container-max mx-auto flex items-center justify-between py-3 px-4">
+            <a href="#hero" class="flex items-center gap-3">
+                <img src="{% static 'assets/images/logo.jpeg' %}" alt="Dona do Chopp" class="h-12 rounded-full" />
+                <span class="font-display text-xl font-bold text-foreground">Dona do <span
+                        class="text-primary">Chopp</span></span>
+            </a>
+            <nav class="hidden lg:flex items-center gap-6">
+                <a href="#hero"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Início</a>
+                <a href="#produtos"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Chopeiras</a>
+                <a href="#como-funciona"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Como
+                    Funciona</a>
+                <a href="#diferenciais"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Diferenciais</a>
+                <a href="#galeria"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Galeria</a>
+                <a href="https://wa.me/5585991803678" target="_blank"
+                    class="inline-flex items-center justify-center rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:scale-[1.02] hover:bg-secondary/90">Fale
+                    Conosco</a>
+            </nav>
+            <button id="menuBtn"
+                class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-foreground shadow-soft"
+                aria-label="Abrir menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobileMenu" class="mobile-panel lg:hidden border-t border-black/5 bg-white/95 px-4">
+            <div class="container-max mx-auto flex flex-col gap-3 py-4">
+                <a href="#hero" class="py-2">Início</a>
+                <a href="#produtos" class="py-2">Chopeiras</a>
+                <a href="#como-funciona" class="py-2">Como Funciona</a>
+                <a href="#diferenciais" class="py-2">Diferenciais</a>
+                <a href="#galeria" class="py-2">Galeria</a>
+                <a href="https://wa.me/5585991803678" target="_blank" class="py-2 text-secondary font-semibold">Fale
+                    Conosco</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="hero" class="hero-bg relative min-h-screen overflow-hidden pt-24 lg:pt-20 flex items-center">
+            <div class="absolute top-20 left-10 h-32 w-32 rounded-full bg-primary/10 blur-2xl"></div>
+            <div class="absolute bottom-20 right-20 h-48 w-48 rounded-full bg-secondary/10 blur-3xl"></div>
+            <div class="absolute top-1/3 right-1/4 h-6 w-6 rounded-full bg-primary/30 animate-bounce"></div>
+            <div class="container-max mx-auto grid items-center gap-8 px-4 lg:grid-cols-2">
+                <div class="order-2 text-center lg:order-1 lg:text-left reveal is-visible">
+                    <span
+                        class="mb-6 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">⛽
+                        Chopeira Bomba de Gasolina</span>
+                    <h1 class="mb-6 font-display text-5xl leading-[0.95] text-foreground md:text-6xl lg:text-7xl">
+                        Sua Chopeira <span class="gradient-text">Personalizada</span> Pronta para <span
+                            class="text-secondary">Faturar!</span>
+                    </h1>
+                    <p class="mb-8 max-w-xl text-lg leading-relaxed text-black/60 md:text-xl">
+                        Fabricamos chopeiras artesanais no estilo bomba de combustível vintage. Equipamento completo,
+                        personalizado com sua marca e pronto para usar em praias, eventos e estabelecimentos.
+                    </p>
+                    <div class="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
+                        <a href="#produtos"
+                            class="inline-flex items-center justify-center rounded-full bg-secondary px-8 py-4 text-lg font-bold text-white shadow-soft transition hover:scale-[1.02] hover:bg-secondary/90">Ver
+                            Chopeiras</a>
+                        <a href="https://wa.me/5585991803678" target="_blank"
+                            class="inline-flex items-center justify-center rounded-full border-2 border-primary bg-white px-8 py-4 text-lg font-bold text-primary transition hover:bg-primary hover:text-white">Falar
+                            no WhatsApp</a>
+                    </div>
+                </div>
+                <div class="order-1 flex justify-center lg:order-2 reveal is-visible">
+                    <img src="{% static 'assets/images/amarela_preta.jpg' %}" alt="Chopeira Bomba Vintage"
+                        class="max-h-[80vh] w-full max-w-md object-cover rounded-3xl drop-shadow-2xl lg:max-w-lg" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Produtos / Chopeiras -->
+        <section id="produtos" class="bg-white py-20 md:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mb-16 text-center reveal">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-secondary/15 px-4 py-1.5 text-sm font-semibold text-secondary">🏷️
+                        Nossas Chopeiras</span>
+                    <h2 class="mb-4 font-display text-4xl md:text-5xl">Escolha Sua <span
+                            class="text-secondary">Chopeira</span></h2>
+                    <p class="mx-auto max-w-2xl text-lg text-black/60">Todas personalizadas com sua marca e cores. Frete
+                        grátis para todo o Brasil!</p>
+                </div>
+                <div class="mx-auto grid max-w-6xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    {% for produto in produtos %}
+                    <div
+                        class="price-card rounded-3xl border border-black/10 bg-card overflow-hidden shadow-soft reveal">
+                        {% if produto.imagem %}
+                        <a href="{% url 'produto-detalhe' produto.id %}">
+                            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}"
+                                class="w-full h-64 object-cover transition duration-500 hover:scale-105" />
+                        </a>
+                        {% endif %}
+                        <div class="p-6">
+                            <h3 class="mb-2 font-display text-xl">{{ produto.nome }}</h3>
+                            <div class="mb-4">
+                                {% if produto.preco_sem_desconto > 0 %}
+                                <span class="text-sm text-black/40 line-through">{{ produto.preco_sem_desconto|reais
+                                    }}</span>
+                                {% endif %}
+                                <span class="font-display text-2xl text-secondary">{{ produto.preco|reais }}</span>
+                                <span class="text-xs text-black/50 block mt-1">ou 10x sem juros</span>
+                            </div>
+                            <p class="mb-4 text-xs text-primary font-semibold">🚚 Frete grátis para todo Brasil</p>
+                            <div class="flex gap-2">
+                                <a href="{% url 'produto-detalhe' produto.id %}"
+                                    class="flex-1 block text-center rounded-full border-2 border-primary py-2.5 text-sm font-semibold text-primary transition hover:bg-primary hover:text-white">Ver
+                                    Detalhes</a>
+                                <a href="{% url 'cadastrar-usuario' produto.id %}"
+                                    class="flex-1 block text-center rounded-full bg-secondary py-2.5 text-sm font-semibold text-white transition hover:bg-secondary/90">Comprar</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="col-span-full text-center text-black/50">Nenhum produto cadastrado ainda.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Como Funciona -->
+        <section id="como-funciona" class="section-warm py-20 md:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mb-16 text-center reveal">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">💰
+                        Como Trabalhar</span>
+                    <h2 class="font-display text-4xl text-foreground md:text-5xl">Comece a <span
+                            class="text-primary">Faturar</span> Hoje</h2>
+                </div>
+                <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
+                    <div class="group text-center reveal">
+                        <div class="relative mx-auto mb-6">
+                            <div
+                                class="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                                <span class="text-4xl">🎨</span>
+                            </div>
+                            <span
+                                class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-secondary font-display text-lg text-white">1</span>
+                        </div>
+                        <h3 class="mb-3 font-display text-2xl">Escolha e Personalize</h3>
+                        <p class="leading-relaxed text-black/60">Escolha o modelo da chopeira, defina suas cores e envie
+                            sua logomarca. Fabricamos sob medida para o seu negócio.</p>
+                    </div>
+                    <div class="group text-center reveal">
+                        <div class="relative mx-auto mb-6">
+                            <div
+                                class="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary/10 text-secondary transition-transform duration-300 group-hover:scale-110">
+                                <span class="text-4xl">📦</span>
+                            </div>
+                            <span
+                                class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-secondary font-display text-lg text-white">2</span>
+                        </div>
+                        <h3 class="mb-3 font-display text-2xl">Receba em Casa</h3>
+                        <p class="leading-relaxed text-black/60">Entregamos em até 15 dias para todo o Brasil. Embalagem
+                            reforçada e seguro incluso. A mais rápida do mercado!</p>
+                    </div>
+                    <div class="group text-center reveal">
+                        <div class="relative mx-auto mb-6">
+                            <div
+                                class="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
+                                <span class="text-4xl">💰</span>
+                            </div>
+                            <span
+                                class="absolute -right-2 -top-2 flex h-8 w-8 items-center justify-center rounded-full bg-secondary font-display text-lg text-white">3</span>
+                        </div>
+                        <h3 class="mb-3 font-display text-2xl">Comece a Vender</h3>
+                        <p class="leading-relaxed text-black/60">Com 1 barril de 30L você fatura R$ 1.350 na praia. Em
+                            eventos, um barril de 50L rende R$ 1.200. Retorno rápido!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trabalhe na Praia / Eventos -->
+        <section class="bg-white py-20 md:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="grid items-center gap-12 lg:grid-cols-2 reveal">
+                    <div>
+                        <span
+                            class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">🏖️
+                            Chopp na Praia</span>
+                        <h2 class="mb-6 font-display text-4xl md:text-5xl">Fature na <span
+                                class="text-primary">Praia</span> Todo Dia</h2>
+                        <p class="mb-4 text-lg leading-relaxed text-black/60">Com a chopeira bomba de gasolina você
+                            vende chopp de forma completamente inovadora. O visual chama atenção e os clientes fazem
+                            fila para "abastecer"!</p>
+                        <p class="mb-6 leading-relaxed text-black/60">Com apenas 1 barril de 30 litros, você vende 90
+                            copos de 330ml a R$15 cada = <strong class="text-foreground">R$ 1.350 de
+                                faturamento</strong>.</p>
+                        <div class="flex gap-8">
+                            <div>
+                                <p class="font-display text-3xl text-primary">R$1.350</p>
+                                <p class="text-sm text-black/60">Por barril na praia</p>
+                            </div>
+                            <div>
+                                <p class="font-display text-3xl text-secondary">R$1.200</p>
+                                <p class="text-sm text-black/60">Por evento</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="gallery-item relative overflow-hidden rounded-2xl col-span-2"><img
+                                src="{% static 'assets/images/amarela_preta.jpg' %}" alt="Chopeira na praia"
+                                class="w-full h-64 object-cover" /></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diferenciais -->
+        <section id="diferenciais" class="section-red relative overflow-hidden py-20 md:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mb-16 text-center reveal">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-secondary/15 px-4 py-1.5 text-sm font-semibold text-secondary">✨
+                        Diferenciais</span>
+                    <h2 class="mb-4 font-display text-4xl md:text-5xl">Por Que Escolher a <span
+                            class="text-secondary">Dona do Chopp?</span></h2>
+                </div>
+                <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    <div
+                        class="reveal rounded-2xl border-2 border-black/10 bg-card p-8 shadow-soft transition hover:border-secondary/40 hover:shadow-strong">
+                        <h3 class="mb-3 font-display text-xl">🚚 Entrega Rápida</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Entrega mais rápida do Brasil, em até 15 dias a
+                            chopeira estará na sua casa.</p>
+                    </div>
+                    <div
+                        class="reveal rounded-2xl border-2 border-black/10 bg-card p-8 shadow-soft transition hover:border-secondary/40 hover:shadow-strong">
+                        <h3 class="mb-3 font-display text-xl">🏆 Referência no Mercado</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Única fabricante que também trabalha vendendo
+                            chopp. Conhecemos as melhores estratégias para lucrar.</p>
+                    </div>
+                    <div
+                        class="reveal rounded-2xl border-2 border-black/10 bg-card p-8 shadow-soft transition hover:border-secondary/40 hover:shadow-strong">
+                        <h3 class="mb-3 font-display text-xl">📚 Suporte Completo</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Ensinamos tudo do ZERO. Cada etapa, desde
+                            conexões até aquisição e venda do chopp.</p>
+                    </div>
+                    <div
+                        class="reveal rounded-2xl border-2 border-black/10 bg-card p-8 shadow-soft transition hover:border-secondary/40 hover:shadow-strong">
+                        <h3 class="mb-3 font-display text-xl">✅ Qualidade Comprovada</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Equipamentos testados diariamente para garantir
+                            durabilidade, eficácia e eficiência.</p>
+                    </div>
+                    <div
+                        class="reveal rounded-2xl border-2 border-black/10 bg-card p-8 shadow-soft transition hover:border-secondary/40 hover:shadow-strong">
+                        <h3 class="mb-3 font-display text-xl">🔒 Pistola Inox 304</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Única fabricante com pistola em INOX 304, ideal
+                            para consumo de produtos alimentícios.</p>
+                    </div>
+                    <div
+                        class="reveal rounded-2xl border-2 border-black/10 bg-card p-8 shadow-soft transition hover:border-secondary/40 hover:shadow-strong">
+                        <h3 class="mb-3 font-display text-xl">🛡️ Garantia 1 Ano</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Garantia de funcionamento total, com
+                            substituição de qualquer peça com defeito.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="stats-dark py-20 md:py-28 text-white">
+            <div class="container-max mx-auto px-4">
+                <div class="grid grid-cols-2 gap-8 lg:grid-cols-4">
+                    <div class="text-center reveal">
+                        <div class="font-display text-4xl text-primary md:text-5xl">150+</div>
+                        <p class="mt-2 text-sm text-white/70">Chopeiras Vendidas</p>
+                    </div>
+                    <div class="text-center reveal">
+                        <div class="font-display text-4xl text-primary md:text-5xl">40+</div>
+                        <p class="mt-2 text-sm text-white/70">Cidades Atendidas</p>
+                    </div>
+                    <div class="text-center reveal">
+                        <div class="font-display text-4xl text-primary md:text-5xl">15</div>
+                        <p class="mt-2 text-sm text-white/70">Dias de Entrega</p>
+                    </div>
+                    <div class="text-center reveal">
+                        <div class="font-display text-4xl text-primary md:text-5xl">98%</div>
+                        <p class="mt-2 text-sm text-white/70">Satisfação</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Depoimentos -->
+        <section class="bg-white py-20 md:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mb-12 text-center reveal">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">💬
+                        Depoimentos</span>
+                    <h2 class="font-display text-4xl md:text-5xl">Quem Comprou <span
+                            class="text-primary">Recomenda</span></h2>
+                </div>
+                <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-3 reveal">
+                    <div class="rounded-2xl border border-black/10 bg-card p-6 shadow-soft">
+                        <div class="mb-4 flex gap-1 text-primary">★★★★★</div>
+                        <p class="mb-6 text-sm leading-relaxed text-black/70">"Comprei a chopeira e em 2 meses já
+                            recuperei o investimento. O visual chama muita atenção na praia e os clientes adoram!"</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center font-display text-primary">
+                                R</div>
+                            <div>
+                                <p class="font-semibold text-sm">Roberto Silva</p>
+                                <p class="text-xs text-black/50">Empreendedor - Recife/PE</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl border border-black/10 bg-card p-6 shadow-soft">
+                        <div class="mb-4 flex gap-1 text-primary">★★★★★</div>
+                        <p class="mb-6 text-sm leading-relaxed text-black/70">"A qualidade é impressionante.
+                            Personalizada com minha marca ficou incrível. O suporte ensinou tudo do zero!"</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="h-10 w-10 rounded-full bg-secondary/10 flex items-center justify-center font-display text-secondary">
+                                M</div>
+                            <div>
+                                <p class="font-semibold text-sm">Marcos Oliveira</p>
+                                <p class="text-xs text-black/50">Dono de Bar - Floripa/SC</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl border border-black/10 bg-card p-6 shadow-soft">
+                        <div class="mb-4 flex gap-1 text-primary">★★★★★</div>
+                        <p class="mb-6 text-sm leading-relaxed text-black/70">"Chegou antes do prazo, bem embalada e
+                            funcionando perfeitamente. Já uso em eventos toda semana. Já encomendei a segunda!"</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center font-display text-primary">
+                                A</div>
+                            <div>
+                                <p class="font-semibold text-sm">Ana Beatriz</p>
+                                <p class="text-xs text-black/50">Eventos - João Pessoa/PB</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeria -->
+        <section id="galeria" class="section-warm py-20 md:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mb-12 text-center reveal">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">📸
+                        Galeria</span>
+                    <h2 class="font-display text-4xl md:text-5xl">Chopeiras <span class="text-primary">Já
+                            Produzidas</span></h2>
+                </div>
+                <div class="grid grid-cols-2 gap-3 md:grid-cols-4 reveal">
+                    {% for produto in produtos %}
+                    {% if produto.imagem %}
+                    <div
+                        class="gallery-item relative overflow-hidden rounded-2xl {% if forloop.first %}col-span-2 row-span-2{% endif %}">
+                        <a href="{% url 'produto-detalhe' produto.id %}">
+                            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}"
+                                class="aspect-square h-full w-full object-cover" />
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final -->
+        <section class="bg-foreground py-20 md:py-28 text-white">
+            <div class="container-max mx-auto px-4">
+                <div class="mx-auto max-w-3xl text-center reveal">
+                    <h2 class="mb-6 font-display text-4xl md:text-5xl lg:text-6xl text-white">Pronto para Montar Seu
+                        <span class="gradient-text">Negócio de Chopp?</span></h2>
+                    <p class="mb-10 text-lg text-white/70">Fale com nossa equipe agora pelo WhatsApp. Tire suas dúvidas,
+                        escolha o modelo e receba sua chopeira personalizada!</p>
+                    <div class="flex flex-col gap-4 sm:flex-row sm:justify-center">
+                        <a href="https://wa.me/5585991803678?text=Olá!%20Quero%20saber%20mais%20sobre%20as%20chopeiras!"
+                            target="_blank"
+                            class="inline-flex items-center justify-center gap-3 rounded-full bg-green-500 px-10 py-5 text-lg font-bold text-white shadow-lg transition hover:scale-[1.02] hover:bg-green-600">
+                            💬 Chamar no WhatsApp
+                        </a>
+                        <a href="#produtos"
+                            class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/30 px-10 py-5 text-lg font-bold text-white transition hover:border-primary hover:text-primary">
+                            Ver Chopeiras
+                        </a>
+                    </div>
+                    <div class="mt-10 flex flex-wrap justify-center gap-6 text-sm text-white/50">
+                        <span>✓ Parcele em até 10x sem juros</span>
+                        <span>✓ Frete grátis para todo Brasil</span>
+                        <span>✓ Garantia de 1 ano</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer" class="bg-foreground border-t border-white/10 py-12 text-white/80">
+        <div class="container-max mx-auto px-4">
+            <div class="mb-8 grid gap-8 md:grid-cols-3">
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="{% static 'assets/images/logo.jpeg' %}" alt="Logo" class="h-12 rounded-full" />
+                        <span class="font-display text-xl text-white">Dona do <span
+                                class="text-primary">Chopp</span></span>
+                    </div>
+                    <p class="text-sm leading-relaxed text-white/60">Chopeiras artesanais estilo bomba vintage.
+                        Equipamentos personalizados para seu negócio de chopp.</p>
+                </div>
+                <div>
+                    <h4 class="mb-4 font-display text-xl text-white">Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#hero" class="transition-colors hover:text-primary">Início</a></li>
+                        <li><a href="#produtos" class="transition-colors hover:text-primary">Chopeiras</a></li>
+                        <li><a href="#como-funciona" class="transition-colors hover:text-primary">Como Funciona</a></li>
+                        <li><a href="#diferenciais" class="transition-colors hover:text-primary">Diferenciais</a></li>
+                        <li><a href="#galeria" class="transition-colors hover:text-primary">Galeria</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="mb-4 font-display text-xl text-white">Contato</h4>
+                    <div class="space-y-3 text-sm">
+                        <a href="https://wa.me/5585991803678" target="_blank"
+                            class="flex items-center gap-2 hover:text-green-400 transition-colors">💬 (85)
+                            99180-3678</a>
+                        <a href="https://instagram.com/donadochopp" target="_blank"
+                            class="flex items-center gap-2 hover:text-pink-400 transition-colors">📷 @donadochopp</a>
+                        <p>📍 Fortaleza - CE</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-6 text-center">
+                <p class="text-xs text-white/40">© 2026 Dona do Chopp. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+        document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('is-visible');
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
