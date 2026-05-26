@@ -40,11 +40,11 @@ DEBUG = ENVIRONMENT == "development"
 
 if ENVIRONMENT == "production":
     ALLOWED_HOSTS = _list_from_env("DJANGO_ALLOWED_HOSTS", [
-        "vendas.donadochopp.com.br",
+        "vendas1.donadochopp.com.br",
         "192.168.1.7",
     ])
     CSRF_TRUSTED_ORIGINS = _list_from_env("DJANGO_CSRF_TRUSTED_ORIGINS", [
-        "https://vendas.donadochopp.com.br",
+        "https://vendas1.donadochopp.com.br",
         "http://192.168.1.7:8010",
     ])
 else:
