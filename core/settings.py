@@ -52,11 +52,13 @@ else:
         "localhost",
         "127.0.0.1",
         "0.0.0.0",
+        "vendas1.donadochopp.com.br",
         "192.168.1.7",
     ])
     CSRF_TRUSTED_ORIGINS = _list_from_env("DJANGO_CSRF_TRUSTED_ORIGINS", [
         "http://localhost",
         "http://127.0.0.1",
+        "https://vendas1.donadochopp.com.br",
         "http://192.168.1.7:8010",
     ])
 # Application definition
