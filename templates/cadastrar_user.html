@@ -1,644 +1,327 @@
-{% load static%}
+{% load static %}
+{% load format_filters %}
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Choppeiras - Choppeiras Premium Bomba de Gasolina</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finalizar pedido - Dona do Chopp</title>
+    <meta name="description" content="Finalize seu pedido da chopeira personalizada Dona do Chopp." />
+    <link rel="icon" type="image/png" href="{% static 'assets/images/logo2.png' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#fff8ec',
+                        ink: '#20130f',
+                        amber: '#f7a51e',
+                        flame: '#df2f24',
+                        beer: '#ffc247',
+                        leaf: '#169b4f',
+                    },
+                    fontFamily: {
+                        display: ['Georgia', 'Times New Roman', 'serif'],
+                        body: ['Inter', 'Segoe UI', 'Arial', 'sans-serif']
+                    },
+                    boxShadow: {
+                        soft: '0 14px 35px rgba(32,19,15,.10)',
+                        lift: '0 24px 70px rgba(32,19,15,.18)',
+                        cta: '0 14px 34px rgba(223,47,36,.34)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
+            background:
+                radial-gradient(circle at 82% 12%, rgba(255, 194, 71, .30), transparent 28%),
+                radial-gradient(circle at 12% 80%, rgba(223, 47, 36, .10), transparent 30%),
+                linear-gradient(115deg, #fff8ec 0%, #fff4df 52%, #fffaf1 100%);
+            color: #20130f;
+            font-family: Inter, Segoe UI, Arial, sans-serif;
         }
 
-        /* Cores da marca baseadas no logo */
-        :root {
-            --primary-red: #E31E24;
-            --primary-yellow: #FFD700;
-            --dark-red: #B91C22;
-            --light-yellow: #FFF8DC;
-            --dark-gray: #2c2c2c;
-            --light-gray: #f8f9fa;
+        .container-max {
+            max-width: 1180px;
         }
 
-        /* Header com vídeo */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 50%, var(--primary-red) 100%);
-            color: white;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
+        .order-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: rgba(32, 19, 15, .58);
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="80" cy="40" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="40" cy="80" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 20px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: var(--primary-red);
-            font-size: 1.2rem;
-        }
-
-        .hero-text h1 {
-            font-size: 3.5rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, var(--primary-yellow), #FFA500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); }
-            to { text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
-        }
-
-        .hero-text p {
-            font-size: 1.4rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(45deg, var(--primary-yellow), #FFA500);
-            color: var(--dark-red);
-            padding: 18px 40px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.5);
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        .order-form input,
+        .order-form select,
+        .order-form textarea {
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .hero-video {
-            position: relative;
-        }
-
-        .video-container {
-            width: 100%;
-            height: 400px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            border: 3px solid var(--primary-yellow);
-        }
-
-        .video-placeholder {
-            text-align: center;
-            color: white;
-        }
-
-        .video-placeholder .play-button {
-            width: 80px;
-            height: 80px;
-            background: var(--primary-yellow);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--dark-red);
-            font-size: 2rem;
-        }
-
-        .video-placeholder .play-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
-        }
-
-        /* Seção de Produtos */
-        .products {
-            padding: 100px 0;
-            background: var(--light-gray);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 60px;
-            color: var(--dark-gray);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border-top: 4px solid var(--primary-red);
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-        }
-
-        .product-image {
-            height: 250px;
-            background: linear-gradient(135deg, var(--light-yellow), #fff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><text y="50%" x="50%" font-size="60" text-anchor="middle" dominant-baseline="middle" fill="%23E31E24" opacity="0.1">REAL</text></svg>');
-        }
-
-        .product-info {
-            padding: 30px;
-            text-align: center;
-        }
-
-        .product-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--dark-gray);
-        }
-
-        .product-info p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .product-price {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary-red);
-            margin-bottom: 20px;
-        }
-
-        /* Seção de Benefícios */
-        .benefits {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .benefit-card {
-            background: var(--light-gray);
-            padding: 40px 30px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-        }
-
-        .benefit-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(45deg, var(--primary-red), var(--primary-yellow));
-        }
-
-        .benefit-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .benefit-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--dark-gray);
-        }
-
-        /* Seção de Depoimentos */
-        .testimonials {
-            padding: 100px 0;
-            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
-            color: white;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .testimonial-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            border: 2px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-
-        .testimonial-image {
-            width: 100%;
-            height: 200px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed rgba(255,255,255,0.3);
-            font-size: 1.1rem;
-            text-align: center;
-            color: rgba(255,255,255,0.7);
-        }
-
-        .testimonial-content h4 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--primary-yellow);
-        }
-
-        .testimonial-content .stars {
-            color: var(--primary-yellow);
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-
-        /* Seção de Preços */
-        .pricing {
-            padding: 100px 0;
-            background: var(--light-gray);
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .price-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            border: 2px solid #e1e1e1;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .price-card.featured {
-            transform: scale(1.05);
-            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
-            color: white;
-            border-color: var(--primary-yellow);
-        }
-
-        .price-card:hover {
-            transform: translateY(-10px) scale(1.02);
-        }
-
-        .price-card.featured:hover {
-            transform: translateY(-10px) scale(1.07);
-        }
-
-        .price {
-            font-size: 3rem;
-            font-weight: bold;
-            margin: 20px 0;
-            color: var(--primary-red);
-        }
-
-        .price-card.featured .price {
-            color: var(--primary-yellow);
-        }
-
-        .features {
-            list-style: none;
-            margin: 30px 0;
-        }
-
-        .features li {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-
-        .price-card.featured .features li {
-            border-bottom-color: rgba(255,255,255,0.2);
-        }
-
-        /* Formulário de Contato */
-        .contact {
-            padding: 100px 0;
-            background: white;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--light-gray);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border-top: 4px solid var(--primary-red);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e1e1e1;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+            border-radius: 18px;
+            border: 1px solid rgba(32, 19, 15, .12);
+            background: #fffaf1;
+            padding: 14px 16px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #20130f;
             outline: none;
-            border-color: var(--primary-red);
+            transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
         }
 
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(45deg, var(--primary-red), var(--dark-red));
-            color: white;
-            padding: 18px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            font-weight: bold;
+        .order-form input:focus,
+        .order-form select:focus,
+        .order-form textarea:focus {
+            border-color: #f7a51e;
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(247, 165, 30, .18);
+        }
+
+        .order-form input[type="file"] {
+            padding: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(227, 30, 36, 0.3);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--dark-gray);
-            color: white;
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        /* Responsivo */
-        @media (max-width: 768px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 40px;
-            }
-            
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-            
-            .products-grid,
-            .benefits-grid,
-            .testimonials-grid,
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .price-card.featured {
-                transform: none;
-            }
-
-            .video-container {
-                height: 300px;
-            }
-        }
-
-        /* Animações de entrada */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* WhatsApp flutuante */
-        .whatsapp-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 40px;
-            right: 40px;
-            background: #25d366;
-            color: white;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            z-index: 1000;
-            text-decoration: none;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); }
-            50% { box-shadow: 0 5px 20px rgba(37, 211, 102, 0.8); }
-            100% { box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4); }
+        .order-form .errorlist {
+            margin-top: 8px;
+            list-style: none;
+            font-size: 13px;
+            font-weight: 800;
+            color: #df2f24;
         }
     </style>
 </head>
-<body>
 
-    <!-- Contato -->
-    <section id="contato" class="contact">
-        <div class="container">
-            <h2 class="section-title">Faça seu Pedido Agora!</h2>
-           <form class="contact-form fade-in" method="POST" action="{% url 'cadastrar-pedido' %}" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ form }}
-                        
-                    <img id="cor-preview" src="" alt="Cor escolhida" style="max-width:200px; display:none; margin:10px 0;">
+<body class="min-h-screen">
+    <div class="bg-gradient-to-r from-flame to-amber py-2 text-center text-xs font-black uppercase text-white sm:text-sm">
+        Frete grátis + 10% off no Pix para todo o Brasil
+    </div>
 
-                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 10px;">
-                        {% if produto.imagem %}
-                            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" style="width: 64px; height: 64px; object-fit: cover; border-radius: 8px; border: 1px solid #eee;">
+    <header class="border-b border-ink/5 bg-white/88 backdrop-blur">
+        <div class="container-max mx-auto flex items-center justify-between px-4 py-4">
+            <a href="{% url 'home' %}" class="flex items-center gap-3" aria-label="Dona do Chopp">
+                <img src="{% static 'assets/images/logo2.png' %}" alt="Dona do Chopp" class="h-14 w-auto" />
+            </a>
+            <a href="{% url 'home' %}#produtos"
+                class="rounded-full border-2 border-ink/10 px-5 py-3 text-xs font-black uppercase text-ink transition hover:border-amber hover:text-flame">
+                Voltar aos modelos
+            </a>
+        </div>
+    </header>
+
+    <main class="container-max mx-auto grid gap-8 px-4 py-10 lg:grid-cols-[.85fr_1.15fr] lg:py-16">
+        <aside class="lg:sticky lg:top-8 lg:self-start">
+            <div class="overflow-hidden rounded-[1.5rem] bg-white shadow-lift">
+                <div class="bg-cream p-5">
+                    {% if produto.imagem %}
+                    <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}"
+                        class="mx-auto h-72 w-full object-contain" />
+                    {% else %}
+                    <div class="flex h-72 items-center justify-center rounded-2xl bg-white text-sm font-black uppercase text-ink/35">
+                        Produto selecionado
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="p-6">
+                    <p class="mb-3 inline-flex rounded-full bg-flame/10 px-4 py-2 text-xs font-black uppercase text-flame">
+                        Pedido personalizado
+                    </p>
+                    <h1 class="font-display text-4xl font-black leading-tight">{{ produto.nome }}</h1>
+                    <div class="mt-4">
+                        {% if produto.preco_sem_desconto > 0 %}
+                        <p class="text-sm font-semibold text-ink/35 line-through">{{ produto.preco_sem_desconto|reais }}</p>
                         {% endif %}
-                        <div>
-                            <p style="margin:0;"><strong>Produto escolhido:</strong> {{ produto.nome }}</p>
-                            <p style="margin:0;"><strong>Preço:</strong> R$ {{ produto.preco|floatformat:2 }}</p>
+                        <p class="font-display text-5xl font-black text-flame">{{ produto.preco|reais }}</p>
+                        <p class="mt-1 text-sm font-bold text-ink/50">ou em até 10x sem juros</p>
+                    </div>
+
+                    <div class="mt-6 grid gap-3 text-sm font-bold text-ink/64">
+                        <div class="flex items-center gap-3 rounded-2xl bg-cream px-4 py-3">
+                            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-leaf text-white">✓</span>
+                            Personalização com sua marca
+                        </div>
+                        <div class="flex items-center gap-3 rounded-2xl bg-cream px-4 py-3">
+                            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-leaf text-white">✓</span>
+                            Garantia de 1 ano e suporte
+                        </div>
+                        <div class="flex items-center gap-3 rounded-2xl bg-cream px-4 py-3">
+                            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-leaf text-white">✓</span>
+                            Envio para todo o Brasil
+                        </div>
+                        <div class="flex items-center gap-3 rounded-2xl bg-cream px-4 py-3">
+                            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-amber text-white">+</span>
+                            Frete para retirada no aeroporto da capital: R$ 499,00
                         </div>
                     </div>
-                    <input type="hidden" name="produto_id" value="{{ produto.id }}">
                 </div>
-                <button type="submit" class="submit-btn">🚀 Finalizar Pedido</button>
+            </div>
+        </aside>
+
+        <section class="rounded-[1.5rem] bg-white p-5 shadow-lift sm:p-7 lg:p-9">
+            <div class="mb-8">
+                <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Dados para compra</p>
+                <h2 class="font-display text-4xl font-black leading-tight md:text-5xl">Finalize seu pedido</h2>
+                <p class="mt-3 max-w-2xl text-base font-semibold leading-relaxed text-ink/58">
+                    Preencha seus dados para gerar o pedido. Por enquanto, o frete considera retirada no aeroporto da capital do estado informado.
+                </p>
+            </div>
+
+            <form id="order-form" class="order-form" method="POST" action="{% url 'cadastrar-pedido' %}"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <input type="hidden" name="produto_id" value="{{ produto.id }}">
+
+                <div class="grid gap-5 md:grid-cols-2">
+                    <div>
+                        {{ form.nome_cliente.label_tag }}
+                        {{ form.nome_cliente }}
+                        {{ form.nome_cliente.errors }}
+                    </div>
+                    <div>
+                        {{ form.telefone_cliente.label_tag }}
+                        {{ form.telefone_cliente }}
+                        {{ form.telefone_cliente.errors }}
+                    </div>
+                    <div>
+                        {{ form.email_cliente.label_tag }}
+                        {{ form.email_cliente }}
+                        {{ form.email_cliente.errors }}
+                    </div>
+                    <div>
+                        {{ form.cpf_cliente.label_tag }}
+                        {{ form.cpf_cliente }}
+                        {{ form.cpf_cliente.errors }}
+                    </div>
+                    <div>
+                        {{ form.data_nascimento_cliente.label_tag }}
+                        {{ form.data_nascimento_cliente }}
+                        {{ form.data_nascimento_cliente.errors }}
+                    </div>
+                    <div>
+                        {{ form.quantidade.label_tag }}
+                        {{ form.quantidade }}
+                        {{ form.quantidade.errors }}
+                    </div>
+                    <div class="md:col-span-2">
+                        {{ form.endereco_cliente.label_tag }}
+                        {{ form.endereco_cliente }}
+                        {{ form.endereco_cliente.errors }}
+                    </div>
+                    <div>
+                        {{ form.cep_cliente.label_tag }}
+                        {{ form.cep_cliente }}
+                        <p class="mt-2 text-xs font-bold text-ink/42">Use o CEP da capital onde será feita a retirada no aeroporto.</p>
+                        {{ form.cep_cliente.errors }}
+                    </div>
+                    <div>
+                        {{ form.cor_produto.label_tag }}
+                        {{ form.cor_produto }}
+                        {{ form.cor_produto.errors }}
+                    </div>
+                    <div>
+                        {{ form.logo.label_tag }}
+                        {{ form.logo }}
+                        {{ form.logo.errors }}
+                    </div>
+                </div>
+
+                <div class="mt-6 hidden overflow-hidden rounded-[1.25rem] border border-ink/10 bg-cream p-4" id="cor-preview-card">
+                    <div class="flex items-center gap-4">
+                        <img id="cor-preview" src="" alt="Cor escolhida"
+                            class="h-24 w-24 rounded-2xl bg-white object-cover shadow-soft sm:h-28 sm:w-28">
+                        <div>
+                            <p class="text-xs font-black uppercase text-ink/42">Prévia da cor</p>
+                            <p id="cor-preview-name" class="mt-1 font-display text-2xl font-black text-ink">Cor selecionada</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 rounded-[1.25rem] bg-cream p-4 sm:flex sm:items-center sm:justify-between sm:gap-5">
+                    <div>
+                        <p class="text-xs font-black uppercase text-ink/42">Resumo do pedido</p>
+                        <div class="mt-2 grid gap-1 text-sm font-bold text-ink/60">
+                            <p class="flex justify-between gap-6"><span>Produto</span><span>{{ produto.preco|reais }}</span></p>
+                            <p class="flex justify-between gap-6"><span>Frete até aeroporto da capital</span><span>R$ 499,00</span></p>
+                        </div>
+                        <p class="mt-3 text-xs font-black uppercase text-ink/42">Total com frete</p>
+                        <p class="font-display text-3xl font-black text-flame">{{ produto.preco|add_value:499|reais }}</p>
+                    </div>
+                    <button type="submit"
+                        class="mt-4 w-full rounded-full bg-flame px-7 py-4 text-sm font-black uppercase text-white shadow-cta transition hover:scale-[1.02] sm:mt-0 sm:w-auto">
+                        Finalizar pedido
+                    </button>
+                </div>
             </form>
-            <script>
-const corSelect = document.getElementById("id_cor_produto");
-const corPreview = document.getElementById("cor-preview");
+        </section>
+    </main>
 
-// Mapeie o valor do select para o caminho da imagem correspondente
-const corImagens = {
-    "amarela_vermelha": "{% static 'assets/images/amarela_vermelha.jpg' %}",
-    "amarela_preta": "{% static 'assets/images/amarela_preta.jpg' %}",
-    "laranja_preta": "{% static 'assets/images/laranja_preta.jpg' %}",
-    "branca_preta": "{% static 'assets/images/branca_preta.jpg' %}",
-    "vermelha": "{% static 'assets/images/vermelha.jpg' %}",
-    "rosa_preta": "{% static 'assets/images/rosa_preta.jpg' %}",
-    "verde_branca": "{% static 'assets/images/verde_branca.jpg' %}",
-    "vermelha_preta": "{% static 'assets/images/vermelha_preta.jpg' %}",
-    "preta_verde": "{% static 'assets/images/preta_verde.jpg' %}",
-    "azul_vermelha": "{% static 'assets/images/azul_vermelha.jpg' %}",
-};
-
-corSelect.addEventListener("change", function() {
-    const cor = corSelect.value;
-    if (corImagens[cor]) {
-        corPreview.src = corImagens[cor];
-        corPreview.style.display = "block";
-    } else {
-        corPreview.style.display = "none";
-    }
-});
-</script>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 Dona do Chopp - Transformando.</p>
-            <p>📞 (85) 99180-3678 | 📧 contato@donadochopp.com.br</p>
+    <footer class="bg-ink py-8 text-white/65">
+        <div class="container-max mx-auto flex flex-col gap-3 px-4 text-sm font-semibold sm:flex-row sm:items-center sm:justify-between">
+            <p>Dona do Chopp - Chopeiras personalizadas</p>
+            <a href="https://wa.me/5585991803678" target="_blank" class="text-leaf hover:text-white">
+                Atendimento: (85) 99180-3678
+            </a>
         </div>
     </footer>
 
     <script>
-        // Animação de entrada dos elementos
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.fade-in');
-            const windowHeight = window.innerHeight;
-            
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                
-                if (elementTop < windowHeight - 100) {
-                    element.style.animationDelay = Math.random() * 0.3 + 's';
-                }
-            });
+        const corSelect = document.getElementById("id_cor_produto");
+        const corPreview = document.getElementById("cor-preview");
+        const corPreviewCard = document.getElementById("cor-preview-card");
+        const corPreviewName = document.getElementById("cor-preview-name");
+
+        const corImagens = {
+            "amarela_vermelha": "{% static 'assets/images/amarela_vermelha.jpg' %}",
+            "amarela_preta": "{% static 'assets/images/amarela_preta.jpg' %}",
+            "laranja_preta": "{% static 'assets/images/laranja_preta.jpg' %}",
+            "branca_preta": "{% static 'assets/images/branca_preta.jpg' %}",
+            "vermelha": "{% static 'assets/images/vermelha.jpg' %}",
+            "rosa_preta": "{% static 'assets/images/rosa_preta.jpg' %}",
+            "verde_branca": "{% static 'assets/images/verde_branca.jpg' %}",
+            "vermelha_preta": "{% static 'assets/images/vermelha_preta.jpg' %}",
+            "preta_verde": "{% static 'assets/images/preta_verde.jpg' %}",
+            "azul_vermelha": "{% static 'assets/images/azul_vermelha.jpg' %}",
+        };
+
+        function updateCorPreview() {
+            if (!corSelect || !corPreview || !corPreviewCard) return;
+
+            const cor = corSelect.value;
+            const selectedText = corSelect.options[corSelect.selectedIndex]?.text || "Cor selecionada";
+
+            if (corImagens[cor]) {
+                corPreview.src = corImagens[cor];
+                corPreviewName.textContent = selectedText;
+                corPreviewCard.classList.remove("hidden");
+            } else {
+                corPreview.removeAttribute("src");
+                corPreviewCard.classList.add("hidden");
+            }
         }
 
-        // Smooth
+        if (corSelect) {
+            corSelect.addEventListener("change", updateCorPreview);
+            updateCorPreview();
+        }
+
+        const cepInput = document.getElementById("id_cep_cliente");
+        cepInput?.addEventListener("input", function () {
+            let v = this.value.replace(/\D/g, "").slice(0, 8);
+            if (v.length > 5) v = v.slice(0, 5) + "-" + v.slice(5);
+            this.value = v;
+        });
+    </script>
+</body>
+
+</html>

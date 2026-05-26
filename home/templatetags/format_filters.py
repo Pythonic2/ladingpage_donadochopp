@@ -8,3 +8,11 @@ def reais(value):
         return "R$ {:,.2f}".format(float(value)).replace(",", "X").replace(".", ",").replace("X", ".")
     except:
         return value
+
+
+@register.filter
+def add_value(value, amount):
+    try:
+        return float(value) + float(amount)
+    except:
+        return value

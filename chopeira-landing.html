@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dona do Chopp - Chopeiras Personalizadas</title>
+    <meta name="description"
+        content="Chopeiras artesanais estilo bomba vintage. Monte seu negócio de chopp com equipamentos exclusivos!" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#fbf9f4',
+                        foreground: '#241a16',
+                        primary: '#f5a524',
+                        secondary: '#e74236',
+                        muted: '#7b6f68',
+                        card: '#ffffff',
+                        accent: '#1a1a2e'
+                    },
+                    fontFamily: {
+                        display: ['Georgia', 'Times New Roman', 'serif'],
+                        body: ['Inter', 'Segoe UI', 'Arial', 'sans-serif']
+                    },
+                    boxShadow: {
+                        soft: '0 10px 30px rgba(0,0,0,.08)',
+                        strong: '0 20px 50px rgba(0,0,0,.12)',
+                        glow: '0 0 40px rgba(245,165,36,.3)'
+                    },
+                    animation: {
+                        floaty: 'floaty 4s ease-in-out infinite',
+                        fadeUp: 'fadeUp .8s ease forwards',
+                        pulse3d: 'pulse3d 2s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        floaty: {
+                            '0%,100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(24px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        pulse3d: {
+                            '0%,100%': { boxShadow: '0 0 20px rgba(245,165,36,.2)' },
+                            '50%': { boxShadow: '0 0 40px rgba(245,165,36,.4)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fbf9f4;
+            color: #241a16;
+        }
+
+        .container-max {
+            max-width: 1200px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: all .8s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass {
+            backdrop-filter: blur(12px);
+            background: rgba(251, 249, 244, .92);
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .section-dark {
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        #viewer3d {
+            cursor: grab;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        #viewer3d:active {
+            cursor: grabbing;
+        }
+
+        .viewer-hint {
+            animation: pulse3d 2s ease-in-out infinite;
+        }
+
+        .price-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(245, 165, 36, .15);
+        }
+
+        .price-card {
+            transition: all .3s ease;
+        }
+
+        .feature-icon {
+            transition: transform .3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .mobile-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .35s ease;
+        }
+
+        .mobile-panel.open {
+            max-height: 500px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #f5a524, #e74236);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+
+<body class="font-body text-foreground">
+
+    <!-- Header -->
+    <header id="siteHeader" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass shadow-lg">
+        <div class="container-max mx-auto flex items-center justify-between py-3 px-4">
+            <a href="#hero" class="flex items-center gap-3">
+                <span class="font-display text-2xl font-bold text-foreground">Dona do <span
+                        class="text-primary">Chopp</span></span>
+            </a>
+            <nav class="hidden lg:flex items-center gap-6">
+                <a href="#hero"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Início</a>
+                <a href="#chopeira-3d"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Visualizar
+                    3D</a>
+                <a href="#modelos"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Modelos</a>
+                <a href="#diferenciais"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Diferenciais</a>
+                <a href="#depoimentos"
+                    class="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">Depoimentos</a>
+                <a href="#comprar"
+                    class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:scale-[1.02] hover:bg-primary/90">Comprar
+                    Agora</a>
+            </nav>
+            <button id="menuBtn"
+                class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-foreground shadow-soft"
+                aria-label="Abrir menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobileMenu" class="mobile-panel lg:hidden border-t border-black/5 bg-white/95 px-4">
+            <div class="container-max mx-auto flex flex-col gap-3 py-4">
+                <a href="#hero" class="py-2">Início</a>
+                <a href="#chopeira-3d" class="py-2">Visualizar 3D</a>
+                <a href="#modelos" class="py-2">Modelos</a>
+                <a href="#diferenciais" class="py-2">Diferenciais</a>
+                <a href="#depoimentos" class="py-2">Depoimentos</a>
+                <a href="#comprar" class="py-2 text-primary font-semibold">Comprar Agora</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="hero" class="hero-bg relative min-h-screen overflow-hidden pt-24 lg:pt-20 flex items-center">
+            <div class="absolute top-20 left-10 h-40 w-40 rounded-full bg-primary/20 blur-3xl"></div>
+            <div class="absolute bottom-20 right-20 h-56 w-56 rounded-full bg-secondary/15 blur-3xl"></div>
+            <div
+                class="absolute top-1/2 left-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl">
+            </div>
+            <div class="container-max mx-auto grid items-center gap-8 px-4 lg:grid-cols-2">
+                <div class="order-2 text-center lg:order-1 lg:text-left">
+                    <span
+                        class="mb-6 inline-block rounded-full bg-primary/20 px-4 py-1.5 text-sm font-semibold text-primary">⛽
+                        Chopeira Estilo Bomba Vintage</span>
+                    <h1 class="mb-6 font-display text-5xl leading-[0.95] text-white md:text-6xl lg:text-7xl">
+                        Sua Chopeira <span class="gradient-text">Personalizada</span> Pronta para Faturar
+                    </h1>
+                    <p class="mb-8 max-w-xl text-lg leading-relaxed text-white/70 md:text-xl">
+                        Fabricamos chopeiras artesanais no estilo bomba de combustível vintage. Equipamento completo,
+                        personalizado com sua marca e pronto para usar em praias, eventos e estabelecimentos.
+                    </p>
+                    <div class="flex flex-col gap-4 sm:flex-row sm:justify-center lg:justify-start">
+                        <a href="#comprar"
+                            class="inline-flex items-center justify-center rounded-full bg-primary px-8 py-4 text-lg font-bold text-white shadow-glow transition hover:scale-[1.02] hover:bg-primary/90">Quero
+                            a Minha</a>
+                        <a href="#chopeira-3d"
+                            class="inline-flex items-center justify-center rounded-full border-2 border-white/30 px-8 py-4 text-lg font-bold text-white transition hover:border-primary hover:text-primary">Ver
+                            em 3D</a>
+                    </div>
+                    <div class="mt-10 flex gap-8 justify-center lg:justify-start">
+                        <div>
+                            <p class="font-display text-3xl text-primary">150+</p>
+                            <p class="text-sm text-white/60">Chopeiras vendidas</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-3xl text-primary">40+</p>
+                            <p class="text-sm text-white/60">Cidades atendidas</p>
+                        </div>
+                        <div>
+                            <p class="font-display text-3xl text-primary">98%</p>
+                            <p class="text-sm text-white/60">Satisfação</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 flex justify-center lg:order-2">
+                    <div class="relative">
+                        <div class="absolute inset-0 rounded-full bg-primary/10 blur-3xl scale-75"></div>
+                        <img src="./static/assets/images/amarela_preta.jpg" alt="Chopeira Bomba Vintage Amarela e Preta"
+                            class="relative max-h-[70vh] w-full max-w-md object-cover rounded-3xl shadow-strong lg:max-w-lg" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D Viewer Section -->
+        <section id="chopeira-3d" class="section-dark py-20 md:py-28 text-white">
+            <div class="container-max mx-auto px-4">
+                <div class="mb-12 text-center reveal">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-primary/20 px-4 py-1.5 text-sm font-semibold text-primary">🔄
+                        Visualização Interativa</span>
+                    <h2 class="mb-4 font-display text-4xl md:text-5xl text-white">Explore a Chopeira em <span
+                            class="gradient-text">3D</span></h2>
+                    <p class="mx-auto max-w-2xl text-lg text-white/60">Arraste para girar, scroll para zoom. Veja cada
+                        detalhe da nossa chopeira bomba vintage de todos os ângulos!</p>
+                </div>
+                <div class="mx-auto max-w-4xl reveal">
+                    <div class="relative">
+                        <div id="viewer3d"
+                            class="w-full aspect-[4/3] md:aspect-[16/9] bg-gradient-to-b from-gray-900 to-gray-800 rounded-2xl shadow-strong viewer-hint">
+                        </div>
+                        <div
+                            class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm rounded-full px-4 py-2 text-sm text-white/70 pointer-events-none">
+                            🖱️ Arraste para girar • Scroll para zoom • Clique duplo para resetar
+                        </div>
+                    </div>
+                    <!-- Color/Model Selector -->
+                    <div class="mt-8 flex flex-wrap justify-center gap-4">
+                        <button onclick="changeColor(0xf5a524)"
+                            class="h-10 w-10 rounded-full bg-[#f5a524] border-2 border-white/30 hover:border-white transition shadow-lg"
+                            title="Amarela"></button>
+                        <button onclick="changeColor(0xe74236)"
+                            class="h-10 w-10 rounded-full bg-[#e74236] border-2 border-white/30 hover:border-white transition shadow-lg"
+                            title="Vermelha"></button>
+                        <button onclick="changeColor(0x1a1a1a)"
+                            class="h-10 w-10 rounded-full bg-[#1a1a1a] border-2 border-white/30 hover:border-white transition shadow-lg"
+                            title="Preta"></button>
+                        <button onclick="changeColor(0xffffff)"
+                            class="h-10 w-10 rounded-full bg-[#ffffff] border-2 border-white/30 hover:border-white transition shadow-lg"
+                            title="Branca"></button>
+                        <button onclick="changeColor(0xff6b00)"
+                            class="h-10 w-10 rounded-full bg-[#ff6b00] border-2 border-white/30 hover:border-white transition shadow-lg"
+                            title="Laranja"></button>
+                        <button onclick="changeColor(0x2ecc71)"
+                            class="h-10 w-10 rounded-full bg-[#2ecc71] border-2 border-white/30 hover:border-white transition shadow-lg"
+                            title="Verde"></button>
+                    </div>
+                    <p class="text-center mt-3 text-white/50 text-sm">Clique nas cores para personalizar a chopeira</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features / Diferenciais -->
+        <section id="diferenciais" class="bg-white py-20 md:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mb-16 text-center reveal">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">✨
+                        Diferenciais</span>
+                    <h2 class="font-display text-4xl text-foreground md:text-5xl">Por Que Escolher a <span
+                            class="text-primary">Dona do Chopp?</span></h2>
+                </div>
+                <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 lg:grid-cols-3">
+                    <div
+                        class="feature-card group text-center rounded-2xl border border-black/10 bg-card p-8 shadow-soft reveal">
+                        <div
+                            class="feature-icon mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-4xl">
+                            🎨</div>
+                        <h3 class="mb-3 font-display text-xl">100% Personalizada</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Sua marca, suas cores, seu estilo. Cada
+                            chopeira é única e feita sob medida para o seu negócio.</p>
+                    </div>
+                    <div
+                        class="feature-card group text-center rounded-2xl border border-black/10 bg-card p-8 shadow-soft reveal">
+                        <div
+                            class="feature-icon mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary/10 text-4xl">
+                            ❄️</div>
+                        <h3 class="mb-3 font-display text-xl">Refrigeração Embutida</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Sistema de refrigeração profissional integrado.
+                            Chopp sempre na temperatura ideal, sem equipamento externo.</p>
+                    </div>
+                    <div
+                        class="feature-card group text-center rounded-2xl border border-black/10 bg-card p-8 shadow-soft reveal">
+                        <div
+                            class="feature-icon mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-4xl">
+                            ⛽</div>
+                        <h3 class="mb-3 font-display text-xl">Design Bomba Vintage</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Réplica artesanal de bomba de combustível
+                            antiga. Visual retrô que chama atenção e atrai clientes.</p>
+                    </div>
+                    <div
+                        class="feature-card group text-center rounded-2xl border border-black/10 bg-card p-8 shadow-soft reveal">
+                        <div
+                            class="feature-icon mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary/10 text-4xl">
+                            📏</div>
+                        <h3 class="mb-3 font-display text-xl">Medidor Funcional</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Medidor retrô que funciona de verdade! Controle
+                            a quantidade servida com estilo e precisão.</p>
+                    </div>
+                    <div
+                        class="feature-card group text-center rounded-2xl border border-black/10 bg-card p-8 shadow-soft reveal">
+                        <div
+                            class="feature-icon mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-4xl">
+                            🔧</div>
+                        <h3 class="mb-3 font-display text-xl">Fácil Manutenção</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Projetada para limpeza e manutenção simples.
+                            Peças acessíveis e suporte técnico incluso.</p>
+                    </div>
+                    <div
+                        class="feature-card group text-center rounded-2xl border border-black/10 bg-card p-8 shadow-soft reveal">
+                        <div
+                            class="feature-icon mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-secondary/10 text-4xl">
+                            🚚</div>
+                        <h3 class="mb-3 font-display text-xl">Entrega Brasil Todo</h3>
+                        <p class="text-sm leading-relaxed text-black/60">Enviamos para todo o Brasil com embalagem
+                            reforçada e seguro. Montagem inclusa em capitais.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modelos / Pricing -->
+        <section id="modelos" class="py-20 md:py-28 bg-background">
+            <div class="container-max mx-auto px-4">
+                <div class="mb-16 text-center reveal">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-secondary/15 px-4 py-1.5 text-sm font-semibold text-secondary">🏷️
+                        Modelos & Preços</span>
+                    <h2 class="mb-4 font-display text-4xl md:text-5xl">Escolha Seu <span
+                            class="text-secondary">Modelo</span></h2>
+                    <p class="mx-auto max-w-2xl text-lg text-black/60">Todas incluem refrigeração, personalização e
+                        garantia. Escolha o tamanho ideal para o seu negócio.</p>
+                </div>
+                <div class="mx-auto grid max-w-5xl gap-8 md:grid-cols-3">
+                    <!-- Modelo Básico -->
+                    <div
+                        class="price-card rounded-3xl border border-black/10 bg-card p-8 shadow-soft text-center reveal">
+                        <div
+                            class="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+                            Starter</div>
+                        <h3 class="mb-2 font-display text-2xl">Bomba Mini</h3>
+                        <p class="mb-6 text-sm text-black/60">Ideal para quem está começando</p>
+                        <div class="mb-6">
+                            <span class="font-display text-4xl text-foreground">R$ 3.500</span>
+                            <span class="text-sm text-black/40"> / à vista</span>
+                        </div>
+                        <ul class="mb-8 space-y-3 text-left text-sm">
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> 1 torneira</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Capacidade: 30L</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Refrigeração
+                                embutida</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Personalização
+                                básica</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Garantia 1 ano</li>
+                        </ul>
+                        <a href="#comprar"
+                            class="block w-full rounded-full border-2 border-primary py-3 font-semibold text-primary transition hover:bg-primary hover:text-white">Escolher</a>
+                    </div>
+                    <!-- Modelo Pro -->
+                    <div
+                        class="price-card relative rounded-3xl border-2 border-primary bg-card p-8 shadow-strong text-center reveal">
+                        <div
+                            class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-primary px-6 py-1.5 text-sm font-bold text-white shadow-glow">
+                            Mais Vendida</div>
+                        <div
+                            class="mb-4 inline-block rounded-full bg-secondary/10 px-4 py-1 text-sm font-semibold text-secondary">
+                            Pro</div>
+                        <h3 class="mb-2 font-display text-2xl">Bomba Clássica</h3>
+                        <p class="mb-6 text-sm text-black/60">O modelo completo para profissionais</p>
+                        <div class="mb-6">
+                            <span class="font-display text-4xl text-foreground">R$ 5.800</span>
+                            <span class="text-sm text-black/40"> / à vista</span>
+                        </div>
+                        <ul class="mb-8 space-y-3 text-left text-sm">
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> 2 torneiras</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Capacidade: 50L</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Refrigeração premium
+                            </li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Personalização
+                                completa</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Medidor retrô
+                                funcional</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Garantia 2 anos</li>
+                        </ul>
+                        <a href="#comprar"
+                            class="block w-full rounded-full bg-primary py-3 font-semibold text-white shadow-glow transition hover:scale-[1.02] hover:bg-primary/90">Escolher</a>
+                    </div>
+                    <!-- Modelo Premium -->
+                    <div
+                        class="price-card rounded-3xl border border-black/10 bg-card p-8 shadow-soft text-center reveal">
+                        <div
+                            class="mb-4 inline-block rounded-full bg-secondary/10 px-4 py-1 text-sm font-semibold text-secondary">
+                            Premium</div>
+                        <h3 class="mb-2 font-display text-2xl">Bomba Imperial</h3>
+                        <p class="mb-6 text-sm text-black/60">Para quem quer o melhor do melhor</p>
+                        <div class="mb-6">
+                            <span class="font-display text-4xl text-foreground">R$ 8.900</span>
+                            <span class="text-sm text-black/40"> / à vista</span>
+                        </div>
+                        <ul class="mb-8 space-y-3 text-left text-sm">
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> 3 torneiras</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Capacidade: 100L
+                            </li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Refrigeração
+                                industrial</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Full personalização
+                                + LED</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Medidor digital +
+                                retrô</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Rodas para
+                                transporte</li>
+                            <li class="flex items-center gap-2"><span class="text-primary">✓</span> Garantia 3 anos</li>
+                        </ul>
+                        <a href="#comprar"
+                            class="block w-full rounded-full border-2 border-secondary py-3 font-semibold text-secondary transition hover:bg-secondary hover:text-white">Escolher</a>
+                    </div>
+                </div>
+                <p class="mt-8 text-center text-sm text-black/50">* Parcelamos em até 12x no cartão. Consulte condições
+                    especiais para pagamento à vista.</p>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section class="bg-white py-20 md:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mb-12 text-center reveal">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">📸
+                        Galeria</span>
+                    <h2 class="font-display text-4xl md:text-5xl">Chopeiras <span class="text-primary">Já
+                            Produzidas</span></h2>
+                </div>
+                <div class="grid grid-cols-2 gap-3 md:grid-cols-4 reveal">
+                    <div class="group relative col-span-2 row-span-2 overflow-hidden rounded-2xl"><img
+                            src="./Dona do Chopp_files/foto1-BekAEJu7.jpg" alt="Bomba branca"
+                            class="aspect-square h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl"><img
+                            src="./Dona do Chopp_files/foto2-DcFX9YDb.jpg" alt="Bomba laranja"
+                            class="aspect-square h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl"><img
+                            src="./Dona do Chopp_files/foto9-vir4eu3S.jpg" alt="Bomba amarela"
+                            class="aspect-square h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl"><img
+                            src="./Dona do Chopp_files/foto4-NFGCPL6F.jpg" alt="Bomba ao ar livre"
+                            class="aspect-square h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                    </div>
+                    <div class="group relative overflow-hidden rounded-2xl"><img
+                            src="./Dona do Chopp_files/foto3-CjNd-PtE.jpg" alt="Chopeira em evento"
+                            class="aspect-square h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="depoimentos" class="py-20 md:py-28 bg-background">
+            <div class="container-max mx-auto px-4">
+                <div class="mb-12 text-center reveal">
+                    <span
+                        class="mb-4 inline-block rounded-full bg-primary/15 px-4 py-1.5 text-sm font-semibold text-primary">💬
+                        Depoimentos</span>
+                    <h2 class="font-display text-4xl md:text-5xl">Quem Comprou <span
+                            class="text-primary">Recomenda</span></h2>
+                </div>
+                <div class="mx-auto grid max-w-5xl gap-6 md:grid-cols-3 reveal">
+                    <div class="rounded-2xl border border-black/10 bg-card p-6 shadow-soft">
+                        <div class="mb-4 flex gap-1 text-primary">★★★★★</div>
+                        <p class="mb-6 text-sm leading-relaxed text-black/70">"Comprei a Bomba Clássica e em 2 meses já
+                            tinha recuperado o investimento. O visual chama muita atenção e os clientes adoram a
+                            experiência!"</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center font-display text-primary">
+                                R</div>
+                            <div>
+                                <p class="font-semibold text-sm">Roberto Silva</p>
+                                <p class="text-xs text-black/50">Empreendedor - Recife/PE</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl border border-black/10 bg-card p-6 shadow-soft">
+                        <div class="mb-4 flex gap-1 text-primary">★★★★★</div>
+                        <p class="mb-6 text-sm leading-relaxed text-black/70">"A qualidade é impressionante. Parece uma
+                            bomba de verdade! Personalizada com minha marca ficou incrível. Recomendo demais."</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="h-10 w-10 rounded-full bg-secondary/10 flex items-center justify-center font-display text-secondary">
+                                M</div>
+                            <div>
+                                <p class="font-semibold text-sm">Marcos Oliveira</p>
+                                <p class="text-xs text-black/50">Bar Owner - Floripa/SC</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl border border-black/10 bg-card p-6 shadow-soft">
+                        <div class="mb-4 flex gap-1 text-primary">★★★★★</div>
+                        <p class="mb-6 text-sm leading-relaxed text-black/70">"Atendimento nota 10 do início ao fim. A
+                            chopeira chegou antes do prazo, bem embalada e funcionando perfeitamente. Já encomendei a
+                            segunda!"</p>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center font-display text-primary">
+                                A</div>
+                            <div>
+                                <p class="font-semibold text-sm">Ana Beatriz</p>
+                                <p class="text-xs text-black/50">Eventos - João Pessoa/PB</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA / Comprar -->
+        <section id="comprar" class="section-dark py-20 md:py-28 text-white">
+            <div class="container-max mx-auto px-4">
+                <div class="mx-auto max-w-3xl text-center reveal">
+                    <h2 class="mb-6 font-display text-4xl md:text-5xl lg:text-6xl text-white">Pronto para Montar Seu
+                        <span class="gradient-text">Negócio de Chopp?</span>
+                    </h2>
+                    <p class="mb-10 text-lg text-white/70">Fale com nossa equipe agora pelo WhatsApp. Tire suas dúvidas,
+                        escolha o modelo e receba sua chopeira personalizada!</p>
+                    <div class="flex flex-col gap-4 sm:flex-row sm:justify-center">
+                        <a href="https://wa.me/5500000000000?text=Olá!%20Quero%20saber%20mais%20sobre%20as%20chopeiras!"
+                            target="_blank"
+                            class="inline-flex items-center justify-center gap-3 rounded-full bg-green-500 px-10 py-5 text-lg font-bold text-white shadow-lg transition hover:scale-[1.02] hover:bg-green-600">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                            </svg>
+                            Chamar no WhatsApp
+                        </a>
+                        <a href="tel:+5500000000000"
+                            class="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/30 px-10 py-5 text-lg font-bold text-white transition hover:border-primary hover:text-primary">
+                            📞 Ligar Agora
+                        </a>
+                    </div>
+                    <div class="mt-10 flex flex-wrap justify-center gap-6 text-sm text-white/50">
+                        <span>✓ Parcelamos em 12x</span>
+                        <span>✓ Frete para todo Brasil</span>
+                        <span>✓ Garantia de até 3 anos</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-foreground py-12 text-white/80">
+        <div class="container-max mx-auto px-4">
+            <div class="mb-8 grid gap-8 md:grid-cols-3">
+                <div>
+                    <p class="font-display text-2xl text-white mb-4">Dona do <span class="text-primary">Chopp</span></p>
+                    <p class="text-sm leading-relaxed text-white/60">Chopeiras artesanais estilo bomba vintage.
+                        Equipamentos personalizados para seu negócio de chopp.</p>
+                </div>
+                <div>
+                    <h4 class="mb-4 font-display text-xl text-white">Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#hero" class="transition-colors hover:text-primary">Início</a></li>
+                        <li><a href="#chopeira-3d" class="transition-colors hover:text-primary">Ver em 3D</a></li>
+                        <li><a href="#modelos" class="transition-colors hover:text-primary">Modelos</a></li>
+                        <li><a href="#diferenciais" class="transition-colors hover:text-primary">Diferenciais</a></li>
+                        <li><a href="#comprar" class="transition-colors hover:text-primary">Comprar</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="mb-4 font-display text-xl text-white">Contato</h4>
+                    <div class="space-y-2 text-sm">
+                        <p>📞 (00) 00000-0000</p>
+                        <p>📧 contato@donadochopp.com.br</p>
+                        <p>📍 João Pessoa - PB</p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-6 text-center">
+                <p class="text-xs text-white/40">© 2026 Dona do Chopp. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+        document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('is-visible');
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // === THREE.JS 3D Chopeira Viewer ===
+        let scene, camera, renderer, controls, chopeiraMesh, bodyMaterial;
+
+        function init3D() {
+            const container = document.getElementById('viewer3d');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            // Scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a1a2e);
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+            camera.position.set(0, 1.5, 5);
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            container.appendChild(renderer.domElement);
+
+            // Controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 2;
+            controls.maxDistance = 8;
+            controls.maxPolarAngle = Math.PI / 1.8;
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight.position.set(5, 8, 5);
+            dirLight.castShadow = true;
+            scene.add(dirLight);
+
+            const pointLight = new THREE.PointLight(0xf5a524, 0.5, 10);
+            pointLight.position.set(-2, 3, 2);
+            scene.add(pointLight);
+
+            const rimLight = new THREE.DirectionalLight(0xe74236, 0.3);
+            rimLight.position.set(-5, 2, -5);
+            scene.add(rimLight);
+
+            // Ground
+            const groundGeom = new THREE.CircleGeometry(3, 64);
+            const groundMat = new THREE.MeshStandardMaterial({ color: 0x111122, roughness: 0.8 });
+            const ground = new THREE.Mesh(groundGeom, groundMat);
+            ground.rotation.x = -Math.PI / 2;
+            ground.position.y = -0.01;
+            ground.receiveShadow = true;
+            scene.add(ground);
+
+            // Build Chopeira (Bomba Vintage style)
+            buildChopeira();
+
+            // Double click to reset
+            container.addEventListener('dblclick', () => {
+                controls.reset();
+                camera.position.set(0, 1.5, 5);
+            });
+
+            // Resize
+            window.addEventListener('resize', () => {
+                const w = container.clientWidth;
+                const h = container.clientHeight;
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+                renderer.setSize(w, h);
+            });
+
+            animate();
+        }
+
+        function buildChopeira() {
+            chopeiraMesh = new THREE.Group();
+
+            // Use the hero image already loaded in the DOM as texture source
+            const heroImg = document.querySelector('#hero img');
+
+            function createScene() {
+                // Create texture from the already-loaded hero image
+                const texture = new THREE.Texture(heroImg);
+                texture.needsUpdate = true;
+
+                // Calculate aspect ratio
+                const aspect = heroImg.naturalWidth / heroImg.naturalHeight;
+                const planeHeight = 3.0;
+                const planeWidth = planeHeight * aspect;
+
+                // Body material with image
+                bodyMaterial = new THREE.MeshStandardMaterial({
+                    map: texture,
+                    roughness: 0.3,
+                    metalness: 0.1,
+                    side: THREE.DoubleSide
+                });
+
+                const metalMaterial = new THREE.MeshStandardMaterial({
+                    color: 0xcccccc,
+                    roughness: 0.2,
+                    metalness: 0.9
+                });
+
+                const darkMaterial = new THREE.MeshStandardMaterial({
+                    color: 0x1a1a1a,
+                    roughness: 0.3,
+                    metalness: 0.7
+                });
+
+                // Main image panel (front)
+                const panelGeom = new THREE.PlaneGeometry(planeWidth, planeHeight);
+                const frontPanel = new THREE.Mesh(panelGeom, bodyMaterial);
+                frontPanel.position.set(0, planeHeight / 2 + 0.1, 0);
+                frontPanel.castShadow = true;
+                chopeiraMesh.add(frontPanel);
+
+                // Depth box behind the image (gives 3D thickness)
+                const depthGeom = new THREE.BoxGeometry(planeWidth, planeHeight, 0.15);
+                const depthMat = new THREE.MeshStandardMaterial({ color: 0x333333, roughness: 0.5, metalness: 0.3 });
+                const depthBox = new THREE.Mesh(depthGeom, depthMat);
+                depthBox.position.set(0, planeHeight / 2 + 0.1, -0.08);
+                chopeiraMesh.add(depthBox);
+
+                // Frame - top
+                const frameThickness = 0.06;
+                const frameMat = metalMaterial;
+
+                const frameTop = new THREE.Mesh(
+                    new THREE.BoxGeometry(planeWidth + frameThickness * 2, frameThickness, 0.2),
+                    frameMat
+                );
+                frameTop.position.set(0, planeHeight + 0.1 + frameThickness / 2, 0);
+                chopeiraMesh.add(frameTop);
+
+                // Frame - bottom
+                const frameBottom = new THREE.Mesh(
+                    new THREE.BoxGeometry(planeWidth + frameThickness * 2, frameThickness, 0.2),
+                    frameMat
+                );
+                frameBottom.position.set(0, 0.1 - frameThickness / 2, 0);
+                chopeiraMesh.add(frameBottom);
+
+                // Frame - left
+                const frameLeft = new THREE.Mesh(
+                    new THREE.BoxGeometry(frameThickness, planeHeight + frameThickness * 2, 0.2),
+                    frameMat
+                );
+                frameLeft.position.set(-planeWidth / 2 - frameThickness / 2, planeHeight / 2 + 0.1, 0);
+                chopeiraMesh.add(frameLeft);
+
+                // Frame - right
+                const frameRight = new THREE.Mesh(
+                    new THREE.BoxGeometry(frameThickness, planeHeight + frameThickness * 2, 0.2),
+                    frameMat
+                );
+                frameRight.position.set(planeWidth / 2 + frameThickness / 2, planeHeight / 2 + 0.1, 0);
+                chopeiraMesh.add(frameRight);
+
+                // Base pedestal
+                const pedestalGeom = new THREE.CylinderGeometry(0.06, 0.1, 0.4, 16);
+                const pedestal = new THREE.Mesh(pedestalGeom, darkMaterial);
+                pedestal.position.set(0, -0.1, 0);
+                chopeiraMesh.add(pedestal);
+
+                const baseGeom = new THREE.CylinderGeometry(0.6, 0.7, 0.08, 32);
+                const base = new THREE.Mesh(baseGeom, darkMaterial);
+                base.position.set(0, -0.34, 0);
+                base.receiveShadow = true;
+                chopeiraMesh.add(base);
+
+                // Spotlight on product
+                const spotLight = new THREE.SpotLight(0xf5a524, 0.5, 6, Math.PI / 6, 0.5);
+                spotLight.position.set(0, 4, 2);
+                spotLight.target = frontPanel;
+                scene.add(spotLight);
+            }
+
+            // If image is already loaded, build immediately; otherwise wait
+            if (heroImg.complete && heroImg.naturalWidth > 0) {
+                createScene();
+            } else {
+                heroImg.addEventListener('load', createScene);
+            }
+
+            scene.add(chopeiraMesh);
+        }
+
+        function changeColor(hex) {
+            // Color change applies to frame/base elements
+            if (chopeiraMesh) {
+                chopeiraMesh.children.forEach(child => {
+                    if (child.material && !child.material.map) {
+                        child.material.color.setHex(hex);
+                    }
+                });
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            // Subtle idle rotation
+            if (chopeiraMesh && !controls.isDragging) {
+                chopeiraMesh.rotation.y += 0.002;
+            }
+            renderer.render(scene, camera);
+        }
+
+        // Init 3D when section is visible
+        let viewer3dInitialized = false;
+        const viewer3dObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !viewer3dInitialized) {
+                    viewer3dInitialized = true;
+                    init3D();
+                }
+            });
+        }, { threshold: 0.1 });
+        viewer3dObserver.observe(document.getElementById('viewer3d'));
+    </script>
+</body>
+
+</html>

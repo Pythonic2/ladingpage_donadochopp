@@ -1,0 +1,1049 @@
+{% load static %}
+{% load format_filters %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dona do Chopp - Chopeiras Personalizadas para Vender Mais</title>
+    <meta name="description"
+        content="Chopeiras artesanais estilo bomba de gasolina para praia, eventos e delivery de chopp. Personalize com sua marca, receba em todo Brasil e comece a vender." />
+    <meta name="keywords"
+        content="chopeira, chopeira bomba de gasolina, chopeira personalizada, negócio de chopp, carrinho de chopp, vender chopp" />
+    <link rel="icon" type="image/png" href="{% static 'assets/images/logo2.png' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#fff8ec',
+                        ink: '#20130f',
+                        amber: '#f7a51e',
+                        flame: '#df2f24',
+                        beer: '#ffc247',
+                        leaf: '#169b4f',
+                    },
+                    fontFamily: {
+                        display: ['Georgia', 'Times New Roman', 'serif'],
+                        body: ['Inter', 'Segoe UI', 'Arial', 'sans-serif']
+                    },
+                    boxShadow: {
+                        soft: '0 14px 35px rgba(32,19,15,.10)',
+                        lift: '0 24px 70px rgba(32,19,15,.18)',
+                        cta: '0 14px 34px rgba(223,47,36,.34)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fff8ec;
+            color: #20130f;
+        }
+
+        .container-max {
+            max-width: 1180px;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .65s ease, transform .65s ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-shell {
+            background:
+                radial-gradient(circle at 70% 42%, rgba(255, 194, 71, .34), transparent 30%),
+                radial-gradient(circle at 88% 86%, rgba(223, 47, 36, .12), transparent 34%),
+                linear-gradient(115deg, #fff8ec 0%, #fff4df 48%, #fffaf1 100%);
+        }
+
+        .hero-product {
+            filter: drop-shadow(0 34px 36px rgba(32, 19, 15, .22));
+        }
+
+        .hero-logo-mark {
+            filter: drop-shadow(0 18px 22px rgba(247, 165, 30, .22));
+        }
+
+        .grain {
+            background-image:
+                linear-gradient(rgba(32, 19, 15, .04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(32, 19, 15, .04) 1px, transparent 1px);
+            background-size: 34px 34px;
+        }
+
+        .price-card {
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+
+        .price-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 70px rgba(32, 19, 15, .18);
+            border-color: rgba(223, 47, 36, .35);
+        }
+
+        .product-media {
+            background:
+                radial-gradient(circle at 50% 58%, rgba(255, 194, 71, .30), transparent 48%),
+                linear-gradient(180deg, #fffdf8, #fff8ec);
+        }
+
+        .product-media img {
+            filter: drop-shadow(0 18px 20px rgba(32, 19, 15, .18));
+        }
+
+        .urgency-bar {
+            background: linear-gradient(90deg, #df2f24, #f7a51e);
+        }
+
+        .mobile-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .3s ease;
+        }
+
+        .mobile-panel.open {
+            max-height: 460px;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding-top: 0;
+            transition: max-height .35s ease, padding-top .35s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 260px;
+            padding-top: 12px;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-icon {
+            transition: transform .25s ease;
+        }
+
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 70;
+            transform: translateY(100%);
+            transition: transform .35s ease;
+        }
+
+        .sticky-cta.visible {
+            transform: translateY(0);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 80;
+            width: 58px;
+            height: 58px;
+            border-radius: 999px;
+            background: #25d366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 16px 35px rgba(37, 211, 102, .36);
+            transition: transform .25s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.08);
+        }
+
+        .customizer-stage {
+            perspective: 1200px;
+            cursor: grab;
+            touch-action: none;
+        }
+
+        .customizer-stage.is-dragging {
+            cursor: grabbing;
+        }
+
+        .pump-3d {
+            transform-style: preserve-3d;
+            transition: transform .18s ease-out;
+        }
+
+        .pump-face {
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .pump-face.back {
+            transform: rotateY(180deg);
+        }
+
+        .pump-logo-slot {
+            left: 50%;
+            top: 8.2%;
+            width: 25%;
+            aspect-ratio: 1;
+            transform: translateX(-50%) translateZ(18px);
+            border-radius: 999px;
+        }
+
+        .pump-logo-slot img {
+            width: 76%;
+            height: 76%;
+            object-fit: contain;
+        }
+
+        .pump-logo-text {
+            font-size: clamp(10px, 2vw, 20px);
+            line-height: 1.02;
+        }
+
+        @media (max-width: 1023px) {
+            .hero-shell {
+                background:
+                    radial-gradient(circle at 50% 42%, rgba(255, 194, 71, .32), transparent 38%),
+                    linear-gradient(180deg, #fff8ec 0%, #fff4df 54%, #fffaf1 100%);
+            }
+
+            .whatsapp-float {
+                bottom: 92px;
+            }
+
+            .pump-logo-slot {
+                top: 8.4%;
+                width: 24%;
+            }
+        }
+    </style>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-W8M4FXSH');</script>
+</head>
+
+<body class="font-body text-ink antialiased">
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8M4FXSH" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="urgency-bar fixed left-0 right-0 top-0 z-[90] hidden px-4 py-2 text-center text-xs font-black uppercase tracking-wide text-white sm:text-sm md:block">
+        Oferta ativa: frete grátis + 10% off no PIX para todo o Brasil
+    </div>
+
+    <header class="fixed left-0 right-0 top-0 z-[80] border-b border-ink/10 bg-white/95 shadow-soft backdrop-blur-xl md:top-8">
+        <div class="container-max mx-auto flex items-center justify-between px-4 py-3 md:py-4">
+            <a href="#hero" class="flex items-center gap-3" aria-label="Dona do Chopp">
+                <img src="{% static 'assets/images/logo2.png' %}" alt="Dona do Chopp" class="h-12 w-auto object-contain md:h-14" />
+            </a>
+            <nav class="hidden items-center gap-6 lg:flex">
+                <a href="#hero" class="text-sm font-bold text-ink/75 transition hover:text-flame">Produto</a>
+                <a href="#produtos" class="text-sm font-bold text-ink/75 transition hover:text-flame">Modelos</a>
+                <a href="#lucro" class="text-sm font-bold text-ink/75 transition hover:text-flame">Lucro</a>
+                <a href="#prova" class="text-sm font-bold text-ink/75 transition hover:text-flame">Prova Social</a>
+                <a href="#faq" class="text-sm font-bold text-ink/75 transition hover:text-flame">Dúvidas</a>
+                <a href="https://wa.me/5585991803678?text=Olá!%20Quero%20comprar%20uma%20chopeira%20personalizada."
+                    target="_blank"
+                    class="rounded-full bg-flame px-7 py-3.5 text-sm font-black text-white shadow-cta transition hover:scale-[1.03]">
+                    Quero Minha Chopeira
+                </a>
+            </nav>
+            <button id="menuBtn"
+                class="lg:hidden flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-white"
+                aria-label="Abrir menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="4" x2="20" y1="6" y2="6" />
+                    <line x1="4" x2="20" y1="12" y2="12" />
+                    <line x1="4" x2="20" y1="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobileMenu" class="mobile-panel border-t border-ink/10 bg-white px-4 lg:hidden">
+            <div class="container-max mx-auto flex flex-col gap-1 py-4">
+                <a href="#produtos" class="py-3 text-sm font-bold">Modelos e preços</a>
+                <a href="#lucro" class="py-3 text-sm font-bold">Simulação de lucro</a>
+                <a href="#personalizar" class="py-3 text-sm font-bold">Simulador 3D</a>
+                <a href="#prova" class="py-3 text-sm font-bold">Avaliações</a>
+                <a href="#faq" class="py-3 text-sm font-bold">Dúvidas</a>
+                <a href="https://wa.me/5585991803678" target="_blank" class="py-3 text-sm font-black text-leaf">Chamar no WhatsApp</a>
+            </div>
+        </div>
+    </header>
+
+    <a href="https://wa.me/5585991803678?text=Olá!%20Quero%20saber%20qual%20chopeira%20é%20ideal%20para%20mim."
+        target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+        <svg width="29" height="29" fill="white" viewBox="0 0 24 24">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+            <path
+                d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.612.637l4.723-1.55A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.352 0-4.55-.693-6.397-1.883l-.378-.243-3.06 1.005 1.037-3.166-.265-.393A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
+        </svg>
+    </a>
+
+    <main>
+        <section id="hero" class="hero-shell min-h-screen pt-24 text-ink md:pt-36 lg:pt-32">
+            <div class="container-max mx-auto grid min-h-[calc(100vh-7rem)] items-center gap-8 px-4 pb-12 lg:grid-cols-[.95fr_1.05fr]">
+                <div class="max-w-2xl py-6 text-center lg:text-left">
+                    <div class="mb-5 inline-flex items-center rounded-full bg-flame/10 px-4 py-2 text-xs font-black uppercase tracking-wide text-flame">
+                        Produto exclusivo para eventos, festas e negócios
+                    </div>
+                    <h1 class="font-display text-4xl font-black leading-[1.02] sm:text-5xl lg:text-[5.2rem]">
+                        Venda mais impacto com a Chopeira Bomba
+                    </h1>
+                    <p class="mx-auto mt-6 max-w-xl text-base leading-relaxed text-ink/68 sm:text-lg lg:mx-0">
+                        A peça que transforma qualquer evento em atração. Uma chopeira personalizada no estilo bomba
+                        vintage, feita para chamar atenção, gerar fotos, encantar clientes e valorizar sua marca.
+                    </p>
+                    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
+                        <a href="#produtos"
+                            class="inline-flex items-center justify-center rounded-full bg-flame px-8 py-4 text-base font-black text-white shadow-cta transition hover:scale-[1.03]">
+                            Ver Modelos
+                        </a>
+                        <a href="#lucro"
+                            class="inline-flex items-center justify-center rounded-full border-2 border-amber px-8 py-4 text-base font-black text-amber transition hover:bg-amber hover:text-white">
+                            Ver Como Funciona
+                        </a>
+                    </div>
+                    <div class="mt-10 hidden grid-cols-3 gap-8 text-left sm:grid">
+                        <div>
+                            <p class="text-3xl font-light text-amber">+350</p>
+                            <p class="text-xs text-ink/52">eventos realizados</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-light text-flame">+40</p>
+                            <p class="text-xs text-ink/52">cidades alcançadas</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-light text-amber">98%</p>
+                            <p class="text-xs text-ink/52">satisfação</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative mx-auto h-[360px] w-full max-w-[520px] sm:h-[500px] lg:h-[620px] lg:max-w-none">
+                    <img src="{% static 'assets/images/aed46108-0684-4c51-ad43-86fcb4425c8b.png' %}" alt=""
+                        class="hero-logo-mark absolute -bottom-[35px] left-1/2 z-0 block w-[100%] max-w-none -translate-x-1/2 opacity-95 sm:w-[110%] lg:w-[100%]" />
+                    <!-- <div class="relative z-10 mx-auto flex items-end justify-center gap-0">
+                        <img src="{% static 'assets/images/bomba1.png' %}" alt="Chopeira bomba de gasolina personalizada"
+                            class="hero-product w-[48%] max-w-[290px] object-contain sm:w-[42%] lg:w-[38%]" />
+                        <img src="{% static 'assets/images/fullcombo.png' %}" alt="Kit de chopeira e acessórios"
+                            class="hero-product -ml-12 w-[58%] max-w-[390px] object-contain sm:-ml-16 lg:w-[54%]" />
+                    </div>
+                    <div class="relative z-20 mx-auto -mt-6 grid max-w-md grid-cols-3 gap-2 rounded-[1.25rem] bg-white/85 p-3 text-center shadow-soft backdrop-blur">
+                        <div>
+                            <p class="text-xs font-bold uppercase text-ink/42">Na praia</p>
+                            <p class="font-display text-xl font-black text-flame">R$ 1.350</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold uppercase text-ink/42">Eventos</p>
+                            <p class="font-display text-xl font-black text-flame">R$ 1.200</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold uppercase text-ink/42">Marca</p>
+                            <p class="font-display text-xl font-black text-leaf">Inclusa</p>
+                        </div> -->
+                    <!-- </div> -->
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white py-5">
+            <div class="container-max mx-auto grid gap-3 px-4 text-center text-sm font-black text-ink/65 sm:grid-cols-2 lg:grid-cols-5">
+                <span class="rounded-full bg-cream px-4 py-3">Frete grátis Brasil</span>
+                <span class="rounded-full bg-cream px-4 py-3">Garantia de 1 ano</span>
+                <span class="rounded-full bg-cream px-4 py-3">10x sem juros</span>
+                <span class="rounded-full bg-cream px-4 py-3">Suporte do zero</span>
+                <span class="rounded-full bg-cream px-4 py-3">Equipamento testado</span>
+            </div>
+        </section>
+
+        <section id="produtos" class="grain bg-cream py-20 lg:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mx-auto mb-12 max-w-3xl text-center reveal">
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Escolha o modelo ideal</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Chopeiras prontas para vender mais</h2>
+                    <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ink/60">
+                        Todas podem receber sua marca e suas cores. O objetivo é simples: chamar atenção, passar confiança e facilitar a venda do chopp.
+                    </p>
+                </div>
+
+                <div class="mx-auto grid max-w-5xl gap-7 md:grid-cols-2">
+                    {% for produto in produtos %}
+                    <article class="price-card reveal overflow-hidden rounded-[1.5rem] border border-ink/10 bg-white shadow-soft">
+                        {% if produto.imagem %}
+                        <a href="{% url 'produto-detalhe' produto.id %}" class="product-media block relative p-4">
+                            {% if produto.preco_sem_desconto > 0 %}
+                            <span class="absolute left-4 top-4 z-10 rounded-full bg-flame px-3 py-1.5 text-xs font-black uppercase text-white">Oferta</span>
+                            {% endif %}
+                            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}"
+                                class="mx-auto h-72 w-full object-contain transition duration-500 hover:scale-105" />
+                        </a>
+                        {% endif %}
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-black leading-tight">{{ produto.nome }}</h3>
+                            <div class="mt-4">
+                                {% if produto.preco_sem_desconto > 0 %}
+                                <p class="text-sm font-semibold text-ink/35 line-through">{{ produto.preco_sem_desconto|reais }}</p>
+                                {% endif %}
+                                <p class="font-display text-4xl font-black text-flame">{{ produto.preco|reais }}</p>
+                                <p class="mt-1 text-sm font-bold text-ink/50">ou em até 10x sem juros</p>
+                            </div>
+                            <ul class="mt-5 space-y-2 text-sm font-semibold text-ink/62">
+                                <li class="flex gap-2"><span class="font-black text-leaf">✓</span> Personalização com sua marca</li>
+                                <li class="flex gap-2"><span class="font-black text-leaf">✓</span> Frete grátis para todo Brasil</li>
+                                <li class="flex gap-2"><span class="font-black text-leaf">✓</span> Garantia e suporte na montagem</li>
+                            </ul>
+                            <div class="mt-6 grid gap-2">
+                                <a href="{% url 'cadastrar-usuario' produto.id %}"
+                                    class="rounded-full bg-flame px-5 py-3.5 text-center text-sm font-black uppercase text-white shadow-cta transition hover:scale-[1.02]">
+                                    Comprar agora
+                                </a>
+                                <a href="{% url 'produto-detalhe' produto.id %}"
+                                    class="rounded-full border-2 border-ink/12 px-5 py-3 text-center text-sm font-black text-ink transition hover:border-amber hover:text-flame">
+                                    Ver detalhes do modelo
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                    {% empty %}
+                    <div class="col-span-full rounded-[1.5rem] border border-dashed border-ink/15 bg-white p-10 text-center">
+                        <p class="text-lg font-bold text-ink/50">Nenhum produto cadastrado ainda.</p>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mt-12 rounded-[1.75rem] bg-ink p-6 text-white shadow-lift reveal md:flex md:items-center md:justify-between md:p-8">
+                    <div>
+                        <p class="text-sm font-black uppercase tracking-wide text-beer">Quer uma cor, marca ou combo diferente?</p>
+                        <h3 class="mt-2 font-display text-3xl font-black">Fabricamos sua chopeira sob medida.</h3>
+                    </div>
+                    <a href="https://wa.me/5585991803678?text=Olá!%20Quero%20um%20orçamento%20de%20chopeira%20personalizada."
+                        target="_blank"
+                        class="mt-6 inline-flex rounded-full bg-leaf px-7 py-4 text-sm font-black uppercase text-white transition hover:scale-[1.03] md:mt-0">
+                        Solicitar orçamento
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="lucro" class="bg-white py-20 lg:py-28">
+            <div class="container-max mx-auto grid items-center gap-12 px-4 lg:grid-cols-[.9fr_1.1fr]">
+                <div class="reveal">
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Por que esse equipamento vende?</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Ela não fica parada esperando cliente.</h2>
+                    <p class="mt-5 text-lg leading-relaxed text-ink/62">
+                        A chopeira tem apelo visual, vira foto, chama curiosidade e dá ao cliente a sensação de comprar de uma marca organizada.
+                        Isso ajuda muito em praia, eventos, condomínios, festas e pontos de grande circulação.
+                    </p>
+                    <div class="mt-8 grid gap-4 sm:grid-cols-2">
+                        <div class="rounded-[1.25rem] bg-cream p-5">
+                            <p class="text-sm font-black uppercase text-ink/45">Barril 30L</p>
+                            <p class="mt-1 font-display text-4xl font-black text-flame">R$ 1.350</p>
+                            <p class="mt-2 text-sm font-semibold text-ink/55">90 copos de 330ml vendidos a R$15.</p>
+                        </div>
+                        <div class="rounded-[1.25rem] bg-cream p-5">
+                            <p class="text-sm font-black uppercase text-ink/45">Barril 50L</p>
+                            <p class="mt-1 font-display text-4xl font-black text-flame">R$ 1.200</p>
+                            <p class="mt-2 text-sm font-semibold text-ink/55">Eventos com alto giro e atendimento rápido.</p>
+                        </div>
+                    </div>
+                    <p class="mt-5 text-xs font-semibold leading-relaxed text-ink/40">
+                        Valores são exemplos de faturamento bruto e podem variar conforme região, preço de venda, custos e volume de trabalho.
+                    </p>
+                </div>
+                <div class="grid gap-4 reveal">
+                    <div class="overflow-hidden rounded-[1.5rem] shadow-lift">
+                        <img src="{% static 'assets/images/praia.jpeg' %}" alt="Chopeira vendendo chopp na praia" class="h-[310px] w-full object-cover" />
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <img src="{% static 'assets/images/evento.jpeg' %}" alt="Chopeira em evento" class="h-44 w-full rounded-[1.25rem] object-cover shadow-soft" />
+                        <img src="{% static 'assets/images/fullcombo.png' %}" alt="Combo de chopeira e acessórios" class="h-44 w-full rounded-[1.25rem] bg-cream object-contain p-3 shadow-soft" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-ink py-16 text-white lg:py-24">
+            <div class="container-max mx-auto px-4">
+                <div class="grid gap-5 md:grid-cols-3">
+                    <div class="reveal rounded-[1.5rem] border border-white/10 bg-white/10 p-7">
+                        <p class="text-4xl font-black text-beer">1</p>
+                        <h3 class="mt-4 font-display text-2xl font-black">Você escolhe o modelo</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-white/62">Defina cores, estilo e envie sua logomarca para personalização.</p>
+                    </div>
+                    <div class="reveal rounded-[1.5rem] border border-white/10 bg-white/10 p-7">
+                        <p class="text-4xl font-black text-beer">2</p>
+                        <h3 class="mt-4 font-display text-2xl font-black">A gente fabrica e envia</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-white/62">Produção sob medida, teste do equipamento e envio com segurança.</p>
+                    </div>
+                    <div class="reveal rounded-[1.5rem] border border-white/10 bg-white/10 p-7">
+                        <p class="text-4xl font-black text-beer">3</p>
+                        <h3 class="mt-4 font-display text-2xl font-black">Você começa a vender</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-white/62">Recebe orientação para instalação, uso e primeiros passos no chopp.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-cream py-20 lg:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mx-auto mb-12 max-w-3xl text-center reveal">
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Diferenciais que reduzem risco</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Você compra equipamento e suporte.</h2>
+                </div>
+                <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="reveal rounded-[1.25rem] bg-white p-6 shadow-soft">
+                        <h3 class="font-display text-xl font-black">Pistola em inox 304</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-ink/58">Material adequado para contato com bebidas e uso frequente.</p>
+                    </div>
+                    <div class="reveal rounded-[1.25rem] bg-white p-6 shadow-soft">
+                        <h3 class="font-display text-xl font-black">Entrega rápida</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-ink/58">Prazo de até 15 dias úteis para você começar a vender mais cedo.</p>
+                    </div>
+                    <div class="reveal rounded-[1.25rem] bg-white p-6 shadow-soft">
+                        <h3 class="font-display text-xl font-black">Personalização inclusa</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-ink/58">Cores e marca deixam a chopeira com cara de negócio profissional.</p>
+                    </div>
+                    <div class="reveal rounded-[1.25rem] bg-white p-6 shadow-soft">
+                        <h3 class="font-display text-xl font-black">Garantia de 1 ano</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-ink/58">Se uma peça apresentar defeito, você tem suporte para resolver.</p>
+                    </div>
+                    <div class="reveal rounded-[1.25rem] bg-white p-6 shadow-soft">
+                        <h3 class="font-display text-xl font-black">Teste antes do envio</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-ink/58">Equipamento conferido para chegar pronto para instalação.</p>
+                    </div>
+                    <div class="reveal rounded-[1.25rem] bg-white p-6 shadow-soft">
+                        <h3 class="font-display text-xl font-black">Suporte para iniciantes</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-ink/58">Orientação sobre conexões, compra de chopp e operação básica.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white py-20 lg:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="grid items-center gap-12 lg:grid-cols-2">
+                    <div class="reveal">
+                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Veja em uso</p>
+                        <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">O visual faz o cliente chegar perto.</h2>
+                        <p class="mt-5 text-lg leading-relaxed text-ink/62">
+                            O vídeo mostra a chopeira em ação e ajuda você a imaginar como ela aparece no atendimento real.
+                        </p>
+                    </div>
+                    <div class="reveal overflow-hidden rounded-[1.5rem] bg-black shadow-lift">
+                        <div class="relative aspect-video">
+                            <button type="button"
+                                class="video-overlay absolute inset-0 z-10 flex w-full items-center justify-center"
+                                onclick="this.style.display='none';document.getElementById('main-video').style.display='block';document.getElementById('main-video').play();"
+                                aria-label="Reproduzir vídeo">
+                                <img src="{% static 'assets/images/thumb.jpeg' %}" alt="Prévia do vídeo da chopeira"
+                                    class="absolute inset-0 h-full w-full object-cover" />
+                                <span class="relative flex h-20 w-20 items-center justify-center rounded-full bg-white text-flame shadow-lift">
+                                    <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </span>
+                            </button>
+                            <video id="main-video" class="hidden h-full w-full object-cover" controls>
+                                <source src="{% static 'assets/images/video-convertido.mp4' %}" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- <section id="personalizar" class="grain bg-cream py-20 lg:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="grid items-center gap-10 lg:grid-cols-[.95fr_1.05fr]">
+                    <div class="reveal">
+                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Teste sua marca</p>
+                        <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Veja sua logo na chopeira em 3D.</h2>
+                        <p class="mt-5 text-lg leading-relaxed text-ink/62">
+                            Envie uma imagem da sua marca, gire a chopeira e veja uma prévia rápida de como ela pode aparecer no topo do equipamento.
+                        </p>
+
+                        <div class="mt-8 rounded-[1.5rem] bg-white p-5 shadow-soft">
+                            <label for="logoUpload" class="block text-sm font-black uppercase text-ink/55">Upload da logo</label>
+                            <input id="logoUpload" type="file" accept="image/*"
+                                class="mt-3 w-full rounded-2xl border border-ink/10 bg-cream px-4 py-3 text-sm font-bold text-ink file:mr-4 file:rounded-full file:border-0 file:bg-flame file:px-4 file:py-2 file:text-xs file:font-black file:uppercase file:text-white" />
+
+                            <div class="mt-5">
+                                <div class="mb-2 flex items-center justify-between gap-3">
+                                    <label for="pumpRotation" class="text-sm font-black uppercase text-ink/55">Rotação</label>
+                                    <span id="pumpRotationValue" class="text-sm font-black text-flame">0°</span>
+                                </div>
+                                <input id="pumpRotation" type="range" min="-180" max="180" value="0"
+                                    class="w-full accent-flame" />
+                            </div>
+
+                            <div class="mt-5 flex flex-wrap gap-3">
+                                <button type="button" id="pumpFrontBtn"
+                                    class="rounded-full bg-flame px-5 py-3 text-xs font-black uppercase text-white shadow-cta">
+                                    Frente
+                                </button>
+                                <button type="button" id="pumpBackBtn"
+                                    class="rounded-full border-2 border-ink/12 px-5 py-3 text-xs font-black uppercase text-ink transition hover:border-amber hover:text-flame">
+                                    Trás
+                                </button>
+                                <button type="button" id="pumpSpinBtn"
+                                    class="rounded-full border-2 border-amber px-5 py-3 text-xs font-black uppercase text-amber transition hover:bg-amber hover:text-white">
+                                    Girar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal">
+                        <div id="customizerStage"
+                            class="customizer-stage relative mx-auto flex min-h-[520px] max-w-xl items-center justify-center overflow-hidden rounded-[1.75rem] bg-white p-5 shadow-lift sm:min-h-[640px]">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(255,194,71,.28),transparent_42%)]"></div>
+                            <div id="pump3d" class="pump-3d relative z-10 w-full max-w-[420px]">
+                                <div class="pump-face front relative">
+                                    <img src="{% static 'assets/images/bomba-personalizacao.jpg' %}" alt="Chopeira personalizada"
+                                        class="w-full select-none rounded-[1.25rem] object-contain" draggable="false" />
+                                    <div class="pump-logo-slot absolute flex items-center justify-center overflow-hidden bg-white text-center text-ink shadow-soft">
+                                        <img class="uploaded-logo hidden" alt="Logo enviada" />
+                                        <span class="pump-logo-text logo-placeholder font-black">sua<br>logomarca<br>aqui</span>
+                                    </div>
+                                </div>
+                                <div class="pump-face back absolute inset-0">
+                                    <img src="{% static 'assets/images/bomba-personalizacao.jpg' %}" alt="Verso da chopeira personalizada"
+                                        class="w-full select-none rounded-[1.25rem] object-contain" draggable="false" />
+                                    <div class="pump-logo-slot absolute flex items-center justify-center overflow-hidden bg-white text-center text-ink shadow-soft">
+                                        <img class="uploaded-logo hidden" alt="Logo enviada no verso" />
+                                        <span class="pump-logo-text logo-placeholder font-black">sua<br>logomarca<br>aqui</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="mt-4 text-center text-xs font-bold uppercase tracking-wide text-ink/38">
+                            Arraste a peça ou use o controle de rotação
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+        <section id="prova" class="bg-cream py-20 lg:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mx-auto mb-12 max-w-3xl text-center reveal">
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Prova social</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Quem comprou recomenda.</h2>
+                    <p class="mx-auto mt-4 max-w-xl text-base text-ink/60">Avaliações reais publicadas no Google.</p>
+                </div>
+                <div class="grid gap-6 md:grid-cols-3">
+                    <a href="https://www.google.com.br/maps/place/Dona+do+chopp/@-3.7585457,-38.5656464,15z/data=!4m8!3m7!1s0x24b5a5a938d35363:0x266d5cc562862299!8m2!3d-3.7585457!4d-38.5656464!9m1!1b1!16s%2Fg%2F11t_krm151"
+                        target="_blank" class="reveal block overflow-hidden rounded-[1.25rem] bg-white p-3 shadow-soft transition hover:scale-[1.02]">
+                        <img src="{% static 'assets/images/feedback1.png' %}" alt="Avaliação de cliente no Google" class="w-full rounded-xl" />
+                    </a>
+                    <a href="https://www.google.com.br/maps/place/Dona+do+chopp/@-3.7585457,-38.5656464,15z/data=!4m8!3m7!1s0x24b5a5a938d35363:0x266d5cc562862299!8m2!3d-3.7585457!4d-38.5656464!9m1!1b1!16s%2Fg%2F11t_krm151"
+                        target="_blank" class="reveal block overflow-hidden rounded-[1.25rem] bg-white p-3 shadow-soft transition hover:scale-[1.02]">
+                        <img src="{% static 'assets/images/feedback2.png' %}" alt="Avaliação de cliente no Google" class="w-full rounded-xl" />
+                    </a>
+                    <a href="https://www.google.com.br/maps/place/Dona+do+chopp/@-3.7585457,-38.5656464,15z/data=!4m8!3m7!1s0x24b5a5a938d35363:0x266d5cc562862299!8m2!3d-3.7585457!4d-38.5656464!9m1!1b1!16s%2Fg%2F11t_krm151"
+                        target="_blank" class="reveal block overflow-hidden rounded-[1.25rem] bg-white p-3 shadow-soft transition hover:scale-[1.02]">
+                        <img src="{% static 'assets/images/feedback3.png' %}" alt="Avaliação de cliente no Google" class="w-full rounded-xl" />
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white py-20 lg:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mx-auto mb-12 max-w-3xl text-center reveal">
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Galeria</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Modelos que chamam atenção.</h2>
+                    <p class="mx-auto mt-4 max-w-2xl text-base font-semibold leading-relaxed text-ink/60">
+                        Algumas combinações de cores, marcas e acabamentos que fazem a chopeira aparecer no balcão, no evento e nas fotos.
+                    </p>
+                </div>
+
+                <div class="reveal rounded-[1.75rem] border border-ink/10 bg-slate-50 p-3 shadow-soft md:p-5">
+                    <div class="grid auto-rows-[170px] grid-cols-2 gap-3 md:auto-rows-[210px] md:grid-cols-6 md:gap-4">
+                        <button type="button" data-gallery-src="{% static 'assets/images/galeria-chopeira-1.jpeg' %}" data-gallery-alt="Chopeira azul e amarela personalizada" class="group relative col-span-2 row-span-2 overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white text-left shadow-soft transition hover:-translate-y-1 hover:shadow-lift md:col-span-3">
+                            <img src="{% static 'assets/images/galeria-chopeira-1.jpeg' %}" alt="Chopeira azul e amarela personalizada" class="h-full w-full object-contain p-5 transition duration-500 group-hover:scale-[1.04] md:p-8" />
+                            <span class="absolute left-4 top-4 rounded-full bg-flame px-3 py-1.5 text-xs font-black uppercase tracking-wide text-white shadow-soft">
+                                Destaque
+                            </span>
+                        </button>
+
+                        <button type="button" data-gallery-src="{% static 'assets/images/galeria-chopeira-2.jpeg' %}" data-gallery-alt="Chopeira laranja personalizada" class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift md:col-span-3">
+                            <img src="{% static 'assets/images/galeria-chopeira-2.jpeg' %}" alt="Chopeira laranja personalizada" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05]" />
+                        </button>
+
+                        <button type="button" data-gallery-src="{% static 'assets/images/galeria-chopeira-3.jpeg' %}" data-gallery-alt="Chopeira vermelha personalizada" class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift md:col-span-3">
+                            <img src="{% static 'assets/images/galeria-chopeira-3.jpeg' %}" alt="Chopeira vermelha personalizada" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05]" />
+                        </button>
+
+                        <button type="button" data-gallery-src="{% static 'assets/images/galeria-chopeira-4.jpeg' %}" data-gallery-alt="Chopeira azul e branca personalizada" class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift md:col-span-2">
+                            <img src="{% static 'assets/images/galeria-chopeira-4.jpeg' %}" alt="Chopeira azul e branca personalizada" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05]" />
+                        </button>
+
+                        <button type="button" data-gallery-src="{% static 'assets/images/galeria-chopeira-5.jpeg' %}" data-gallery-alt="Chopeira preta e vermelha personalizada" class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift md:col-span-2">
+                            <img src="{% static 'assets/images/galeria-chopeira-5.jpeg' %}" alt="Chopeira preta e vermelha personalizada" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05]" />
+                        </button>
+
+                        <div class="col-span-2 flex flex-col justify-between rounded-[1.35rem] border border-slate-200 bg-white p-5 text-ink shadow-soft">
+                            <p class="text-xs font-black uppercase tracking-wide text-flame">Personalização</p>
+                            <div>
+                                <p class="font-display text-2xl font-black leading-tight">Sua marca no centro da experiência.</p>
+                                <p class="mt-3 text-sm font-semibold leading-relaxed text-ink/60">Visual sob medida para vender mais e ser lembrado.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="galleryModal" class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/85 p-4 backdrop-blur-sm" aria-hidden="true">
+            <button type="button" id="galleryModalBackdrop" class="absolute inset-0 cursor-zoom-out" aria-label="Fechar imagem ampliada"></button>
+            <div class="relative z-10 flex max-h-[92vh] w-full max-w-5xl items-center justify-center rounded-[1.5rem] bg-white p-3 shadow-lift md:p-5">
+                <button type="button" id="galleryModalClose" class="absolute right-3 top-3 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-slate-950 text-2xl leading-none text-white shadow-soft transition hover:bg-flame" aria-label="Fechar imagem ampliada">
+                    &times;
+                </button>
+                <img id="galleryModalImage" src="" alt="" class="max-h-[84vh] w-full object-contain" />
+            </div>
+        </div>
+
+        <section id="faq" class="bg-cream py-20 lg:py-28">
+            <div class="container-max mx-auto grid gap-10 px-4 lg:grid-cols-[.85fr_1.15fr]">
+                <div class="reveal">
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Dúvidas frequentes</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Antes de comprar, entenda o essencial.</h2>
+                    <a href="https://wa.me/5585991803678?text=Olá!%20Tenho%20uma%20dúvida%20sobre%20as%20chopeiras."
+                        target="_blank" class="mt-8 inline-flex rounded-full bg-leaf px-7 py-4 text-sm font-black uppercase text-white shadow-soft">
+                        Falar com atendente
+                    </a>
+                </div>
+                <div class="reveal rounded-[1.5rem] bg-white p-5 shadow-soft md:p-7">
+                    <div class="faq-item border-b border-ink/10 py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+                        <div class="flex items-center justify-between gap-4">
+                            <h3 class="font-black">Quanto tempo leva para receber minha chopeira?</h3>
+                            <span class="faq-icon text-3xl font-light text-flame">+</span>
+                        </div>
+                        <div class="faq-answer text-sm leading-relaxed text-ink/60">O prazo é de até 15 dias úteis para todo o Brasil. O envio é feito com rastreamento e embalagem reforçada.</div>
+                    </div>
+                    <div class="faq-item border-b border-ink/10 py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+                        <div class="flex items-center justify-between gap-4">
+                            <h3 class="font-black">Posso personalizar com minha marca?</h3>
+                            <span class="faq-icon text-3xl font-light text-flame">+</span>
+                        </div>
+                        <div class="faq-answer text-sm leading-relaxed text-ink/60">Sim. Você escolhe as cores e envia sua logomarca. A personalização faz parte da proposta da Dona do Chopp.</div>
+                    </div>
+                    <div class="faq-item border-b border-ink/10 py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+                        <div class="flex items-center justify-between gap-4">
+                            <h3 class="font-black">Preciso ter experiência com chopp?</h3>
+                            <span class="faq-icon text-3xl font-light text-flame">+</span>
+                        </div>
+                        <div class="faq-answer text-sm leading-relaxed text-ink/60">Não. Você recebe orientação sobre instalação, conexões, compra do chopp e operação inicial.</div>
+                    </div>
+                    <div class="faq-item border-b border-ink/10 py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+                        <div class="flex items-center justify-between gap-4">
+                            <h3 class="font-black">Quais formas de pagamento aceitam?</h3>
+                            <span class="faq-icon text-3xl font-light text-flame">+</span>
+                        </div>
+                        <div class="faq-answer text-sm leading-relaxed text-ink/60">PIX com desconto, cartão de crédito em até 10x sem juros, boleto e transferência.</div>
+                    </div>
+                    <div class="faq-item py-5 cursor-pointer" onclick="this.classList.toggle('open')">
+                        <div class="flex items-center justify-between gap-4">
+                            <h3 class="font-black">E se der problema?</h3>
+                            <span class="faq-icon text-3xl font-light text-flame">+</span>
+                        </div>
+                        <div class="faq-answer text-sm leading-relaxed text-ink/60">Todas as chopeiras possuem garantia de 1 ano para defeitos de fabricação, com suporte para substituição de peças quando necessário.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="bg-white py-20 lg:py-28">
+            <div class="container-max mx-auto px-4">
+                <div class="mx-auto max-w-5xl">
+                    <div class="mx-auto mb-10 max-w-3xl text-center reveal">
+                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Perguntas dos clientes</p>
+                        <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Pergunte e acompanhe a resposta.</h2>
+                        <p class="mx-auto mt-4 max-w-2xl text-base font-semibold leading-relaxed text-ink/58">
+                            Envie sua dúvida sobre modelo, prazo, pagamento ou personalização. A resposta da equipe aparece aqui depois que for respondida no admin.
+                        </p>
+                    </div>
+
+                    <div class="grid gap-6 lg:grid-cols-[.8fr_1.2fr]">
+                        <form hx-post="{% url 'enviar-pergunta' %}" hx-target="#perguntas-list" hx-swap="innerHTML"
+                            hx-on::after-request="if(event.detail.successful) this.reset()"
+                            class="reveal rounded-[1.5rem] bg-cream p-5 text-ink shadow-soft md:p-6">
+                            {% csrf_token %}
+                            <div class="mb-5">
+                                <p class="text-xs font-black uppercase tracking-wide text-flame">Nova pergunta</p>
+                                <p class="mt-1 text-sm font-semibold text-ink/50">Preencha e envie para a equipe.</p>
+                            </div>
+                            <div class="grid gap-4">
+                                <div>
+                                    <label for="nome" class="mb-2 block text-xs font-black uppercase text-ink/55">Nome</label>
+                                    <input type="text" id="nome" name="nome" required placeholder="Seu nome"
+                                        class="w-full rounded-2xl border border-ink/10 bg-white px-4 py-3 text-sm outline-none focus:border-amber focus:ring-2 focus:ring-amber/20" />
+                                </div>
+                                <div>
+                                    <label for="whatsapp" class="mb-2 block text-xs font-black uppercase text-ink/55">WhatsApp</label>
+                                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(85) 99999-9999" maxlength="15"
+                                        class="w-full rounded-2xl border border-ink/10 bg-white px-4 py-3 text-sm outline-none focus:border-amber focus:ring-2 focus:ring-amber/20" />
+                                </div>
+                                <div>
+                                    <label for="mensagem" class="mb-2 block text-xs font-black uppercase text-ink/55">Pergunta</label>
+                                    <textarea id="mensagem" name="mensagem" required rows="5"
+                                        placeholder="Ex: Qual modelo é melhor para vender em eventos?"
+                                        class="w-full resize-none rounded-2xl border border-ink/10 bg-white px-4 py-3 text-sm outline-none focus:border-amber focus:ring-2 focus:ring-amber/20"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit"
+                                class="mt-5 w-full rounded-full bg-flame px-6 py-4 text-sm font-black uppercase text-white shadow-cta transition hover:scale-[1.02]">
+                                Enviar pergunta
+                            </button>
+                        </form>
+
+                        <div id="perguntas-list" class="grid gap-4 reveal">
+                            {% include "partials/perguntas.html" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-flame py-16 text-white lg:py-24">
+            <div class="container-max mx-auto px-4 text-center">
+                <div class="mx-auto max-w-3xl reveal">
+                    <p class="mb-4 text-sm font-black uppercase tracking-wide text-white/75">Última chamada</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Sua chopeira personalizada pode começar a vender em poucos dias.</h2>
+                    <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/78">
+                        Fale com a Dona do Chopp, escolha o modelo e receba uma orientação direta para fechar sua compra com segurança.
+                    </p>
+                    <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+                        <a href="https://wa.me/5585991803678?text=Olá!%20Quero%20comprar%20uma%20chopeira%20personalizada."
+                            target="_blank" class="rounded-full bg-white px-8 py-4 text-sm font-black uppercase text-flame shadow-soft transition hover:scale-[1.03]">
+                            Comprar pelo WhatsApp
+                        </a>
+                        <a href="#produtos" class="rounded-full border-2 border-white/35 px-8 py-4 text-sm font-black uppercase text-white transition hover:bg-white/10">
+                            Ver modelos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-ink py-10 text-white/65">
+        <div class="container-max mx-auto grid gap-8 px-4 md:grid-cols-3">
+            <div>
+                <div class="flex items-center gap-3">
+                    <img src="{% static 'assets/images/logo.jpeg' %}" alt="Dona do Chopp" class="h-11 w-11 rounded-full object-cover" />
+                    <p class="font-display text-xl font-black text-white">Dona do <span class="text-beer">Chopp</span></p>
+                </div>
+                <p class="mt-4 text-sm leading-relaxed text-white/48">Chopeiras artesanais personalizadas para quem quer vender chopp com mais presença.</p>
+            </div>
+            <div>
+                <h4 class="mb-3 text-sm font-black uppercase text-white">Navegação</h4>
+                <div class="grid gap-2 text-sm">
+                    <a href="#produtos" class="hover:text-beer">Modelos</a>
+                    <a href="#lucro" class="hover:text-beer">Simulação de lucro</a>
+                    <a href="#prova" class="hover:text-beer">Avaliações</a>
+                    <a href="#faq" class="hover:text-beer">Dúvidas</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="mb-3 text-sm font-black uppercase text-white">Contato</h4>
+                <div class="grid gap-2 text-sm">
+                    <a href="https://wa.me/5585991803678" target="_blank" class="hover:text-leaf">(85) 99180-3678</a>
+                    <a href="https://instagram.com/donadochopp" target="_blank" class="hover:text-beer">@donadochopp</a>
+                    <p>Fortaleza - CE</p>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-6 text-xs text-white/35 md:col-span-3">
+                © 2026 Dona do Chopp. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <div id="stickyCta" class="sticky-cta bg-white/96 p-3 shadow-lift backdrop-blur lg:hidden">
+        <div class="flex items-center justify-between gap-3">
+            <div>
+                <p class="text-xs font-bold text-ink/50">Chopeira personalizada</p>
+                <p class="font-display text-lg font-black text-flame">A partir de {% if produtos.0 %}{{ produtos.0.preco|reais }}{% else %}consulte{% endif %}</p>
+            </div>
+            <a href="#produtos" class="rounded-full bg-flame px-5 py-3 text-xs font-black uppercase text-white shadow-cta">Ver modelos</a>
+        </div>
+    </div>
+
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuBtn?.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+        document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('is-visible');
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const stickyCta = document.getElementById('stickyCta');
+        const hero = document.getElementById('hero');
+        if (stickyCta && hero) {
+            const stickyObs = new IntersectionObserver(([e]) => {
+                stickyCta.classList.toggle('visible', !e.isIntersecting);
+            }, { threshold: 0 });
+            stickyObs.observe(hero);
+        }
+
+        const whatsInput = document.getElementById('whatsapp');
+        whatsInput?.addEventListener('input', function () {
+            let v = this.value.replace(/\D/g, '').slice(0, 11);
+            if (v.length > 6) v = '(' + v.slice(0, 2) + ') ' + v.slice(2, 7) + '-' + v.slice(7);
+            else if (v.length > 2) v = '(' + v.slice(0, 2) + ') ' + v.slice(2);
+            else if (v.length > 0) v = '(' + v;
+            this.value = v;
+        });
+
+        const customizerStage = document.getElementById('customizerStage');
+        const pump3d = document.getElementById('pump3d');
+        const logoUpload = document.getElementById('logoUpload');
+        const pumpRotation = document.getElementById('pumpRotation');
+        const pumpRotationValue = document.getElementById('pumpRotationValue');
+        const pumpFrontBtn = document.getElementById('pumpFrontBtn');
+        const pumpBackBtn = document.getElementById('pumpBackBtn');
+        const pumpSpinBtn = document.getElementById('pumpSpinBtn');
+        let pumpAngle = 0;
+        let isDraggingPump = false;
+        let dragStartX = 0;
+        let dragStartAngle = 0;
+        let spinTimer;
+
+        function setPumpAngle(angle) {
+            pumpAngle = Math.max(-180, Math.min(180, Math.round(angle)));
+            if (pump3d) pump3d.style.transform = `rotateY(${pumpAngle}deg)`;
+            if (pumpRotation) pumpRotation.value = pumpAngle;
+            if (pumpRotationValue) pumpRotationValue.textContent = `${pumpAngle}°`;
+        }
+
+        logoUpload?.addEventListener('change', function () {
+            const file = this.files?.[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                document.querySelectorAll('.uploaded-logo').forEach(img => {
+                    img.src = event.target.result;
+                    img.classList.remove('hidden');
+                });
+                document.querySelectorAll('.logo-placeholder').forEach(label => label.classList.add('hidden'));
+            };
+            reader.readAsDataURL(file);
+        });
+
+        pumpRotation?.addEventListener('input', (event) => setPumpAngle(event.target.value));
+        pumpFrontBtn?.addEventListener('click', () => setPumpAngle(0));
+        pumpBackBtn?.addEventListener('click', () => setPumpAngle(180));
+        pumpSpinBtn?.addEventListener('click', () => {
+            clearInterval(spinTimer);
+            let nextAngle = pumpAngle;
+            spinTimer = setInterval(() => {
+                nextAngle += 8;
+                if (nextAngle > 180) nextAngle = -180;
+                setPumpAngle(nextAngle);
+            }, 35);
+            setTimeout(() => clearInterval(spinTimer), 1600);
+        });
+
+        customizerStage?.addEventListener('pointerdown', (event) => {
+            isDraggingPump = true;
+            dragStartX = event.clientX;
+            dragStartAngle = pumpAngle;
+            customizerStage.classList.add('is-dragging');
+            customizerStage.setPointerCapture(event.pointerId);
+        });
+
+        customizerStage?.addEventListener('pointermove', (event) => {
+            if (!isDraggingPump) return;
+            setPumpAngle(dragStartAngle + (event.clientX - dragStartX) * 0.45);
+        });
+
+        customizerStage?.addEventListener('pointerup', (event) => {
+            isDraggingPump = false;
+            customizerStage.classList.remove('is-dragging');
+            customizerStage.releasePointerCapture(event.pointerId);
+        });
+
+        customizerStage?.addEventListener('pointercancel', () => {
+            isDraggingPump = false;
+            customizerStage.classList.remove('is-dragging');
+        });
+
+        setPumpAngle(0);
+
+        const galleryModal = document.getElementById('galleryModal');
+        const galleryModalImage = document.getElementById('galleryModalImage');
+        const galleryModalClose = document.getElementById('galleryModalClose');
+        const galleryModalBackdrop = document.getElementById('galleryModalBackdrop');
+
+        const closeGalleryModal = () => {
+            galleryModal?.classList.add('hidden');
+            galleryModal?.classList.remove('flex');
+            galleryModal?.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('overflow-hidden');
+            if (galleryModalImage) {
+                galleryModalImage.src = '';
+                galleryModalImage.alt = '';
+            }
+        };
+
+        document.querySelectorAll('[data-gallery-src]').forEach((item) => {
+            item.addEventListener('click', () => {
+                if (!galleryModal || !galleryModalImage) return;
+                galleryModalImage.src = item.dataset.gallerySrc;
+                galleryModalImage.alt = item.dataset.galleryAlt || 'Imagem ampliada da galeria';
+                galleryModal.classList.remove('hidden');
+                galleryModal.classList.add('flex');
+                galleryModal.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('overflow-hidden');
+            });
+        });
+
+        galleryModalClose?.addEventListener('click', closeGalleryModal);
+        galleryModalBackdrop?.addEventListener('click', closeGalleryModal);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && galleryModal && !galleryModal.classList.contains('hidden')) {
+                closeGalleryModal();
+            }
+        });
+    </script>
+</body>
+
+</html>
