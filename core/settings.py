@@ -31,14 +31,6 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ENVIRONMENT == "development"
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = ['donadochoppvendas-390560037832.southamerica-east1.run.app']
-#teste
-CSRF_TRUSTED_ORIGINS = [
-    "https://donadochoppvendas-390560037832.southamerica-east1.run.app",
-]
-#ALLOWED_HOSTS = ['*']
-=======
 if ENVIRONMENT == "production":
     ALLOWED_HOSTS = ["vendas.donadochopp.com.br"]
     CSRF_TRUSTED_ORIGINS = [
@@ -50,7 +42,6 @@ else:
         "http://localhost",
         "http://127.0.0.1",
     ]
->>>>>>> main
 # Application definition
 
 INSTALLED_APPS = [
