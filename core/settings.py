@@ -14,10 +14,6 @@ def _list_from_env(name, default):
         return default
     return [item.strip() for item in value.split(",") if item.strip()]
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
     "django-insecure-^0kbg8)m$7mcmjnlkjx@$)uo)$u4hyob2rxks3t21%c-u9qxtg",
