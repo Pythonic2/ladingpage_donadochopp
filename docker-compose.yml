@@ -1,22 +1,22 @@
 services:
-  ladingpage-chopp:
+  ladingpage-chopp2:
     build:
       context: .
       dockerfile: Dockerfile
     pull_policy: build
     restart: always
     ports:
-      - "8008:8008"
+      - "8009:8009"
     environment:
       - DJANGO_ENV=production
     networks:
       - pi_default
     volumes:
-      - ladingpage_chopp_data:/var/lib/postgresql/data
-      - ladingpage_chopp_app:/app/media
+      - ladingpage2_chopp_data:/var/lib/postgresql/data
+      - ladingpage2_chopp_app:/app/media
 volumes:
-  ladingpage_chopp_data:
-  ladingpage_chopp_app:
+  ladingpage2_chopp_data:
+  ladingpage2_chopp_app:
 networks:
   pi_default:
     external: true
