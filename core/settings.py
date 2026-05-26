@@ -25,6 +25,7 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ENVIRONMENT == "development"
+SERVE_MEDIA = os.environ.get("SERVE_MEDIA", "false").lower() in ("1", "true", "yes")
 
 if ENVIRONMENT == "production":
     ALLOWED_HOSTS = _list_from_env("DJANGO_ALLOWED_HOSTS", [
@@ -99,15 +100,20 @@ if ENVIRONMENT == "production":
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 if ENVIRONMENT == "production":
+    db_schema = os.environ.get("DB_SCHEMA", "ladingpageddc")
+    db_options = {}
+    if db_schema:
+        db_options["options"] = f"-c search_path={db_schema}"
+
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": "cloudbooster_db",
-            "USER": "cloud_user",
+            "NAME": os.environ.get("DB_NAME", "cloudbooster_db"),
+            "USER": os.environ.get("DB_USER", "cloud_user"),
             "PASSWORD": os.environ.get("DB_PASSWORD", "37192541aaSS@"),
-            "HOST": "192.168.1.7",
-            "PORT": "5432",
-            "OPTIONS": {"options": "-c search_path=ladingpageddc"},
+            "HOST": os.environ.get("DB_HOST", "192.168.1.7"),
+            "PORT": os.environ.get("DB_PORT", "5432"),
+            "OPTIONS": db_options,
         }
     }
 else:
@@ -155,8 +161,8 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = os.environ.get("MEDIA_URL", "/media/")
+MEDIA_ROOT = os.environ.get("MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
