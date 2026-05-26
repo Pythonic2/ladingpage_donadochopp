@@ -6,7 +6,7 @@ services:
     pull_policy: build
     restart: always
     ports:
-      - "8009:8009"
+      - "8010:8000"
     environment:
       - DJANGO_ENV=production
     networks:
