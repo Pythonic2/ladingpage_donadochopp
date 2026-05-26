@@ -27,7 +27,7 @@ services:
       - DB_PORT=5432
       - DB_SCHEMA=ladingpageddc
     volumes:
-      - /home/pi/ladingpage2-chopp/media:/app/media
+      - ladingpage2_chopp_app:/app/media
 networks:
   pi_default:
     external: true
