@@ -239,8 +239,8 @@
                         Nossas Chopeiras</span>
                     <h2 class="mb-4 font-display text-4xl md:text-5xl">Escolha Sua <span
                             class="text-secondary">Chopeira</span></h2>
-                    <p class="mx-auto max-w-2xl text-lg text-black/60">Todas personalizadas com sua marca e cores. Frete
-                        grátis para todo o Brasil!</p>
+                    <p class="mx-auto max-w-2xl text-lg text-black/60">Todas personalizadas com sua marca e cores. Envio
+                        para todo o Brasil!</p>
                 </div>
                 <div class="mx-auto grid max-w-6xl gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {% for produto in produtos %}
@@ -262,7 +262,7 @@
                                 <span class="font-display text-2xl text-secondary">{{ produto.preco|reais }}</span>
                                 <span class="text-xs text-black/50 block mt-1">ou 10x sem juros</span>
                             </div>
-                            <p class="mb-4 text-xs text-primary font-semibold">🚚 Frete grátis para todo Brasil</p>
+                            <p class="mb-4 text-xs text-primary font-semibold">🚚 Envio para todo Brasil</p>
                             <div class="flex gap-2">
                                 <a href="{% url 'produto-detalhe' produto.id %}"
                                     class="flex-1 block text-center rounded-full border-2 border-primary py-2.5 text-sm font-semibold text-primary transition hover:bg-primary hover:text-white">Ver
@@ -548,7 +548,7 @@
                     </div>
                     <div class="mt-10 flex flex-wrap justify-center gap-6 text-sm text-white/50">
                         <span>✓ Parcele em até 10x sem juros</span>
-                        <span>✓ Frete grátis para todo Brasil</span>
+                        <span>✓ Envio para todo Brasil</span>
                         <span>✓ Garantia de 1 ano</span>
                     </div>
                 </div>

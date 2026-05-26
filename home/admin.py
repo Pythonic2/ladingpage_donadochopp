@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Produto, Pedido, Transacao, Pergunta, Evento
+from .models import Produto, Pedido, Transacao, Pergunta, Evento, Depoimento
 
 # Register your models here.
 admin.site.register(Produto)
@@ -13,6 +13,14 @@ class EventoAdmin(admin.ModelAdmin):
     list_editable = ("ordem", "ativo")
     list_filter = ("ativo", "criado_em")
     search_fields = ("titulo", "categoria", "descricao")
+
+
+@admin.register(Depoimento)
+class DepoimentoAdmin(admin.ModelAdmin):
+    list_display = ("nome_cliente", "tipo_midia", "contexto", "ordem", "ativo", "criado_em")
+    list_editable = ("ordem", "ativo")
+    list_filter = ("tipo_midia", "ativo", "criado_em")
+    search_fields = ("nome_cliente", "contexto", "texto")
 
 
 @admin.register(Pergunta)

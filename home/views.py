@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PedidoForm
 import requests
 from .criar_preferencia import criar_preferencia
-from .models import Produto, Pedido, Transacao, Pergunta, Evento
+from .models import Produto, Pedido, Transacao, Pergunta, Evento, Depoimento
 from .busca_pagamento import buscar_pagamento_mercado_pago
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
@@ -22,11 +22,17 @@ def paginar_perguntas(request):
 def home_view(request):
     produtos = Produto.objects.all()
     eventos = Evento.objects.filter(ativo=True)
+    depoimentos = Depoimento.objects.filter(ativo=True)
     perguntas = paginar_perguntas(request)
     return render(
         request,
         "landing_new.html",
-        {"produtos": produtos, "eventos": eventos, "perguntas": perguntas},
+        {
+            "produtos": produtos,
+            "eventos": eventos,
+            "depoimentos": depoimentos,
+            "perguntas": perguntas,
+        },
     )
 
 

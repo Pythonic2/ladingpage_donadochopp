@@ -268,7 +268,7 @@
             style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="urgency-bar fixed left-0 right-0 top-0 z-[90] hidden px-4 py-2 text-center text-xs font-black uppercase tracking-wide text-white sm:text-sm md:block">
-        Oferta ativa: frete grátis + 10% off no PIX para todo o Brasil
+        Oferta ativa: 10% off no PIX para todo o Brasil
     </div>
 
     <header class="fixed left-0 right-0 top-0 z-[80] border-b border-ink/10 bg-white/95 shadow-soft backdrop-blur-xl md:top-8">
@@ -281,6 +281,7 @@
                 <a href="#produtos" class="text-sm font-bold text-ink/75 transition hover:text-flame">Modelos</a>
                 <a href="#lucro" class="text-sm font-bold text-ink/75 transition hover:text-flame">Lucro</a>
                 <a href="#eventos" class="text-sm font-bold text-ink/75 transition hover:text-flame">Eventos</a>
+                <a href="#depoimentos" class="text-sm font-bold text-ink/75 transition hover:text-flame">Depoimentos</a>
                 <a href="#prova" class="text-sm font-bold text-ink/75 transition hover:text-flame">Prova Social</a>
                 <a href="#faq" class="text-sm font-bold text-ink/75 transition hover:text-flame">Dúvidas</a>
                 <a href="https://wa.me/5585991803678?text=Olá!%20Quero%20comprar%20uma%20chopeira%20personalizada."
@@ -305,6 +306,7 @@
                 <a href="#produtos" class="py-3 text-sm font-bold">Modelos e preços</a>
                 <a href="#lucro" class="py-3 text-sm font-bold">Simulação de lucro</a>
                 <a href="#eventos" class="py-3 text-sm font-bold">Eventos</a>
+                <a href="#depoimentos" class="py-3 text-sm font-bold">Depoimentos</a>
                 <a href="#personalizar" class="py-3 text-sm font-bold">Simulador 3D</a>
                 <a href="#prova" class="py-3 text-sm font-bold">Avaliações</a>
                 <a href="#faq" class="py-3 text-sm font-bold">Dúvidas</a>
@@ -396,7 +398,7 @@
 
         <section class="bg-white py-5">
             <div class="container-max mx-auto grid gap-3 px-4 text-center text-sm font-black text-ink/65 sm:grid-cols-2 lg:grid-cols-5">
-                <span class="rounded-full bg-cream px-4 py-3">Frete grátis Brasil</span>
+                <span class="rounded-full bg-cream px-4 py-3">Envio para todo Brasil</span>
                 <span class="rounded-full bg-cream px-4 py-3">Garantia de 1 ano</span>
                 <span class="rounded-full bg-cream px-4 py-3">10x sem juros</span>
                 <span class="rounded-full bg-cream px-4 py-3">Suporte do zero</span>
@@ -437,7 +439,7 @@
                             </div>
                             <ul class="mt-5 space-y-2 text-sm font-semibold text-ink/62">
                                 <li class="flex gap-2"><span class="font-black text-leaf">✓</span> Personalização com sua marca</li>
-                                <li class="flex gap-2"><span class="font-black text-leaf">✓</span> Frete grátis para todo Brasil</li>
+                                <li class="flex gap-2"><span class="font-black text-leaf">✓</span> Envio para todo Brasil</li>
                                 <li class="flex gap-2"><span class="font-black text-leaf">✓</span> Garantia e suporte na montagem</li>
                             </ul>
                             <div class="mt-6 grid gap-2">
@@ -720,6 +722,62 @@
                             </video>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="depoimentos" class="bg-ink py-16 text-white lg:py-20">
+            <div class="container-max mx-auto px-4">
+                <div class="reveal grid items-center gap-8 lg:grid-cols-[.85fr_1.15fr]">
+                    <div>
+                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-beer">Depoimentos</p>
+                        <h2 class="font-display text-4xl font-black leading-tight md:text-5xl">
+                            Quem coloca para vender mostra o resultado na prática.
+                        </h2>
+                        <p class="mt-5 max-w-xl text-base font-semibold leading-relaxed text-white/62">
+                            Veja clientes, eventos e operações reais usando a chopeira para chamar atenção, atender melhor e transformar movimento em faturamento.
+                        </p>
+                    </div>
+
+                    {% if depoimentos %}
+                    <div class="relative">
+                        <div id="testimonialCarousel" class="event-carousel flex gap-4 overflow-x-auto scroll-smooth pb-2">
+                            {% for depoimento in depoimentos %}
+                            <article class="event-slide min-w-[82%] overflow-hidden rounded-[1.35rem] border border-white/10 bg-white text-ink shadow-lift sm:min-w-[52%] lg:min-w-[48%]">
+                                <div class="flex h-[360px] items-center justify-center bg-cream">
+                                    {% if depoimento.tipo_midia == "video" %}
+                                    <video class="h-full w-full object-contain" controls playsinline preload="metadata">
+                                        <source src="{{ depoimento.arquivo.url }}">
+                                        Seu navegador não suporta vídeo.
+                                    </video>
+                                    {% else %}
+                                    <img src="{{ depoimento.arquivo.url }}" alt="Depoimento de {{ depoimento.nome_cliente }}" class="h-full w-full object-contain p-3" />
+                                    {% endif %}
+                                </div>
+                                <div class="p-5">
+                                    <p class="text-xs font-black uppercase tracking-wide text-flame">{{ depoimento.contexto|default:"Cliente Dona do Chopp" }}</p>
+                                    <h3 class="mt-1 font-display text-2xl font-black leading-tight">{{ depoimento.nome_cliente }}</h3>
+                                    {% if depoimento.texto %}
+                                    <p class="mt-3 text-sm font-semibold leading-relaxed text-ink/60">{{ depoimento.texto }}</p>
+                                    {% endif %}
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-5 flex justify-end gap-2">
+                            <button type="button" id="testimonialPrev" class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-ink shadow-soft transition hover:bg-beer" aria-label="Depoimento anterior">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m15 18-6-6 6-6" />
+                                </svg>
+                            </button>
+                            <button type="button" id="testimonialNext" class="flex h-11 w-11 items-center justify-center rounded-full bg-flame text-white shadow-cta transition hover:bg-amber" aria-label="Próximo depoimento">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 18 6-6-6-6" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </section>
@@ -1024,6 +1082,7 @@
                     <a href="#produtos" class="hover:text-beer">Modelos</a>
                     <a href="#lucro" class="hover:text-beer">Simulação de lucro</a>
                     <a href="#eventos" class="hover:text-beer">Eventos</a>
+                    <a href="#depoimentos" class="hover:text-beer">Depoimentos</a>
                     <a href="#prova" class="hover:text-beer">Avaliações</a>
                     <a href="#faq" class="hover:text-beer">Dúvidas</a>
                 </div>
@@ -1162,17 +1221,22 @@
         const eventCarousel = document.getElementById('eventCarousel');
         const eventPrev = document.getElementById('eventPrev');
         const eventNext = document.getElementById('eventNext');
+        const testimonialCarousel = document.getElementById('testimonialCarousel');
+        const testimonialPrev = document.getElementById('testimonialPrev');
+        const testimonialNext = document.getElementById('testimonialNext');
 
-        function scrollEventCarousel(direction) {
-            if (!eventCarousel) return;
-            const slide = eventCarousel.querySelector('.event-slide');
+        function scrollCarousel(carousel, direction) {
+            if (!carousel) return;
+            const slide = carousel.querySelector('.event-slide');
             const gap = 16;
-            const amount = slide ? slide.getBoundingClientRect().width + gap : eventCarousel.clientWidth * 0.8;
-            eventCarousel.scrollBy({ left: direction * amount, behavior: 'smooth' });
+            const amount = slide ? slide.getBoundingClientRect().width + gap : carousel.clientWidth * 0.8;
+            carousel.scrollBy({ left: direction * amount, behavior: 'smooth' });
         }
 
-        eventPrev?.addEventListener('click', () => scrollEventCarousel(-1));
-        eventNext?.addEventListener('click', () => scrollEventCarousel(1));
+        eventPrev?.addEventListener('click', () => scrollCarousel(eventCarousel, -1));
+        eventNext?.addEventListener('click', () => scrollCarousel(eventCarousel, 1));
+        testimonialPrev?.addEventListener('click', () => scrollCarousel(testimonialCarousel, -1));
+        testimonialNext?.addEventListener('click', () => scrollCarousel(testimonialCarousel, 1));
 
         const galleryModal = document.getElementById('galleryModal');
         const galleryModalImage = document.getElementById('galleryModalImage');

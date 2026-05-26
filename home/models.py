@@ -54,6 +54,30 @@ class Evento(models.Model):
         return self.titulo
 
 
+class Depoimento(models.Model):
+    TIPO_MIDIA_CHOICES = [
+        ("video", "Video"),
+        ("imagem", "Imagem"),
+    ]
+
+    arquivo = models.FileField(upload_to="depoimentos/")
+    tipo_midia = models.CharField(max_length=10, choices=TIPO_MIDIA_CHOICES)
+    nome_cliente = models.CharField(max_length=100)
+    contexto = models.CharField(max_length=120, blank=True)
+    texto = models.CharField(max_length=220, blank=True)
+    ordem = models.PositiveIntegerField(default=0)
+    ativo = models.BooleanField(default=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["ordem", "-criado_em"]
+        verbose_name = "Depoimento"
+        verbose_name_plural = "Depoimentos"
+
+    def __str__(self):
+        return self.nome_cliente
+
+
 class Pedido(models.Model):
     CORES_CHOICES = [
         ("amarela_vermelha", "Amarela e vermelha"),
