@@ -6,4 +6,4 @@ python manage.py migrate --noinput
 
 # Inicia o Gunicorn
 echo "Iniciando Gunicorn..."
-exec gunicorn core.wsgi:application --bind 0.0.0.0:$PORT
+exec gunicorn core.wsgi:application --bind 0.0.0.0:${PORT:-8010}

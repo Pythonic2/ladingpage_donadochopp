@@ -9,6 +9,7 @@ services:
       - "8010:8010"
     environment:
       - DJANGO_ENV=production
+      - PORT=8010
     networks:
       - pi_default
     volumes:
