@@ -12,4 +12,4 @@ python manage.py migrate --noinput
 echo "Coletando arquivos estáticos..."
 python manage.py collectstatic --noinput
 
-exec gunicorn core.wsgi:application --bind 0.0.0.0:${PORT:-8010}
+exec gunicorn core.wsgi:application --bind 0.0.0.0:${PORT:-8010} --workers ${GUNICORN_WORKERS:-2} --timeout ${GUNICORN_TIMEOUT:-120}

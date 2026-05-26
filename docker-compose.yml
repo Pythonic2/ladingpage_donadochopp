@@ -15,7 +15,11 @@ services:
       - DJANGO_CSRF_TRUSTED_ORIGINS=https://vendas1.donadochopp.com.br,http://192.168.1.7:8010
       - MEDIA_ROOT=/app/media
       - MEDIA_URL=/media/
+      - STATIC_ROOT=/app/staticfiles
+      - STATIC_URL=/static/
       - SERVE_MEDIA=true
+      - GUNICORN_WORKERS=2
+      - GUNICORN_TIMEOUT=120
       - DB_NAME=cloudbooster_db
       - DB_USER=cloud_user
       - DB_PASSWORD=37192541aaSS@
@@ -23,11 +27,8 @@ services:
       - DB_PORT=5432
       - DB_SCHEMA=ladingpageddc
     volumes:
-      - ladingpage2_chopp_data:/var/lib/postgresql/data
-      - ladingpage2_chopp_app:/app/media
-volumes:
-  ladingpage2_chopp_data:
-  ladingpage2_chopp_app:
+      - /home/pi/ladingpage2-chopp/media:/app/media
+      - /home/pi/ladingpage2-chopp/staticfiles:/app/staticfiles
 networks:
   pi_default:
     external: true
