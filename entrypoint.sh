@@ -3,6 +3,7 @@ set -e
 
 echo "Preparando diretórios..."
 mkdir -p /app/media
+mkdir -p /app/staticfiles
 
 echo "Rodando makemigrations e migrate..."
 python manage.py makemigrations --noinput
