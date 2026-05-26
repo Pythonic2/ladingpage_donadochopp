@@ -28,6 +28,9 @@ services:
       - DB_SCHEMA=ladingpageddc
     volumes:
       - ladingpage2_chopp_app:/app/media
+volumes:
+  ladingpage2_chopp_app:
+    name: ladingpage2_chopp_app
 networks:
   pi_default:
     external: true
