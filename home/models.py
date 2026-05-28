@@ -1,4 +1,5 @@
 from django.db import models
+from django.templatetags.static import static
 import os
 from ckeditor.fields import RichTextField
 
@@ -34,6 +35,16 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+
+    @property
+    def imagem_segura_url(self):
+        if self.imagem and self.imagem.name and self.imagem.storage.exists(self.imagem.name):
+            return self.imagem.url
+
+        nome = self.nome.lower()
+        if "carrinho" in nome or "combo" in nome:
+            return static("assets/images/fullcombo.png")
+        return static("assets/images/bomba2.png")
 
 
 class Evento(models.Model):
@@ -115,6 +126,21 @@ class MidiaLanding(models.Model):
 
     def __str__(self):
         return f"{self.get_chave_display()} - {self.titulo}"
+
+    @property
+    def arquivo_seguro_url(self):
+        if self.arquivo and self.arquivo.name and self.arquivo.storage.exists(self.arquivo.name):
+            return self.arquivo.url
+
+        fallbacks = {
+            "hero_principal": "assets/images/aed46108-0684-4c51-ad43-86fcb4425c8b.png",
+            "lucro_operacao": "assets/images/praia.jpeg",
+            "video_thumb": "assets/images/thumb.jpeg",
+            "video_principal": "assets/images/video-convertido.mp4",
+            "logo_footer": "assets/images/logo.jpeg",
+        }
+        fallback = fallbacks.get(self.chave, "assets/images/logo2.png")
+        return static(fallback)
 
 
 class Pedido(models.Model):

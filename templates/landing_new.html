@@ -403,7 +403,10 @@
                 <div class="relative mx-auto h-[360px] w-full max-w-[520px] sm:h-[500px] lg:h-[620px] lg:max-w-none">
                     {% with hero=hero_principal.0 %}
                     {% if hero %}
-                    <img src="{{ hero.arquivo.url }}" alt="{{ hero.titulo }}"
+                    <img src="{{ hero.arquivo_seguro_url }}" alt="{{ hero.titulo }}"
+                        class="hero-logo-mark absolute -bottom-[35px] left-1/2 z-0 block w-[100%] max-w-none -translate-x-1/2 opacity-95 sm:w-[110%] lg:w-[100%]" />
+                    {% else %}
+                    <img src="{% static 'assets/images/aed46108-0684-4c51-ad43-86fcb4425c8b.png' %}" alt="Chopeira Dona do Chopp"
                         class="hero-logo-mark absolute -bottom-[35px] left-1/2 z-0 block w-[100%] max-w-none -translate-x-1/2 opacity-95 sm:w-[110%] lg:w-[100%]" />
                     {% endif %}
                     {% endwith %}
@@ -454,15 +457,13 @@
                 <div class="mx-auto grid max-w-5xl gap-7 md:grid-cols-2">
                     {% for produto in produtos %}
                     <article class="price-card reveal overflow-hidden rounded-[1.5rem] border border-ink/10 bg-white shadow-soft">
-                        {% if produto.imagem %}
                         <a href="{% url 'produto-detalhe' produto.id %}" class="product-media block relative p-4">
                             {% if produto.preco_sem_desconto > 0 %}
                             <span class="absolute left-4 top-4 z-10 rounded-full bg-flame px-3 py-1.5 text-xs font-black uppercase text-white">Oferta</span>
                             {% endif %}
-                            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}"
+                            <img src="{{ produto.imagem_segura_url }}" alt="{{ produto.nome }}"
                                 class="mx-auto h-72 w-full object-contain transition duration-500 hover:scale-105" />
                         </a>
-                        {% endif %}
                         <div class="p-6">
                             <h3 class="font-display text-2xl font-black leading-tight">{{ produto.nome }}</h3>
                             <div class="mt-4">
@@ -542,7 +543,7 @@
                         {% with imagem_lucro=lucro_operacao.0 %}
                         {% if imagem_lucro %}
                         <div class="overflow-hidden rounded-[1.5rem] shadow-lift">
-                            <img src="{{ imagem_lucro.arquivo.url }}" alt="{{ imagem_lucro.titulo }}" class="h-[310px] w-full object-cover" />
+                            <img src="{{ imagem_lucro.arquivo_seguro_url }}" alt="{{ imagem_lucro.titulo }}" class="h-[310px] w-full object-cover" />
                         </div>
                         {% endif %}
                         {% endwith %}
@@ -751,7 +752,7 @@
                                 class="video-overlay absolute inset-0 z-10 flex w-full items-center justify-center"
                                 onclick="this.style.display='none';document.getElementById('main-video').style.display='block';document.getElementById('main-video').play();"
                                 aria-label="Reproduzir vídeo">
-                                <img src="{{ capa.arquivo.url }}" alt="{{ capa.titulo }}"
+                                <img src="{{ capa.arquivo_seguro_url }}" alt="{{ capa.titulo }}"
                                     class="absolute inset-0 h-full w-full object-cover" />
                                 <span class="relative flex h-20 w-20 items-center justify-center rounded-full bg-white text-flame shadow-lift">
                                     <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
@@ -761,7 +762,7 @@
                             </button>
                             {% endif %}
                             <video id="main-video" class="{% if capa %}hidden{% endif %} h-full w-full object-cover" controls>
-                                <source src="{{ video.arquivo.url }}" type="video/mp4">
+                                <source src="{{ video.arquivo_seguro_url }}" type="video/mp4">
                             </video>
                         </div>
                     </div>
@@ -920,7 +921,7 @@
                     {% for midia in prova_social %}
                     <a href="{{ midia.link|default:'https://www.google.com.br/maps/place/Dona+do+chopp/@-3.7585457,-38.5656464,15z/data=!4m8!3m7!1s0x24b5a5a938d35363:0x266d5cc562862299!8m2!3d-3.7585457!4d-38.5656464!9m1!1b1!16s%2Fg%2F11t_krm151' }}"
                         target="_blank" class="reveal block overflow-hidden rounded-[1.25rem] bg-white p-3 shadow-soft transition hover:scale-[1.02]">
-                        <img src="{{ midia.arquivo.url }}" alt="{{ midia.titulo }}" class="w-full rounded-xl" />
+                        <img src="{{ midia.arquivo_seguro_url }}" alt="{{ midia.titulo }}" class="w-full rounded-xl" />
                     </a>
                     {% endfor %}
                 </div>
@@ -940,8 +941,8 @@
                 <div class="reveal rounded-[1.75rem] border border-ink/10 bg-slate-50 p-3 shadow-soft md:p-5">
                     <div class="grid auto-rows-[170px] grid-cols-2 gap-3 md:auto-rows-[210px] md:grid-cols-6 md:gap-4">
                         {% for midia in galeria %}
-                        <button type="button" data-gallery-src="{{ midia.arquivo.url }}" data-gallery-alt="{{ midia.titulo }}" class="group relative overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift {% if forloop.first %}col-span-2 row-span-2 md:col-span-3{% elif forloop.counter <= 3 %}md:col-span-3{% else %}md:col-span-2{% endif %}">
-                            <img src="{{ midia.arquivo.url }}" alt="{{ midia.titulo }}" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05] {% if forloop.first %}md:p-8{% endif %}" />
+                        <button type="button" data-gallery-src="{{ midia.arquivo_seguro_url }}" data-gallery-alt="{{ midia.titulo }}" class="group relative overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift {% if forloop.first %}col-span-2 row-span-2 md:col-span-3{% elif forloop.counter <= 3 %}md:col-span-3{% else %}md:col-span-2{% endif %}">
+                            <img src="{{ midia.arquivo_seguro_url }}" alt="{{ midia.titulo }}" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05] {% if forloop.first %}md:p-8{% endif %}" />
                             {% if forloop.first %}
                             <span class="absolute left-4 top-4 rounded-full bg-flame px-3 py-1.5 text-xs font-black uppercase tracking-wide text-white shadow-soft">
                                 Destaque
@@ -1110,7 +1111,7 @@
                 <div class="flex items-center gap-3">
                     {% with logo=logo_footer.0 %}
                     {% if logo %}
-                    <img src="{{ logo.arquivo.url }}" alt="{{ logo.titulo }}" class="h-11 w-11 rounded-full object-cover" />
+                    <img src="{{ logo.arquivo_seguro_url }}" alt="{{ logo.titulo }}" class="h-11 w-11 rounded-full object-cover" />
                     {% endif %}
                     {% endwith %}
                     <p class="font-display text-xl font-black text-white">Dona do <span class="text-beer">Chopp</span></p>

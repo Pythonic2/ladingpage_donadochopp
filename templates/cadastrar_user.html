@@ -122,14 +122,8 @@
         <aside class="lg:sticky lg:top-8 lg:self-start">
             <div class="overflow-hidden rounded-[1.5rem] bg-white shadow-lift">
                 <div class="bg-cream p-5">
-                    {% if produto.imagem %}
-                    <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}"
+                    <img src="{{ produto.imagem_segura_url }}" alt="{{ produto.nome }}"
                         class="mx-auto h-72 w-full object-contain" />
-                    {% else %}
-                    <div class="flex h-72 items-center justify-center rounded-2xl bg-white text-sm font-black uppercase text-ink/35">
-                        Produto selecionado
-                    </div>
-                    {% endif %}
                 </div>
 
                 <div class="p-6">

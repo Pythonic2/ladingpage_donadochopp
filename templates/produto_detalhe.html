@@ -11,9 +11,7 @@
     <!-- Open Graph for Instagram / Social -->
     <meta property="og:title" content="{{ produto.nome }} - Dona do Chopp" />
     <meta property="og:description" content="Chopeira artesanal personalizada. Pronta para faturar!" />
-    {% if produto.imagem %}
-    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ produto.imagem.url }}" />
-    {% endif %}
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ produto.imagem_segura_url }}" />
     <meta property="og:type" content="product" />
     <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
     <link rel="icon" type="image/png" href="{% static 'assets/images/logo.jpeg' %}" />
@@ -213,11 +211,10 @@
             <div class="grid gap-10 lg:grid-cols-2">
                 <!-- Image -->
                 <div>
-                    {% if produto.imagem %}
                     <div class="product-3d-wrapper">
                         <div id="product3d"
                             class="product-3d overflow-hidden rounded-3xl bg-white shadow-soft relative">
-                            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}"
+                            <img src="{{ produto.imagem_segura_url }}" alt="{{ produto.nome }}"
                                 class="w-full object-cover pointer-events-none" draggable="false" />
                             <div class="shine"></div>
                         </div>
@@ -232,7 +229,6 @@
                             Arraste para girar o produto em 3D
                         </p>
                     </div>
-                    {% endif %}
                 </div>
 
                 <!-- Info -->
@@ -336,11 +332,9 @@
                     {% for p in outros_produtos %}
                     <div
                         class="rounded-3xl border border-black/10 bg-card overflow-hidden shadow-soft transition hover:-translate-y-2 hover:shadow-strong">
-                        {% if p.imagem %}
                         <a href="{% url 'produto-detalhe' p.id %}">
-                            <img src="{{ p.imagem.url }}" alt="{{ p.nome }}" class="w-full h-56 object-cover" />
+                            <img src="{{ p.imagem_segura_url }}" alt="{{ p.nome }}" class="w-full h-56 object-cover" />
                         </a>
-                        {% endif %}
                         <div class="p-5">
                             <h3 class="mb-2 font-display text-lg">{{ p.nome }}</h3>
                             <span class="font-display text-xl text-secondary">{{ p.preco|reais }}</span>
