@@ -78,6 +78,45 @@ class Depoimento(models.Model):
         return self.nome_cliente
 
 
+def landing_media_upload_path(instance, filename):
+    return os.path.join("landing", instance.chave, filename)
+
+
+class MidiaLanding(models.Model):
+    CHAVE_CHOICES = [
+        ("hero_principal", "Hero principal"),
+        ("lucro_operacao", "Lucro - operação"),
+        ("video_thumb", "Vídeo principal - capa"),
+        ("video_principal", "Vídeo principal - arquivo"),
+        ("prova_social", "Prova social"),
+        ("galeria", "Galeria"),
+        ("logo_footer", "Logo do rodapé"),
+    ]
+
+    TIPO_CHOICES = [
+        ("imagem", "Imagem"),
+        ("video", "Vídeo"),
+    ]
+
+    chave = models.CharField(max_length=40, choices=CHAVE_CHOICES)
+    arquivo = models.FileField(upload_to=landing_media_upload_path)
+    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES, default="imagem")
+    titulo = models.CharField(max_length=120)
+    descricao = models.CharField(max_length=220, blank=True)
+    link = models.URLField(blank=True)
+    ordem = models.PositiveIntegerField(default=0)
+    ativo = models.BooleanField(default=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["chave", "ordem", "-criado_em"]
+        verbose_name = "Mídia da landing"
+        verbose_name_plural = "Mídias da landing"
+
+    def __str__(self):
+        return f"{self.get_chave_display()} - {self.titulo}"
+
+
 class Pedido(models.Model):
     CORES_CHOICES = [
         ("amarela_vermelha", "Amarela e vermelha"),

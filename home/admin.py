@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Produto, Pedido, Transacao, Pergunta, Evento, Depoimento
+from .models import Produto, Pedido, Transacao, Pergunta, Evento, Depoimento, MidiaLanding
 
 # Register your models here.
 admin.site.register(Produto)
@@ -21,6 +21,14 @@ class DepoimentoAdmin(admin.ModelAdmin):
     list_editable = ("ordem", "ativo")
     list_filter = ("tipo_midia", "ativo", "criado_em")
     search_fields = ("nome_cliente", "contexto", "texto")
+
+
+@admin.register(MidiaLanding)
+class MidiaLandingAdmin(admin.ModelAdmin):
+    list_display = ("titulo", "chave", "tipo", "ordem", "ativo", "criado_em")
+    list_editable = ("ordem", "ativo")
+    list_filter = ("chave", "tipo", "ativo", "criado_em")
+    search_fields = ("titulo", "descricao", "link")
 
 
 @admin.register(Pergunta)

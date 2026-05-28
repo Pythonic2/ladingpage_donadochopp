@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PedidoForm
 import requests
 from .criar_preferencia import criar_preferencia
-from .models import Produto, Pedido, Transacao, Pergunta, Evento, Depoimento
+from .models import Produto, Pedido, Transacao, Pergunta, Evento, Depoimento, MidiaLanding
 from .busca_pagamento import buscar_pagamento_mercado_pago
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
@@ -23,6 +23,10 @@ def home_view(request):
     produtos = Produto.objects.all()
     eventos = Evento.objects.filter(ativo=True)
     depoimentos = Depoimento.objects.filter(ativo=True)
+    midias = MidiaLanding.objects.filter(ativo=True)
+    midias_por_chave = {}
+    for midia in midias:
+        midias_por_chave.setdefault(midia.chave, []).append(midia)
     perguntas = paginar_perguntas(request)
     return render(
         request,
@@ -31,6 +35,13 @@ def home_view(request):
             "produtos": produtos,
             "eventos": eventos,
             "depoimentos": depoimentos,
+            "hero_principal": midias_por_chave.get("hero_principal", []),
+            "lucro_operacao": midias_por_chave.get("lucro_operacao", []),
+            "video_thumb": midias_por_chave.get("video_thumb", []),
+            "video_principal": midias_por_chave.get("video_principal", []),
+            "prova_social": midias_por_chave.get("prova_social", []),
+            "galeria": midias_por_chave.get("galeria", []),
+            "logo_footer": midias_por_chave.get("logo_footer", []),
             "perguntas": perguntas,
         },
     )

@@ -191,48 +191,80 @@
             transform: scale(1.08);
         }
 
-        .customizer-stage {
-            perspective: 1200px;
+        .mockup-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 560px;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            background: #fff;
+            box-shadow: 0 24px 70px rgba(32, 19, 15, .18);
+            user-select: none;
+        }
+
+        .mockup-wrapper img.base {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .logo-slot {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #fff;
             cursor: grab;
             touch-action: none;
         }
 
-        .customizer-stage.is-dragging {
+        .logo-slot:active {
             cursor: grabbing;
         }
 
-        .pump-3d {
-            transform-style: preserve-3d;
-            transition: transform .18s ease-out;
+        .logo-slot.show-guide {
+            outline: 2px dashed rgba(223, 47, 36, .85);
+            outline-offset: -2px;
         }
 
-        .pump-face {
-            backface-visibility: hidden;
-            transform-style: preserve-3d;
+        .logo-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            color: #20130f;
+            font-weight: 900;
+            line-height: 1.05;
+            text-align: center;
+            pointer-events: none;
         }
 
-        .pump-face.back {
-            transform: rotateY(180deg);
-        }
-
-        .pump-logo-slot {
+        .logo-img {
+            position: absolute;
             left: 50%;
-            top: 8.2%;
-            width: 25%;
-            aspect-ratio: 1;
-            transform: translateX(-50%) translateZ(18px);
-            border-radius: 999px;
-        }
-
-        .pump-logo-slot img {
-            width: 76%;
-            height: 76%;
+            top: 50%;
+            display: none;
+            width: 72%;
+            height: 72%;
             object-fit: contain;
+            transform-origin: center center;
+            pointer-events: none;
         }
 
-        .pump-logo-text {
-            font-size: clamp(10px, 2vw, 20px);
-            line-height: 1.02;
+        .model-thumb {
+            aspect-ratio: 1;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .model-option.active {
+            border-color: #df2f24;
+            background: #fff8ec;
+            color: #df2f24;
         }
 
         @media (max-width: 1023px) {
@@ -246,9 +278,8 @@
                 bottom: 92px;
             }
 
-            .pump-logo-slot {
-                top: 8.4%;
-                width: 24%;
+            .mockup-wrapper {
+                max-width: 500px;
             }
         }
     </style>
@@ -307,7 +338,7 @@
                 <a href="#lucro" class="py-3 text-sm font-bold">Simulação de lucro</a>
                 <a href="#eventos" class="py-3 text-sm font-bold">Eventos</a>
                 <a href="#depoimentos" class="py-3 text-sm font-bold">Depoimentos</a>
-                <a href="#personalizar" class="py-3 text-sm font-bold">Simulador 3D</a>
+                <a href="#personalizar" class="py-3 text-sm font-bold">Personalizar</a>
                 <a href="#prova" class="py-3 text-sm font-bold">Avaliações</a>
                 <a href="#faq" class="py-3 text-sm font-bold">Dúvidas</a>
                 <a href="https://wa.me/5585991803678" target="_blank" class="py-3 text-sm font-black text-leaf">Chamar no WhatsApp</a>
@@ -370,8 +401,12 @@
                 </div>
 
                 <div class="relative mx-auto h-[360px] w-full max-w-[520px] sm:h-[500px] lg:h-[620px] lg:max-w-none">
-                    <img src="{% static 'assets/images/aed46108-0684-4c51-ad43-86fcb4425c8b.png' %}" alt=""
+                    {% with hero=hero_principal.0 %}
+                    {% if hero %}
+                    <img src="{{ hero.arquivo.url }}" alt="{{ hero.titulo }}"
                         class="hero-logo-mark absolute -bottom-[35px] left-1/2 z-0 block w-[100%] max-w-none -translate-x-1/2 opacity-95 sm:w-[110%] lg:w-[100%]" />
+                    {% endif %}
+                    {% endwith %}
                     <!-- <div class="relative z-10 mx-auto flex items-end justify-center gap-0">
                         <img src="{% static 'assets/images/bomba1.png' %}" alt="Chopeira bomba de gasolina personalizada"
                             class="hero-product w-[48%] max-w-[290px] object-contain sm:w-[42%] lg:w-[38%]" />
@@ -504,9 +539,13 @@
                         </p>
                     </div>
                     <div class="grid gap-4 reveal">
+                        {% with imagem_lucro=lucro_operacao.0 %}
+                        {% if imagem_lucro %}
                         <div class="overflow-hidden rounded-[1.5rem] shadow-lift">
-                            <img src="{% static 'assets/images/praia.jpeg' %}" alt="Chopeira vendendo chopp na praia" class="h-[310px] w-full object-cover" />
+                            <img src="{{ imagem_lucro.arquivo.url }}" alt="{{ imagem_lucro.titulo }}" class="h-[310px] w-full object-cover" />
                         </div>
+                        {% endif %}
+                        {% endwith %}
                         <div class="overflow-hidden rounded-[1.5rem] border border-ink/10 bg-cream shadow-soft">
                             <div class="grid grid-cols-[1.2fr_.8fr] bg-ink px-5 py-4 text-sm font-black uppercase text-white">
                                 <span>Unidade de negócio</span>
@@ -703,13 +742,16 @@
                             O vídeo mostra a chopeira em ação e ajuda você a imaginar como ela aparece no atendimento real.
                         </p>
                     </div>
+                    {% with capa=video_thumb.0 video=video_principal.0 %}
+                    {% if video %}
                     <div class="reveal overflow-hidden rounded-[1.5rem] bg-black shadow-lift">
                         <div class="relative aspect-video">
+                            {% if capa %}
                             <button type="button"
                                 class="video-overlay absolute inset-0 z-10 flex w-full items-center justify-center"
                                 onclick="this.style.display='none';document.getElementById('main-video').style.display='block';document.getElementById('main-video').play();"
                                 aria-label="Reproduzir vídeo">
-                                <img src="{% static 'assets/images/thumb.jpeg' %}" alt="Prévia do vídeo da chopeira"
+                                <img src="{{ capa.arquivo.url }}" alt="{{ capa.titulo }}"
                                     class="absolute inset-0 h-full w-full object-cover" />
                                 <span class="relative flex h-20 w-20 items-center justify-center rounded-full bg-white text-flame shadow-lift">
                                     <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
@@ -717,11 +759,14 @@
                                     </svg>
                                 </span>
                             </button>
-                            <video id="main-video" class="hidden h-full w-full object-cover" controls>
-                                <source src="{% static 'assets/images/video-convertido.mp4' %}" type="video/mp4">
+                            {% endif %}
+                            <video id="main-video" class="{% if capa %}hidden{% endif %} h-full w-full object-cover" controls>
+                                <source src="{{ video.arquivo.url }}" type="video/mp4">
                             </video>
                         </div>
                     </div>
+                    {% endif %}
+                    {% endwith %}
                 </div>
             </div>
         </section>
@@ -782,77 +827,87 @@
             </div>
         </section>
 
-        <!-- <section id="personalizar" class="grain bg-cream py-20 lg:py-28">
+        <section id="personalizar" class="grain bg-cream py-20 lg:py-28">
             <div class="container-max mx-auto px-4">
-                <div class="grid items-center gap-10 lg:grid-cols-[.95fr_1.05fr]">
-                    <div class="reveal">
-                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Teste sua marca</p>
-                        <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Veja sua logo na chopeira em 3D.</h2>
-                        <p class="mt-5 text-lg leading-relaxed text-ink/62">
-                            Envie uma imagem da sua marca, gire a chopeira e veja uma prévia rápida de como ela pode aparecer no topo do equipamento.
-                        </p>
+                <div class="mx-auto max-w-3xl text-center reveal">
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Teste sua marca</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Veja sua logo na chopeira.</h2>
+                    <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink/62">
+                        Envie uma imagem da sua marca e ajuste a prévia direto no círculo superior do equipamento.
+                    </p>
+                </div>
 
-                        <div class="mt-8 rounded-[1.5rem] bg-white p-5 shadow-soft">
-                            <label for="logoUpload" class="block text-sm font-black uppercase text-ink/55">Upload da logo</label>
-                            <input id="logoUpload" type="file" accept="image/*"
-                                class="mt-3 w-full rounded-2xl border border-ink/10 bg-cream px-4 py-3 text-sm font-bold text-ink file:mr-4 file:rounded-full file:border-0 file:bg-flame file:px-4 file:py-2 file:text-xs file:font-black file:uppercase file:text-white" />
+                <div class="reveal mx-auto mt-8 max-w-5xl">
+                    <label class="block text-center text-sm font-black uppercase text-ink/55">Modelo da chopeira</label>
+                    <div id="modelOptions" class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"></div>
+                </div>
+
+                <div class="mt-10 grid items-center gap-8 lg:grid-cols-[420px_1fr] lg:gap-14">
+                    <div class="reveal">
+                        <div class="rounded-[1.5rem] bg-white p-5 shadow-soft">
+                            <div>
+                                <label for="logoInput" class="block text-sm font-black uppercase text-ink/55">Upload da logo</label>
+                                <input id="logoInput" type="file" accept="image/*"
+                                    class="mt-3 w-full rounded-2xl border border-ink/10 bg-cream px-4 py-3 text-sm font-bold text-ink file:mr-4 file:rounded-full file:border-0 file:bg-flame file:px-4 file:py-2 file:text-xs file:font-black file:uppercase file:text-white" />
+                            </div>
 
                             <div class="mt-5">
                                 <div class="mb-2 flex items-center justify-between gap-3">
-                                    <label for="pumpRotation" class="text-sm font-black uppercase text-ink/55">Rotação</label>
-                                    <span id="pumpRotationValue" class="text-sm font-black text-flame">0°</span>
+                                    <label for="scaleRange" class="text-sm font-black uppercase text-ink/55">Tamanho da logo</label>
                                 </div>
-                                <input id="pumpRotation" type="range" min="-180" max="180" value="0"
-                                    class="w-full accent-flame" />
+                                <input id="scaleRange" type="range" min="0.4" max="2.4" step="0.01" value="1" class="w-full accent-flame" />
                             </div>
 
-                            <div class="mt-5 flex flex-wrap gap-3">
-                                <button type="button" id="pumpFrontBtn"
+                            <div class="mt-5">
+                                <div class="mb-2 flex items-center justify-between gap-3">
+                                    <label for="rotateRange" class="text-sm font-black uppercase text-ink/55">Rotação</label>
+                                </div>
+                                <input id="rotateRange" type="range" min="-30" max="30" step="1" value="0" class="w-full accent-flame" />
+                            </div>
+
+                            <div class="mt-5">
+                                <div class="mb-2 flex items-center justify-between gap-3">
+                                    <label for="opacityRange" class="text-sm font-black uppercase text-ink/55">Opacidade</label>
+                                </div>
+                                <input id="opacityRange" type="range" min="0.2" max="1" step="0.01" value="1" class="w-full accent-flame" />
+                            </div>
+
+                            <label class="mt-5 flex items-center gap-3 text-sm font-black uppercase text-ink/55">
+                                <input id="guideToggle" type="checkbox" checked class="h-4 w-4 accent-flame">
+                                Mostrar guia do encaixe
+                            </label>
+
+                            <div class="mt-5 grid gap-3 sm:grid-cols-2">
+                                <button type="button" id="centerBtn"
                                     class="rounded-full bg-flame px-5 py-3 text-xs font-black uppercase text-white shadow-cta">
-                                    Frente
+                                    Centralizar
                                 </button>
-                                <button type="button" id="pumpBackBtn"
+                                <button type="button" id="resetBtn"
                                     class="rounded-full border-2 border-ink/12 px-5 py-3 text-xs font-black uppercase text-ink transition hover:border-amber hover:text-flame">
-                                    Trás
-                                </button>
-                                <button type="button" id="pumpSpinBtn"
-                                    class="rounded-full border-2 border-amber px-5 py-3 text-xs font-black uppercase text-amber transition hover:bg-amber hover:text-white">
-                                    Girar
+                                    Resetar
                                 </button>
                             </div>
+
+                            <p class="mt-5 rounded-2xl bg-cream p-4 text-sm font-semibold leading-relaxed text-ink/62">
+                                Para ficar mais bonito, use uma logo em PNG com fundo transparente. Depois de enviar, arraste a logo dentro do círculo.
+                            </p>
                         </div>
                     </div>
 
-                    <div class="reveal">
-                        <div id="customizerStage"
-                            class="customizer-stage relative mx-auto flex min-h-[520px] max-w-xl items-center justify-center overflow-hidden rounded-[1.75rem] bg-white p-5 shadow-lift sm:min-h-[640px]">
-                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(255,194,71,.28),transparent_42%)]"></div>
-                            <div id="pump3d" class="pump-3d relative z-10 w-full max-w-[420px]">
-                                <div class="pump-face front relative">
-                                    <img src="{% static 'assets/images/bomba-personalizacao.jpg' %}" alt="Chopeira personalizada"
-                                        class="w-full select-none rounded-[1.25rem] object-contain" draggable="false" />
-                                    <div class="pump-logo-slot absolute flex items-center justify-center overflow-hidden bg-white text-center text-ink shadow-soft">
-                                        <img class="uploaded-logo hidden" alt="Logo enviada" />
-                                        <span class="pump-logo-text logo-placeholder font-black">sua<br>logomarca<br>aqui</span>
-                                    </div>
+                    <div class="reveal flex min-h-[520px] items-center justify-center lg:min-h-[680px] lg:pt-8">
+                        <div class="mockup-wrapper" id="mockupWrapper">
+                            <img class="base" id="baseImage" src="{% static 'assets/images/galeria-chopeira-1.jpeg' %}" alt="Chopeira personalizada" draggable="false">
+                            <div class="logo-slot show-guide" id="logoSlot">
+                                <div class="logo-placeholder" id="placeholder">
+                                    sua<br>logomarca<br>aqui
                                 </div>
-                                <div class="pump-face back absolute inset-0">
-                                    <img src="{% static 'assets/images/bomba-personalizacao.jpg' %}" alt="Verso da chopeira personalizada"
-                                        class="w-full select-none rounded-[1.25rem] object-contain" draggable="false" />
-                                    <div class="pump-logo-slot absolute flex items-center justify-center overflow-hidden bg-white text-center text-ink shadow-soft">
-                                        <img class="uploaded-logo hidden" alt="Logo enviada no verso" />
-                                        <span class="pump-logo-text logo-placeholder font-black">sua<br>logomarca<br>aqui</span>
-                                    </div>
-                                </div>
+                                <img id="logoImg" class="logo-img" alt="Logo do cliente">
                             </div>
                         </div>
-                        <p class="mt-4 text-center text-xs font-bold uppercase tracking-wide text-ink/38">
-                            Arraste a peça ou use o controle de rotação
-                        </p>
                     </div>
                 </div>
             </div>
-        </section> -->
+        </section>
         <!--  teste -->
         <section id="prova" class="bg-cream py-20 lg:py-28">
             <div class="container-max mx-auto px-4">
@@ -862,18 +917,12 @@
                     <p class="mx-auto mt-4 max-w-xl text-base text-ink/60">Avaliações reais, publicadas no Google.</p>
                 </div>
                 <div class="grid gap-6 md:grid-cols-3">
-                    <a href="https://www.google.com.br/maps/place/Dona+do+chopp/@-3.7585457,-38.5656464,15z/data=!4m8!3m7!1s0x24b5a5a938d35363:0x266d5cc562862299!8m2!3d-3.7585457!4d-38.5656464!9m1!1b1!16s%2Fg%2F11t_krm151"
+                    {% for midia in prova_social %}
+                    <a href="{{ midia.link|default:'https://www.google.com.br/maps/place/Dona+do+chopp/@-3.7585457,-38.5656464,15z/data=!4m8!3m7!1s0x24b5a5a938d35363:0x266d5cc562862299!8m2!3d-3.7585457!4d-38.5656464!9m1!1b1!16s%2Fg%2F11t_krm151' }}"
                         target="_blank" class="reveal block overflow-hidden rounded-[1.25rem] bg-white p-3 shadow-soft transition hover:scale-[1.02]">
-                        <img src="{% static 'assets/images/feedback1.png' %}" alt="Avaliação de cliente no Google" class="w-full rounded-xl" />
+                        <img src="{{ midia.arquivo.url }}" alt="{{ midia.titulo }}" class="w-full rounded-xl" />
                     </a>
-                    <a href="https://www.google.com.br/maps/place/Dona+do+chopp/@-3.7585457,-38.5656464,15z/data=!4m8!3m7!1s0x24b5a5a938d35363:0x266d5cc562862299!8m2!3d-3.7585457!4d-38.5656464!9m1!1b1!16s%2Fg%2F11t_krm151"
-                        target="_blank" class="reveal block overflow-hidden rounded-[1.25rem] bg-white p-3 shadow-soft transition hover:scale-[1.02]">
-                        <img src="{% static 'assets/images/feedback2.png' %}" alt="Avaliação de cliente no Google" class="w-full rounded-xl" />
-                    </a>
-                    <a href="https://www.google.com.br/maps/place/Dona+do+chopp/@-3.7585457,-38.5656464,15z/data=!4m8!3m7!1s0x24b5a5a938d35363:0x266d5cc562862299!8m2!3d-3.7585457!4d-38.5656464!9m1!1b1!16s%2Fg%2F11t_krm151"
-                        target="_blank" class="reveal block overflow-hidden rounded-[1.25rem] bg-white p-3 shadow-soft transition hover:scale-[1.02]">
-                        <img src="{% static 'assets/images/feedback3.png' %}" alt="Avaliação de cliente no Google" class="w-full rounded-xl" />
-                    </a>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -890,28 +939,16 @@
 
                 <div class="reveal rounded-[1.75rem] border border-ink/10 bg-slate-50 p-3 shadow-soft md:p-5">
                     <div class="grid auto-rows-[170px] grid-cols-2 gap-3 md:auto-rows-[210px] md:grid-cols-6 md:gap-4">
-                        <button type="button" data-gallery-src="{% static 'assets/images/galeria-chopeira-1.jpeg' %}" data-gallery-alt="Chopeira azul e amarela personalizada" class="group relative col-span-2 row-span-2 overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white text-left shadow-soft transition hover:-translate-y-1 hover:shadow-lift md:col-span-3">
-                            <img src="{% static 'assets/images/galeria-chopeira-1.jpeg' %}" alt="Chopeira azul e amarela personalizada" class="h-full w-full object-contain p-5 transition duration-500 group-hover:scale-[1.04] md:p-8" />
+                        {% for midia in galeria %}
+                        <button type="button" data-gallery-src="{{ midia.arquivo.url }}" data-gallery-alt="{{ midia.titulo }}" class="group relative overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift {% if forloop.first %}col-span-2 row-span-2 md:col-span-3{% elif forloop.counter <= 3 %}md:col-span-3{% else %}md:col-span-2{% endif %}">
+                            <img src="{{ midia.arquivo.url }}" alt="{{ midia.titulo }}" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05] {% if forloop.first %}md:p-8{% endif %}" />
+                            {% if forloop.first %}
                             <span class="absolute left-4 top-4 rounded-full bg-flame px-3 py-1.5 text-xs font-black uppercase tracking-wide text-white shadow-soft">
                                 Destaque
                             </span>
+                            {% endif %}
                         </button>
-
-                        <button type="button" data-gallery-src="{% static 'assets/images/galeria-chopeira-2.jpeg' %}" data-gallery-alt="Chopeira laranja personalizada" class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift md:col-span-3">
-                            <img src="{% static 'assets/images/galeria-chopeira-2.jpeg' %}" alt="Chopeira laranja personalizada" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05]" />
-                        </button>
-
-                        <button type="button" data-gallery-src="{% static 'assets/images/galeria-chopeira-3.jpeg' %}" data-gallery-alt="Chopeira vermelha personalizada" class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift md:col-span-3">
-                            <img src="{% static 'assets/images/galeria-chopeira-3.jpeg' %}" alt="Chopeira vermelha personalizada" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05]" />
-                        </button>
-
-                        <button type="button" data-gallery-src="{% static 'assets/images/galeria-chopeira-4.jpeg' %}" data-gallery-alt="Chopeira azul e branca personalizada" class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift md:col-span-2">
-                            <img src="{% static 'assets/images/galeria-chopeira-4.jpeg' %}" alt="Chopeira azul e branca personalizada" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05]" />
-                        </button>
-
-                        <button type="button" data-gallery-src="{% static 'assets/images/galeria-chopeira-5.jpeg' %}" data-gallery-alt="Chopeira preta e vermelha personalizada" class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift md:col-span-2">
-                            <img src="{% static 'assets/images/galeria-chopeira-5.jpeg' %}" alt="Chopeira preta e vermelha personalizada" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05]" />
-                        </button>
+                        {% endfor %}
 
                         <div class="col-span-2 flex flex-col justify-between rounded-[1.35rem] border border-slate-200 bg-white p-5 text-ink shadow-soft">
                             <p class="text-xs font-black uppercase tracking-wide text-flame">Personalização</p>
@@ -1071,7 +1108,11 @@
         <div class="container-max mx-auto grid gap-8 px-4 md:grid-cols-3">
             <div>
                 <div class="flex items-center gap-3">
-                    <img src="{% static 'assets/images/logo.jpeg' %}" alt="Dona do Chopp" class="h-11 w-11 rounded-full object-cover" />
+                    {% with logo=logo_footer.0 %}
+                    {% if logo %}
+                    <img src="{{ logo.arquivo.url }}" alt="{{ logo.titulo }}" class="h-11 w-11 rounded-full object-cover" />
+                    {% endif %}
+                    {% endwith %}
                     <p class="font-display text-xl font-black text-white">Dona do <span class="text-beer">Chopp</span></p>
                 </div>
                 <p class="mt-4 text-sm leading-relaxed text-white/48">Chopeiras artesanais personalizadas para quem quer vender chopp com mais presença.</p>
@@ -1142,81 +1183,227 @@
             this.value = v;
         });
 
-        const customizerStage = document.getElementById('customizerStage');
-        const pump3d = document.getElementById('pump3d');
-        const logoUpload = document.getElementById('logoUpload');
-        const pumpRotation = document.getElementById('pumpRotation');
-        const pumpRotationValue = document.getElementById('pumpRotationValue');
-        const pumpFrontBtn = document.getElementById('pumpFrontBtn');
-        const pumpBackBtn = document.getElementById('pumpBackBtn');
-        const pumpSpinBtn = document.getElementById('pumpSpinBtn');
-        let pumpAngle = 0;
-        let isDraggingPump = false;
-        let dragStartX = 0;
-        let dragStartAngle = 0;
-        let spinTimer;
+        const baseImage = document.getElementById('baseImage');
+        const logoSlot = document.getElementById('logoSlot');
+        const logoImg = document.getElementById('logoImg');
+        const placeholder = document.getElementById('placeholder');
+        const logoInput = document.getElementById('logoInput');
+        const modelOptions = document.getElementById('modelOptions');
+        const scaleRange = document.getElementById('scaleRange');
+        const rotateRange = document.getElementById('rotateRange');
+        const opacityRange = document.getElementById('opacityRange');
+        const guideToggle = document.getElementById('guideToggle');
+        const centerBtn = document.getElementById('centerBtn');
+        const resetBtn = document.getElementById('resetBtn');
 
-        function setPumpAngle(angle) {
-            pumpAngle = Math.max(-180, Math.min(180, Math.round(angle)));
-            if (pump3d) pump3d.style.transform = `rotateY(${pumpAngle}deg)`;
-            if (pumpRotation) pumpRotation.value = pumpAngle;
-            if (pumpRotationValue) pumpRotationValue.textContent = `${pumpAngle}°`;
+        const CHOPEIRAS = [
+            {
+                name: 'Azul e amarela',
+                src: "{% static 'assets/images/galeria-chopeira-1.jpeg' %}",
+                slot: { x: 460, y: 135, r: 100 }
+            },
+            {
+                name: 'Laranja e preta',
+                src: "{% static 'assets/images/galeria-chopeira-2.jpeg' %}",
+                slot: { x: 460, y: 135, r: 100 }
+            },
+            {
+                name: 'Vermelha',
+                src: "{% static 'assets/images/galeria-chopeira-3.jpeg' %}",
+                slot: { x: 460, y: 135, r: 100 }
+            },
+            {
+                name: 'Azul e branca',
+                src: "{% static 'assets/images/galeria-chopeira-4.jpeg' %}",
+                slot: { x: 460, y: 135, r: 100 }
+            },
+            {
+                name: 'Preta e vermelha',
+                src: "{% static 'assets/images/galeria-chopeira-5.jpeg' %}",
+                slot: { x: 460, y: 135, r: 100 }
+            }
+        ];
+
+        const customizerState = {
+            scale: 1,
+            rotation: 0,
+            opacity: 1,
+            offsetX: 0,
+            offsetY: 0,
+            hasLogo: false,
+            chopeiraIndex: 0
+        };
+
+        function updateSlotPosition() {
+            if (!baseImage || !logoSlot) return;
+            const displayedWidth = baseImage.clientWidth;
+            const displayedHeight = baseImage.clientHeight;
+            const naturalWidth = baseImage.naturalWidth;
+            const naturalHeight = baseImage.naturalHeight;
+            if (!displayedWidth || !displayedHeight || !naturalWidth || !naturalHeight) return;
+
+            const scaleX = displayedWidth / naturalWidth;
+            const scaleY = displayedHeight / naturalHeight;
+            const currentSlot = CHOPEIRAS[customizerState.chopeiraIndex].slot;
+            const slotSize = currentSlot.r * 2 * scaleX;
+
+            logoSlot.style.width = `${slotSize}px`;
+            logoSlot.style.height = `${slotSize}px`;
+            logoSlot.style.left = `${currentSlot.x * scaleX}px`;
+            logoSlot.style.top = `${currentSlot.y * scaleY}px`;
+            logoSlot.style.transform = 'translate(-50%, -50%)';
+
+            updateLogoTransform();
         }
 
-        logoUpload?.addEventListener('change', function () {
-            const file = this.files?.[0];
-            if (!file) return;
+        function updateLogoTransform() {
+            if (!logoImg) return;
+            logoImg.style.transform = `
+                translate(-50%, -50%)
+                translate(${customizerState.offsetX}px, ${customizerState.offsetY}px)
+                scale(${customizerState.scale})
+                rotate(${customizerState.rotation}deg)
+            `;
+            logoImg.style.opacity = customizerState.opacity;
+        }
+
+        function renderModelOptions() {
+            if (!modelOptions) return;
+            modelOptions.innerHTML = '';
+
+            CHOPEIRAS.forEach((chopeira, index) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'model-option rounded-2xl border-2 border-ink/10 bg-white p-2 text-left transition hover:border-amber';
+                button.title = chopeira.name;
+                button.setAttribute('aria-label', chopeira.name);
+
+                if (index === customizerState.chopeiraIndex) {
+                    button.classList.add('active');
+                }
+
+                button.innerHTML = `
+                    <img class="model-thumb w-full rounded-xl border border-ink/10" src="${chopeira.src}" alt="">
+                    <span class="mt-2 block text-center text-xs font-black uppercase leading-tight">${chopeira.name}</span>
+                `;
+
+                button.addEventListener('click', () => selectChopeira(index));
+                modelOptions.appendChild(button);
+            });
+        }
+
+        function selectChopeira(index) {
+            if (!baseImage) return;
+            customizerState.chopeiraIndex = index;
+            baseImage.src = CHOPEIRAS[index].src;
+            renderModelOptions();
+            updateSlotPosition();
+        }
+
+        function resetLogoPosition(removeLogo = true) {
+            customizerState.scale = 1;
+            customizerState.rotation = 0;
+            customizerState.opacity = 1;
+            customizerState.offsetX = 0;
+            customizerState.offsetY = 0;
+
+            if (scaleRange) scaleRange.value = 1;
+            if (rotateRange) rotateRange.value = 0;
+            if (opacityRange) opacityRange.value = 1;
+
+            if (removeLogo) {
+                if (logoInput) logoInput.value = '';
+                if (logoImg) {
+                    logoImg.src = '';
+                    logoImg.style.display = 'none';
+                }
+                if (placeholder) placeholder.style.display = 'flex';
+                customizerState.hasLogo = false;
+            }
+
+            updateLogoTransform();
+        }
+
+        logoInput?.addEventListener('change', function (event) {
+            const file = event.target.files?.[0];
+            if (!file || !logoImg || !placeholder) return;
 
             const reader = new FileReader();
-            reader.onload = (event) => {
-                document.querySelectorAll('.uploaded-logo').forEach(img => {
-                    img.src = event.target.result;
-                    img.classList.remove('hidden');
-                });
-                document.querySelectorAll('.logo-placeholder').forEach(label => label.classList.add('hidden'));
+            reader.onload = (readerEvent) => {
+                logoImg.src = readerEvent.target.result;
+                logoImg.style.display = 'block';
+                placeholder.style.display = 'none';
+                customizerState.hasLogo = true;
+                resetLogoPosition(false);
             };
             reader.readAsDataURL(file);
         });
 
-        pumpRotation?.addEventListener('input', (event) => setPumpAngle(event.target.value));
-        pumpFrontBtn?.addEventListener('click', () => setPumpAngle(0));
-        pumpBackBtn?.addEventListener('click', () => setPumpAngle(180));
-        pumpSpinBtn?.addEventListener('click', () => {
-            clearInterval(spinTimer);
-            let nextAngle = pumpAngle;
-            spinTimer = setInterval(() => {
-                nextAngle += 8;
-                if (nextAngle > 180) nextAngle = -180;
-                setPumpAngle(nextAngle);
-            }, 35);
-            setTimeout(() => clearInterval(spinTimer), 1600);
+        scaleRange?.addEventListener('input', function () {
+            customizerState.scale = Number(this.value);
+            updateLogoTransform();
         });
 
-        customizerStage?.addEventListener('pointerdown', (event) => {
-            isDraggingPump = true;
-            dragStartX = event.clientX;
-            dragStartAngle = pumpAngle;
-            customizerStage.classList.add('is-dragging');
-            customizerStage.setPointerCapture(event.pointerId);
+        rotateRange?.addEventListener('input', function () {
+            customizerState.rotation = Number(this.value);
+            updateLogoTransform();
         });
 
-        customizerStage?.addEventListener('pointermove', (event) => {
-            if (!isDraggingPump) return;
-            setPumpAngle(dragStartAngle + (event.clientX - dragStartX) * 0.45);
+        opacityRange?.addEventListener('input', function () {
+            customizerState.opacity = Number(this.value);
+            updateLogoTransform();
         });
 
-        customizerStage?.addEventListener('pointerup', (event) => {
-            isDraggingPump = false;
-            customizerStage.classList.remove('is-dragging');
-            customizerStage.releasePointerCapture(event.pointerId);
+        guideToggle?.addEventListener('change', function () {
+            logoSlot?.classList.toggle('show-guide', this.checked);
         });
 
-        customizerStage?.addEventListener('pointercancel', () => {
-            isDraggingPump = false;
-            customizerStage.classList.remove('is-dragging');
+        centerBtn?.addEventListener('click', () => {
+            customizerState.offsetX = 0;
+            customizerState.offsetY = 0;
+            updateLogoTransform();
         });
 
-        setPumpAngle(0);
+        resetBtn?.addEventListener('click', () => resetLogoPosition(true));
+
+        let draggingLogo = false;
+        let logoStartX = 0;
+        let logoStartY = 0;
+        let initialOffsetX = 0;
+        let initialOffsetY = 0;
+
+        logoSlot?.addEventListener('pointerdown', (event) => {
+            if (!customizerState.hasLogo) return;
+            draggingLogo = true;
+            logoStartX = event.clientX;
+            logoStartY = event.clientY;
+            initialOffsetX = customizerState.offsetX;
+            initialOffsetY = customizerState.offsetY;
+            logoSlot.setPointerCapture(event.pointerId);
+        });
+
+        logoSlot?.addEventListener('pointermove', (event) => {
+            if (!draggingLogo) return;
+            customizerState.offsetX = initialOffsetX + (event.clientX - logoStartX);
+            customizerState.offsetY = initialOffsetY + (event.clientY - logoStartY);
+            updateLogoTransform();
+        });
+
+        logoSlot?.addEventListener('pointerup', (event) => {
+            draggingLogo = false;
+            logoSlot.releasePointerCapture(event.pointerId);
+        });
+
+        logoSlot?.addEventListener('pointercancel', () => {
+            draggingLogo = false;
+        });
+
+        baseImage?.addEventListener('load', updateSlotPosition);
+        window.addEventListener('resize', updateSlotPosition);
+
+        renderModelOptions();
+        selectChopeira(0);
+        if (baseImage?.complete) updateSlotPosition();
 
         const eventCarousel = document.getElementById('eventCarousel');
         const eventPrev = document.getElementById('eventPrev');
