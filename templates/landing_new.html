@@ -282,6 +282,43 @@
                 max-width: 500px;
             }
         }
+
+        @media (max-width: 767px) {
+            #personalizar {
+                padding-top: 56px;
+                padding-bottom: 64px;
+            }
+
+            #modelOptions {
+                display: flex;
+                gap: 10px;
+                overflow-x: auto;
+                padding: 2px 4px 10px;
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none;
+            }
+
+            #modelOptions::-webkit-scrollbar {
+                display: none;
+            }
+
+            #modelOptions .model-option {
+                min-width: 86px;
+                padding: 5px;
+                border-radius: 14px;
+                scroll-snap-align: start;
+            }
+
+            #modelOptions .model-thumb {
+                border-radius: 10px;
+            }
+
+            #modelOptions .model-name {
+                margin-top: 5px;
+                font-size: 9px;
+                line-height: 1.05;
+            }
+        }
     </style>
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -843,8 +880,8 @@
                     <div id="modelOptions" class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"></div>
                 </div>
 
-                <div class="mt-10 grid items-center gap-8 lg:grid-cols-[420px_1fr] lg:gap-14">
-                    <div class="reveal">
+                <div class="mt-8 grid items-center gap-8 lg:mt-10 lg:grid-cols-[420px_1fr] lg:gap-14">
+                    <div class="reveal order-2 lg:order-none">
                         <div class="rounded-[1.5rem] bg-white p-5 shadow-soft">
                             <div>
                                 <label for="logoInput" class="block text-sm font-black uppercase text-ink/55">Upload da logo</label>
@@ -895,7 +932,7 @@
                         </div>
                     </div>
 
-                    <div class="reveal flex min-h-[520px] items-center justify-center lg:min-h-[680px] lg:pt-8">
+                    <div class="reveal order-1 flex min-h-[360px] items-center justify-center lg:order-none lg:min-h-[680px] lg:pt-8">
                         <div class="mockup-wrapper" id="mockupWrapper">
                             <img class="base" id="baseImage" src="{% static 'assets/images/galeria-chopeira-1.jpeg' %}" alt="Chopeira personalizada" draggable="false">
                             <div class="logo-slot show-guide" id="logoSlot">
@@ -1285,7 +1322,7 @@
 
                 button.innerHTML = `
                     <img class="model-thumb w-full rounded-xl border border-ink/10" src="${chopeira.src}" alt="">
-                    <span class="mt-2 block text-center text-xs font-black uppercase leading-tight">${chopeira.name}</span>
+                    <span class="model-name mt-2 block text-center text-xs font-black uppercase leading-tight">${chopeira.name}</span>
                 `;
 
                 button.addEventListener('click', () => selectChopeira(index));
