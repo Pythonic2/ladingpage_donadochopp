@@ -495,7 +495,7 @@ class Pedido(models.Model):
     capital_retirada = models.CharField(max_length=80, blank=True)
     telefone_cliente = models.CharField(max_length=15)
     email_cliente = models.EmailField(
-        max_length=100, blank=True, null=True, unique=True
+        max_length=100, blank=True, null=True, unique=False
     )
     data_nascimento_cliente = models.DateField()
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
