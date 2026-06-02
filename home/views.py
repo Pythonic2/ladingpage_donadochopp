@@ -9,6 +9,7 @@ from .models import (
     Pergunta,
     Evento,
     Depoimento,
+    ConfiguracaoLanding,
     MidiaLanding,
     SecaoLanding,
     SecaoLandingMidia,
@@ -107,6 +108,7 @@ def home_view(request):
         "landing_new.html",
         {
             "produtos": produtos,
+            "config_landing": ConfiguracaoLanding.get_solo(),
             "eventos": eventos,
             "eventos_midia": midias_secao.get("eventos", []),
             "depoimentos": depoimentos,

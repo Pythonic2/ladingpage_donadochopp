@@ -89,6 +89,38 @@ class Depoimento(models.Model):
         return self.nome_cliente
 
 
+class ConfiguracaoLanding(models.Model):
+    mostrar_barra_topo = models.BooleanField(default=True)
+    texto_barra_topo = models.CharField(
+        max_length=140,
+        default="Oferta ativa: 10% off no PIX para todo o Brasil",
+        blank=True,
+    )
+    modo_black_friday = models.BooleanField(default=False)
+    texto_selo_black = models.CharField(
+        max_length=80,
+        default="Black Friday",
+        blank=True,
+    )
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Configuração da landing"
+        verbose_name_plural = "Configuração da landing"
+
+    def __str__(self):
+        return "Configuração da landing"
+
+    def save(self, *args, **kwargs):
+        self.pk = 1
+        super().save(*args, **kwargs)
+
+    @classmethod
+    def get_solo(cls):
+        obj, _created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
 def landing_media_upload_path(instance, filename):
     return os.path.join("landing", instance.chave, filename)
 

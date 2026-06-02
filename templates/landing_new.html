@@ -319,6 +319,57 @@
                 line-height: 1.05;
             }
         }
+
+        body.black-mode {
+            background: #050505;
+            color: #fff8ec;
+        }
+
+        body.black-mode .hero-shell {
+            background:
+                radial-gradient(circle at 72% 28%, rgba(223, 47, 36, .32), transparent 30%),
+                radial-gradient(circle at 16% 84%, rgba(255, 194, 71, .18), transparent 32%),
+                linear-gradient(135deg, #050505 0%, #15110f 54%, #050505 100%);
+            color: #fff8ec;
+        }
+
+        body.black-mode .bg-white,
+        body.black-mode .bg-cream {
+            background-color: #0e0d0c !important;
+            color: #fff8ec !important;
+        }
+
+        body.black-mode .text-ink,
+        body.black-mode .text-ink\/62,
+        body.black-mode .text-ink\/60,
+        body.black-mode .text-ink\/58,
+        body.black-mode .text-ink\/55,
+        body.black-mode .text-ink\/52,
+        body.black-mode .text-ink\/50,
+        body.black-mode .text-ink\/45,
+        body.black-mode .text-ink\/40 {
+            color: rgba(255, 248, 236, .78) !important;
+        }
+
+        body.black-mode .product-media {
+            background:
+                radial-gradient(circle at 50% 58%, rgba(223, 47, 36, .24), transparent 48%),
+                linear-gradient(180deg, #17110f, #060606);
+        }
+
+        body.black-mode .border-ink\/10,
+        body.black-mode .border-slate-200,
+        body.black-mode .border-black\/10 {
+            border-color: rgba(255, 194, 71, .18) !important;
+        }
+
+        .black-friday-ribbon {
+            display: none;
+        }
+
+        body.black-mode .black-friday-ribbon {
+            display: block;
+        }
     </style>
     <!-- Google Tag Manager -->
     <script>(function (w, d, s, l, i) {
@@ -331,13 +382,18 @@
         })(window, document, 'script', 'dataLayer', 'GTM-W8M4FXSH');</script>
 </head>
 
-<body class="font-body text-ink antialiased">
+<body class="font-body text-ink antialiased {% if config_landing.modo_black_friday %}black-mode{% endif %}">
+    <div class="black-friday-ribbon fixed inset-x-0 top-0 z-[95] bg-black px-4 py-2 text-center text-xs font-black uppercase tracking-[.2em] text-beer shadow-soft">
+        {{ config_landing.texto_selo_black|default:"Black Friday" }}
+    </div>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8M4FXSH" height="0" width="0"
             style="display:none;visibility:hidden"></iframe></noscript>
 
+    {% if config_landing.mostrar_barra_topo %}
     <div class="urgency-bar fixed left-0 right-0 top-0 z-[90] hidden px-4 py-2 text-center text-xs font-black uppercase tracking-wide text-white sm:text-sm md:block">
-        Oferta ativa: 10% off no PIX para todo o Brasil
+        {{ config_landing.texto_barra_topo|default:"Oferta ativa: 10% off no PIX para todo o Brasil" }}
     </div>
+    {% endif %}
 
     <header class="fixed left-0 right-0 top-0 z-[80] border-b border-ink/10 bg-white/95 shadow-soft backdrop-blur-xl md:top-8">
         <div class="container-max mx-auto flex items-center justify-between px-4 py-3 md:py-4">

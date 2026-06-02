@@ -7,6 +7,7 @@ from .models import (
     Pergunta,
     Evento,
     Depoimento,
+    ConfiguracaoLanding,
     MidiaLanding,
     SecaoLanding,
     SecaoLandingMidia,
@@ -35,6 +36,19 @@ class DepoimentoAdmin(admin.ModelAdmin):
     list_editable = ("ordem", "ativo")
     list_filter = ("tipo_midia", "ativo", "criado_em")
     search_fields = ("nome_cliente", "contexto", "texto")
+
+
+@admin.register(ConfiguracaoLanding)
+class ConfiguracaoLandingAdmin(admin.ModelAdmin):
+    list_display = ("mostrar_barra_topo", "texto_barra_topo", "modo_black_friday", "texto_selo_black", "atualizado_em")
+    fields = ("mostrar_barra_topo", "texto_barra_topo", "modo_black_friday", "texto_selo_black", "atualizado_em")
+    readonly_fields = ("atualizado_em",)
+
+    def has_add_permission(self, request):
+        return not ConfiguracaoLanding.objects.exists()
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(MidiaLanding)
