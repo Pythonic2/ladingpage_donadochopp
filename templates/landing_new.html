@@ -394,22 +394,23 @@
     </a>
 
     <main>
-        <section id="hero" class="hero-shell min-h-screen pt-24 text-ink md:pt-36 lg:pt-32">
+        <div class="flex flex-col">
+        {% if blocos_fixos.hero_principal.ativo %}
+        <section id="hero" class="hero-shell min-h-screen pt-24 text-ink md:pt-36 lg:pt-32" style="order: {{ blocos_fixos.hero_principal.ordem }};">
             <div class="container-max mx-auto grid min-h-[calc(100vh-7rem)] items-center gap-8 px-4 pb-12 lg:grid-cols-[.95fr_1.05fr]">
                 <div class="max-w-2xl py-6 text-center lg:text-left">
                     <div class="mb-5 inline-flex items-center rounded-full bg-flame/10 px-4 py-2 text-xs font-black uppercase tracking-wide text-flame">
-                        Produto exclusivo para eventos, festas e negócios
+                        {{ blocos_fixos.hero_principal.etiqueta|default:"Produto exclusivo para eventos, festas e negócios" }}
                     </div>
                     <h1 class="font-display text-4xl font-black leading-[1.02] sm:text-5xl lg:text-[5.2rem]">
-                        Chopeira Bomba de Gasolina: A Máquina de Fazer Dinheiro
+                        {{ blocos_fixos.hero_principal.titulo|default:"Chopeira Bomba de Gasolina: A Máquina de Fazer Dinheiro"|destacar_titulo:blocos_fixos.hero_principal }}
                     </h1>
+                    <img src="{% static 'assets/images/nova_logo.png' %}" alt="Dona do Chopp" class="mx-auto mt-5 h-auto w-44 max-w-[70vw] lg:hidden" />
                     <p class="mx-auto mt-5 max-w-xl font-display text-2xl font-black leading-tight text-flame sm:text-3xl lg:mx-0">
-                        Fature mais de 2 mil reais com um único barril.
+                        {{ blocos_fixos.hero_principal.texto_final|default:"Fature mais de 2 mil reais com um único barril." }}
                     </p>
                     <p class="mx-auto mt-6 max-w-xl text-base leading-relaxed text-ink/68 sm:text-lg lg:mx-0">
-                        A chopeira bomba de gasolina une design inovador e experiência diferenciada para atrair clientes,
-                        gerar curiosidade e aumentar suas vendas de chopp. Mais visibilidade, mais público e mais faturamento
-                        em um único produto ⛽🍺
+                       {{ blocos_fixos.hero_principal.descricao|default:"Produto exclusivo para venda de chopp em locais estratégicos, eventos, festas, praias, agregar valor ao seu negócio ou até mesmo para uso pessoal." }}
                     </p>
                     <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center lg:justify-start">
                         <a href="#produtos"
@@ -437,14 +438,14 @@
                     </div>
                 </div>
 
-                <div class="relative mx-auto h-[360px] w-full max-w-[520px] sm:h-[500px] lg:h-[620px] lg:max-w-none">
+                <div class="relative mx-auto hidden h-[360px] w-full max-w-[520px] sm:h-[500px] lg:block lg:h-[620px] lg:max-w-none">
                     {% with hero=hero_principal.0 %}
                     {% if hero %}
                     <img src="{{ hero.arquivo_seguro_url }}" alt="{{ hero.titulo }}"
-                        class="hero-logo-mark absolute -bottom-[35px] left-1/2 z-0 block w-[100%] max-w-none -translate-x-1/2 opacity-95 sm:w-[110%] lg:w-[100%]" />
+                        class="hero-logo-mark absolute -bottom-[35px] left-1/2 z-0 block w-[100%] max-w-none -translate-x-1/2 opacity-95" />
                     {% else %}
                     <img src="{% static 'assets/images/aed46108-0684-4c51-ad43-86fcb4425c8b.png' %}" alt="Chopeira Dona do Chopp"
-                        class="hero-logo-mark absolute -bottom-[35px] left-1/2 z-0 block w-[100%] max-w-none -translate-x-1/2 opacity-95 sm:w-[110%] lg:w-[100%]" />
+                        class="hero-logo-mark absolute -bottom-[35px] left-1/2 z-0 block w-[100%] max-w-none -translate-x-1/2 opacity-95" />
                     {% endif %}
                     {% endwith %}
                     <!-- <div class="relative z-10 mx-auto flex items-end justify-center gap-0">
@@ -470,8 +471,10 @@
                 </div>
             </div>
         </section>
+        {% endif %}
 
-        <section class="bg-white py-5">
+        {% if blocos_fixos.barra_confianca.ativo %}
+        <section class="bg-white py-5" style="order: {{ blocos_fixos.barra_confianca.ordem }};">
             <div class="container-max mx-auto grid gap-3 px-4 text-center text-sm font-black text-ink/65 sm:grid-cols-2 lg:grid-cols-5">
                 <span class="rounded-full bg-cream px-4 py-3">Envio para todo Brasil</span>
                 <span class="rounded-full bg-cream px-4 py-3">Garantia de 1 ano</span>
@@ -480,18 +483,20 @@
                 <span class="rounded-full bg-cream px-4 py-3">Equipamento testado</span>
             </div>
         </section>
+        {% endif %}
 
-        <section id="produtos" class="grain bg-cream py-20 lg:py-28">
+        {% if blocos_fixos.produtos.ativo %}
+        <section id="produtos" class="grain bg-cream py-20 lg:py-28" style="order: {{ blocos_fixos.produtos.ordem }};">
             <div class="container-max mx-auto px-4">
                 <div class="mx-auto mb-12 max-w-3xl text-center reveal">
-                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Escolha o modelo ideal</p>
-                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Chopeiras prontas para vender mais</h2>
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">{{ blocos_fixos.produtos.etiqueta|default:"Escolha o modelo ideal" }}</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">{{ blocos_fixos.produtos.titulo|default:"Chopeiras prontas para vender mais"|destacar_titulo:blocos_fixos.produtos }}</h2>
                     <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-ink/60">
-                        Todas podem receber sua marca e suas cores. O objetivo é simples: chamar atenção, passar confiança e facilitar a venda do chopp.
+                        {{ blocos_fixos.produtos.descricao|default:"Todas podem receber sua marca e suas cores. O objetivo é simples: chamar atenção, passar confiança e facilitar a venda do chopp." }}
                     </p>
                 </div>
 
-                <div class="mx-auto grid max-w-5xl gap-7 md:grid-cols-2">
+                <div class="mx-auto grid max-w-5xl gap-7 md:grid-cols-3">
                     {% for produto in produtos %}
                     <article class="price-card reveal overflow-hidden rounded-[1.5rem] border border-ink/10 bg-white shadow-soft">
                         <a href="{% url 'produto-detalhe' produto.id %}" class="product-media block relative p-4">
@@ -547,115 +552,142 @@
                 </div>
             </div>
         </section>
+        {% endif %}
 
-        <section id="lucro" class="bg-white py-20 lg:py-28">
+        {% for secao in secoes_landing %}
+        {% if secao.tipo == "metricas_tabela" %}
+        <section id="{{ secao.anchor_id }}" class="{{ secao.background_class }} py-20 lg:py-28" style="order: {{ secao.ordem }};">
             <div class="container-max mx-auto px-4">
-                <div class="grid items-center gap-12 lg:grid-cols-[.9fr_1.1fr]">
+                <div class="grid items-center gap-12 {% if secao.imagem_segura_url or secao.linhas_tabela.all or secao.slug == 'lucro' %}lg:grid-cols-[.9fr_1.1fr]{% endif %}">
                     <div class="reveal">
-                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Máquina de fazer dinheiro</p>
-                        <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Por que chamam a chopeira bomba de combustível de máquina de fazer dinheiro?</h2>
-                        <p class="mt-5 text-lg leading-relaxed text-ink/62">
-                            Não é apenas uma chopeira, é um modelo de negócio validado. Veja como os números trabalham a seu favor:
-                        </p>
+                        {% if secao.etiqueta %}
+                        <p class="mb-3 text-sm font-black uppercase tracking-wide {{ secao.highlight_text_class }}">{{ secao.etiqueta }}</p>
+                        {% endif %}
+                        <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">{{ secao.titulo|destacar_titulo:secao }}</h2>
+                        {% if secao.descricao %}
+                        <p class="mt-5 text-lg leading-relaxed {{ secao.body_text_class }}">{{ secao.descricao }}</p>
+                        {% endif %}
+                        {% if secao.cards.all %}
                         <div class="mt-8 grid gap-4 sm:grid-cols-2">
-                            <div class="rounded-[1.25rem] bg-cream p-5">
-                                <p class="text-sm font-black uppercase text-ink/45">Capacidade de entrega</p>
-                                <p class="mt-1 font-display text-4xl font-black text-flame">166 copos</p>
-                                <p class="mt-2 text-sm font-semibold text-ink/55">1 barril de 50L rende 166 copos de 300ml.</p>
+                            {% for card in secao.cards.all %}
+                            <div class="rounded-[1.25rem] {{ secao.card_class }} p-5">
+                                <p class="text-sm font-black uppercase {{ secao.small_text_class }}">{{ card.titulo|cores_admin }}</p>
+                                {% if card.valor %}
+                                <p class="mt-1 font-display text-4xl font-black {{ secao.highlight_text_class }}">{{ card.valor }}</p>
+                                {% endif %}
+                                {% if card.descricao %}
+                                <p class="mt-2 text-sm font-semibold {{ secao.muted_text_class }}">{{ card.descricao }}</p>
+                                {% endif %}
                             </div>
-                            <div class="rounded-[1.25rem] bg-cream p-5">
-                                <p class="text-sm font-black uppercase text-ink/45">Faturamento bruto</p>
-                                <p class="mt-1 font-display text-4xl font-black text-flame">R$ 2.158</p>
-                                <p class="mt-2 text-sm font-semibold text-ink/55">Vendendo cada copo por R$ 13,00.</p>
-                            </div>
-                        </div>
-                        <p class="mt-5 text-base font-bold leading-relaxed text-ink/58">
-                            Potencial de escala: quantos barris você consegue vender no seu final de semana?
-                        </p>
-                        <p class="mt-4 text-xs font-semibold leading-relaxed text-ink/40">
-                            Valores são exemplos de faturamento bruto e podem variar conforme região, preço de venda, custos, operação e volume de trabalho.
-                        </p>
-                    </div>
-                    <div class="grid gap-4 reveal">
-                        {% with imagem_lucro=lucro_operacao.0 %}
-                        {% if imagem_lucro %}
-                        <div class="overflow-hidden rounded-[1.5rem] shadow-lift">
-                            <img src="{{ imagem_lucro.arquivo_seguro_url }}" alt="{{ imagem_lucro.titulo }}" class="h-[310px] w-full object-cover" />
+                            {% endfor %}
                         </div>
                         {% endif %}
+                        {% if secao.texto_final %}
+                        <p class="mt-5 text-base font-bold leading-relaxed {{ secao.body_text_class }}">{{ secao.texto_final }}</p>
+                        {% endif %}
+                        {% if secao.observacao %}
+                        <p class="mt-4 text-xs font-semibold leading-relaxed {{ secao.small_text_class }}">{{ secao.observacao }}</p>
+                        {% endif %}
+                    </div>
+                    {% if secao.imagem_segura_url or secao.linhas_tabela.all or secao.slug == "lucro" %}
+                    <div class="grid gap-4 reveal">
+                        {% if secao.imagem_segura_url %}
+                        <div class="overflow-hidden rounded-[1.5rem] shadow-lift">
+                            <img src="{{ secao.imagem_segura_url }}" alt="{{ secao.imagem_titulo|default:secao.titulo }}" class="h-[310px] w-full object-cover" />
+                        </div>
+                        {% elif secao.slug == "lucro" %}
+                        {% with imagem_lucro=lucro_operacao.0 %}
+                        <div class="overflow-hidden rounded-[1.5rem] shadow-lift">
+                            {% if imagem_lucro %}
+                            <img src="{{ imagem_lucro.arquivo_seguro_url }}" alt="{{ imagem_lucro.titulo }}" class="h-[310px] w-full object-cover" />
+                            {% else %}
+                            <img src="{% static 'assets/images/praia.jpeg' %}" alt="{{ secao.imagem_titulo|default:secao.titulo }}" class="h-[310px] w-full object-cover" />
+                            {% endif %}
+                        </div>
                         {% endwith %}
-                        <div class="overflow-hidden rounded-[1.5rem] border border-ink/10 bg-cream shadow-soft">
-                            <div class="grid grid-cols-[1.2fr_.8fr] bg-ink px-5 py-4 text-sm font-black uppercase text-white">
-                                <span>Unidade de negócio</span>
-                                <span class="text-right">Projeção</span>
+                        {% endif %}
+                        {% if secao.linhas_tabela.all %}
+                        <div class="overflow-hidden rounded-[1.5rem] {{ secao.table_class }} shadow-soft">
+                            {% if secao.cabecalho_tabela_esquerda or secao.cabecalho_tabela_direita %}
+                            <div class="grid grid-cols-[1.2fr_.8fr] px-5 py-4 text-sm font-black uppercase {{ secao.table_header_class }}">
+                                <span>{{ secao.cabecalho_tabela_esquerda }}</span>
+                                <span class="text-right">{{ secao.cabecalho_tabela_direita }}</span>
                             </div>
-                            <div class="divide-y divide-ink/10 text-sm font-bold text-ink/70">
-                                <div class="grid grid-cols-[1.2fr_.8fr] px-5 py-4">
-                                    <span>1 Copo (300ml)</span>
-                                    <span class="text-right text-flame">R$ 13,00</span>
+                            {% endif %}
+                            <div class="divide-y divide-ink/10 text-sm font-bold">
+                                {% for linha in secao.linhas_tabela.all %}
+                                <div class="grid grid-cols-[1.2fr_.8fr] px-5 py-4 {% if linha.destacar %}{{ secao.table_row_highlight_class }}{% endif %}">
+                                    <span>{{ linha.rotulo }}</span>
+                                    <span class="text-right {{ secao.highlight_text_class }}">{{ linha.valor }}</span>
                                 </div>
-                                <div class="grid grid-cols-[1.2fr_.8fr] px-5 py-4">
-                                    <span>100 Copos</span>
-                                    <span class="text-right text-flame">R$ 1.300,00</span>
-                                </div>
-                                <div class="grid grid-cols-[1.2fr_.8fr] px-5 py-4">
-                                    <span>1 Barril (166 copos)</span>
-                                    <span class="text-right text-flame">R$ 2.158,00</span>
-                                </div>
-                                <div class="grid grid-cols-[1.2fr_.8fr] bg-white px-5 py-4">
-                                    <span>4 Barris (média de final de semana)</span>
-                                    <span class="text-right text-flame">R$ 8.632,00</span>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
+                        {% endif %}
                     </div>
-                </div>
-
-                <div class="mt-16 grid items-center gap-8 rounded-[1.75rem] bg-ink p-6 text-white shadow-lift reveal lg:grid-cols-[1fr_.85fr] lg:p-9">
-                    <div>
-                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-beer">Fature alto com eventos privados</p>
-                        <h3 class="font-display text-4xl font-black leading-tight md:text-5xl">Ouro Líquido em Casamentos e Aniversários</h3>
-                        <p class="mt-5 text-lg leading-relaxed text-white/70">
-                            Não limite seu ganho apenas à venda por copo. O mercado de eventos sociais é uma mina de ouro para quem possui a Dona do Chopp.
-                        </p>
-                        <div class="mt-7 grid gap-4 sm:grid-cols-3">
-                            <div class="rounded-[1.25rem] bg-white/10 p-4">
-                                <p class="text-sm font-black text-beer">Pacotes completos</p>
-                                <p class="mt-2 text-sm leading-relaxed text-white/62">Em casamentos, aniversários e eventos corporativos, o cliente compra a experiência.</p>
-                            </div>
-                            <div class="rounded-[1.25rem] bg-white/10 p-4">
-                                <p class="text-sm font-black text-beer">Ticket elevado</p>
-                                <p class="mt-2 text-sm leading-relaxed text-white/62">Um único evento pode contratar 2, 3 ou até 5 barris.</p>
-                            </div>
-                            <div class="rounded-[1.25rem] bg-white/10 p-4">
-                                <p class="text-sm font-black text-beer">Lucro por contrato</p>
-                                <p class="mt-2 text-sm leading-relaxed text-white/62">Cada barril para evento sai, em média, por R$ 1.400,00.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="rounded-[1.5rem] bg-white p-6 text-ink shadow-soft">
-                        <p class="text-sm font-black uppercase tracking-wide text-flame">Exemplo em uma única noite</p>
-                        <p class="mt-4 font-display text-5xl font-black text-flame">R$ 4.200</p>
-                        <p class="mt-3 text-base font-bold text-ink/65">Festa para 80 pessoas com 3 barris de chopp.</p>
-                        <p class="mt-6 rounded-[1.25rem] bg-cream p-4 text-sm font-black leading-relaxed text-ink/70">
-                            Sua máquina pode se pagar em apenas 3 ou 4 eventos deste porte.
-                        </p>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </section>
+        {% elif secao.tipo == "painel_destaque" %}
+        <section id="{{ secao.anchor_id }}" class="{{ secao.background_class }} py-16 lg:py-20" style="order: {{ secao.ordem }};">
+            <div class="container-max mx-auto px-4">
+                <div class="grid items-center gap-8 rounded-[1.75rem] {% if secao.fundo == 'marrom' %}bg-ink text-white{% else %}bg-white text-ink{% endif %} p-6 shadow-lift reveal lg:grid-cols-[1fr_.85fr] lg:p-9">
+                    <div>
+                        {% if secao.etiqueta %}
+                        <p class="mb-3 text-sm font-black uppercase tracking-wide {{ secao.highlight_text_class }}">{{ secao.etiqueta }}</p>
+                        {% endif %}
+                        <h3 class="font-display text-4xl font-black leading-tight md:text-5xl">{{ secao.titulo|destacar_titulo:secao }}</h3>
+                        {% if secao.descricao %}
+                        <p class="mt-5 text-lg leading-relaxed {{ secao.body_text_class }}">{{ secao.descricao }}</p>
+                        {% endif %}
+                        {% if secao.cards.all %}
+                        <div class="mt-7 grid gap-4 sm:grid-cols-3">
+                            {% for card in secao.cards.all %}
+                            <div class="rounded-[1.25rem] {{ secao.card_class }} p-4">
+                                <p class="text-sm font-black {{ secao.highlight_text_class }}">{{ card.titulo|cores_admin }}</p>
+                                {% if card.descricao %}
+                                <p class="mt-2 text-sm leading-relaxed {{ secao.muted_text_class }}">{{ card.descricao }}</p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% if secao.destaque_etiqueta or secao.destaque_valor or secao.destaque_descricao or secao.destaque_observacao %}
+                    <div class="rounded-[1.5rem] bg-white p-6 text-ink shadow-soft">
+                        {% if secao.destaque_etiqueta %}
+                        <p class="text-sm font-black uppercase tracking-wide text-flame">{{ secao.destaque_etiqueta }}</p>
+                        {% endif %}
+                        {% if secao.destaque_valor %}
+                        <p class="mt-4 font-display text-5xl font-black text-flame">{{ secao.destaque_valor }}</p>
+                        {% endif %}
+                        {% if secao.destaque_descricao %}
+                        <p class="mt-3 text-base font-bold text-ink/65">{{ secao.destaque_descricao }}</p>
+                        {% endif %}
+                        {% if secao.destaque_observacao %}
+                        <p class="mt-6 rounded-[1.25rem] bg-cream p-4 text-sm font-black leading-relaxed text-ink/70">{{ secao.destaque_observacao }}</p>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        {% endfor %}
 
-        <section id="eventos" class="bg-cream py-14 lg:py-20">
+        {% if blocos_fixos.eventos.ativo %}
+        <section id="eventos" class="bg-cream py-14 lg:py-20" style="order: {{ blocos_fixos.eventos.ordem }};">
             <div class="container-max mx-auto px-4">
                 <div class="reveal overflow-hidden rounded-[1.75rem] bg-white shadow-lift">
-                    <div class="grid items-stretch {% if eventos %}lg:grid-cols-[.95fr_1.05fr]{% endif %}">
+                    <div class="grid items-stretch {% if eventos_midia or eventos %}lg:grid-cols-[.95fr_1.05fr]{% endif %}">
                         <div class="flex flex-col justify-center p-6 md:p-8 lg:p-10">
-                            <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Venda onde houver gente reunida</p>
+                            <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">{{ blocos_fixos.eventos.etiqueta|default:"Venda onde houver gente reunida" }}</p>
                             <h2 class="font-display text-3xl font-black leading-tight md:text-5xl">
-                                Festa, praia ou casamento: sua chopeira vira ponto de venda.
+                                {{ blocos_fixos.eventos.titulo|default:"Festa, praia ou casamento: sua chopeira vira ponto de venda."|destacar_titulo:blocos_fixos.eventos }}
                             </h2>
                             <p class="mt-4 max-w-xl text-base font-semibold leading-relaxed text-ink/60">
-                                O visual chama, a curiosidade aproxima e o chopp gelado fecha a venda. Leve a operação para horários de pico, eventos privados e lugares de grande circulação sem depender de um ponto fixo.
+                                {{ blocos_fixos.eventos.descricao|default:"O visual chama, a curiosidade aproxima e o chopp gelado fecha a venda. Leve a operação para horários de pico, eventos privados e lugares de grande circulação sem depender de um ponto fixo." }}
                             </p>
                             <div class="mt-6 grid gap-3 sm:grid-cols-3">
                                 <div class="rounded-[1rem] bg-cream p-4">
@@ -673,9 +705,16 @@
                             </div>
                         </div>
 
-                        {% if eventos %}
+                        {% if eventos_midia or eventos %}
                         <div class="relative min-h-[390px] bg-ink p-4 md:p-5">
                             <div id="eventCarousel" class="event-carousel flex h-full gap-4 overflow-x-auto scroll-smooth">
+                                {% if eventos_midia %}
+                                {% for midia in eventos_midia %}
+                                <article class="event-slide relative h-[360px] min-w-[82%] overflow-hidden rounded-[1.35rem] bg-white shadow-soft sm:min-w-[56%] lg:h-full lg:min-w-[68%]">
+                                    <img src="{{ midia.arquivo_seguro_url }}" alt="{{ midia.titulo|default:blocos_fixos.eventos.titulo }}" class="h-full w-full bg-cream object-contain p-3" />
+                                </article>
+                                {% endfor %}
+                                {% else %}
                                 {% for evento in eventos %}
                                 <article class="event-slide relative h-[360px] min-w-[82%] overflow-hidden rounded-[1.35rem] bg-white shadow-soft sm:min-w-[56%] lg:h-full lg:min-w-[68%]">
                                     <img src="{{ evento.imagem.url }}" alt="{{ evento.titulo }}" class="h-full w-full bg-cream object-contain p-3" />
@@ -688,6 +727,7 @@
                                     </div>
                                 </article>
                                 {% endfor %}
+                                {% endif %}
                             </div>
                             <div class="absolute bottom-7 right-7 flex gap-2">
                                 <button type="button" id="eventPrev" class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-ink shadow-soft transition hover:bg-beer" aria-label="Evento anterior">
@@ -707,8 +747,10 @@
                 </div>
             </div>
         </section>
+        {% endif %}
 
-        <section class="bg-ink py-16 text-white lg:py-24">
+        {% if blocos_fixos.passos.ativo %}
+        <section class="bg-ink py-16 text-white lg:py-24" style="order: {{ blocos_fixos.passos.ordem }};">
             <div class="container-max mx-auto px-4">
                 <div class="grid gap-5 md:grid-cols-3">
                     <div class="reveal rounded-[1.5rem] border border-white/10 bg-white/10 p-7">
@@ -729,8 +771,10 @@
                 </div>
             </div>
         </section>
+        {% endif %}
 
-        <section class="bg-cream py-20 lg:py-28">
+        {% if blocos_fixos.beneficios.ativo %}
+        <section class="bg-cream py-20 lg:py-28" style="order: {{ blocos_fixos.beneficios.ordem }};">
             <div class="container-max mx-auto px-4">
                 <div class="mx-auto mb-12 max-w-3xl text-center reveal">
                     <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Por que escolher a Dona do Chopp?</p>
@@ -769,28 +813,30 @@
                 </div><!---->
             </div>
         </section>
+        {% endif %}
 
-        <section class="bg-white py-20 lg:py-28">
+        {% if blocos_fixos.video.ativo %}
+        <section class="bg-white py-20 lg:py-28" style="order: {{ blocos_fixos.video.ordem }};">
             <div class="container-max mx-auto px-4">
                 <div class="grid items-center gap-12 lg:grid-cols-2">
                     <div class="reveal">
-                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Veja em uso</p>
-                        <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">O visual faz o cliente chegar perto.</h2>
+                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">{{ blocos_fixos.video.etiqueta|default:"Veja em uso" }}</p>
+                        <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">{{ blocos_fixos.video.titulo|default:"O visual faz o cliente chegar perto."|destacar_titulo:blocos_fixos.video }}</h2>
                         <p class="mt-5 text-lg leading-relaxed text-ink/62">
-                            O vídeo mostra a chopeira em ação e ajuda você a imaginar como ela aparece no atendimento real.
+                            {{ blocos_fixos.video.descricao|default:"O vídeo mostra a chopeira em ação e ajuda você a imaginar como ela aparece no atendimento real." }}
                         </p>
                     </div>
                     {% with capa=video_thumb.0 video=video_principal.0 %}
                     {% if video %}
                     <div class="reveal overflow-hidden rounded-[1.5rem] bg-black shadow-lift">
-                        <div class="relative aspect-video">
+                        <div class="relative flex min-h-[520px] items-center justify-center bg-black sm:min-h-[620px] lg:min-h-[720px]">
                             {% if capa %}
                             <button type="button"
                                 class="video-overlay absolute inset-0 z-10 flex w-full items-center justify-center"
                                 onclick="this.style.display='none';document.getElementById('main-video').style.display='block';document.getElementById('main-video').play();"
                                 aria-label="Reproduzir vídeo">
                                 <img src="{{ capa.arquivo_seguro_url }}" alt="{{ capa.titulo }}"
-                                    class="absolute inset-0 h-full w-full object-cover" />
+                                    class="absolute inset-0 h-full w-full object-contain" />
                                 <span class="relative flex h-20 w-20 items-center justify-center rounded-full bg-white text-flame shadow-lift">
                                     <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M8 5v14l11-7z" />
@@ -798,7 +844,7 @@
                                 </span>
                             </button>
                             {% endif %}
-                            <video id="main-video" class="{% if capa %}hidden{% endif %} h-full w-full object-cover" controls>
+                            <video id="main-video" class="{% if capa %}hidden{% endif %} h-full max-h-[720px] w-full object-contain" controls playsinline>
                                 <source src="{{ video.arquivo_seguro_url }}" type="video/mp4">
                             </video>
                         </div>
@@ -808,17 +854,19 @@
                 </div>
             </div>
         </section>
+        {% endif %}
 
-        <section id="depoimentos" class="bg-ink py-16 text-white lg:py-20">
+        <!-- {% if blocos_fixos.depoimentos.ativo %}
+        <section id="depoimentos" class="bg-ink py-16 text-white lg:py-20" style="order: {{ blocos_fixos.depoimentos.ordem }};">
             <div class="container-max mx-auto px-4">
                 <div class="reveal grid items-center gap-8 lg:grid-cols-[.85fr_1.15fr]">
                     <div>
-                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-beer">Depoimentos</p>
+                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-beer">{{ blocos_fixos.depoimentos.etiqueta|default:"Depoimentos" }}</p>
                         <h2 class="font-display text-4xl font-black leading-tight md:text-5xl">
-                            Quem coloca para vender mostra o resultado na prática.
+                            {{ blocos_fixos.depoimentos.titulo|default:"Quem coloca para vender mostra o resultado na prática."|destacar_titulo:blocos_fixos.depoimentos }}
                         </h2>
                         <p class="mt-5 max-w-xl text-base font-semibold leading-relaxed text-white/62">
-                            Veja clientes, eventos e operações reais usando a chopeira para chamar atenção, atender melhor e transformar movimento em faturamento.
+                            {{ blocos_fixos.depoimentos.descricao|default:"Veja clientes, eventos e operações reais usando a chopeira para chamar atenção, atender melhor e transformar movimento em faturamento." }}
                         </p>
                     </div>
 
@@ -864,14 +912,16 @@
                 </div>
             </div>
         </section>
+        {% endif %} -->
 
-        <section id="personalizar" class="grain bg-cream py-20 lg:py-28">
+        {% if blocos_fixos.personalizar.ativo %}
+        <section id="personalizar" class="grain bg-cream py-20 lg:py-28" style="order: {{ blocos_fixos.personalizar.ordem }};">
             <div class="container-max mx-auto px-4">
                 <div class="mx-auto max-w-3xl text-center reveal">
-                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Teste sua marca</p>
-                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Veja sua logo na chopeira.</h2>
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">{{ blocos_fixos.personalizar.etiqueta|default:"Teste sua marca" }}</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">{{ blocos_fixos.personalizar.titulo|default:"Veja sua logo na chopeira."|destacar_titulo:blocos_fixos.personalizar }}</h2>
                     <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-ink/62">
-                        Envie uma imagem da sua marca e ajuste a prévia direto no círculo superior do equipamento.
+                        {{ blocos_fixos.personalizar.descricao|default:"Envie uma imagem da sua marca e ajuste a prévia direto no círculo superior do equipamento." }}
                     </p>
                 </div>
 
@@ -946,49 +996,78 @@
                 </div>
             </div>
         </section>
+        {% endif %}
         <!--  teste -->
-        <section id="prova" class="bg-cream py-20 lg:py-28">
+        {% if blocos_fixos.prova_social.ativo %}
+        <section id="prova" class="bg-cream py-20 lg:py-28" style="order: {{ blocos_fixos.prova_social.ordem }};">
             <div class="container-max mx-auto px-4">
                 <div class="mx-auto mb-12 max-w-3xl text-center reveal">
-                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Prova social</p>
-                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Quem comprou recomenda.</h2>
-                    <p class="mx-auto mt-4 max-w-xl text-base text-ink/60">Avaliações reais, publicadas no Google.</p>
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">{{ blocos_fixos.prova_social.etiqueta|default:"Prova social" }}</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">{{ blocos_fixos.prova_social.titulo|default:"Quem comprou recomenda."|destacar_titulo:blocos_fixos.prova_social }}</h2>
+                    <p class="mx-auto mt-4 max-w-xl text-base text-ink/60">{{ blocos_fixos.prova_social.descricao|default:"Avaliações reais, publicadas no Google." }}</p>
                 </div>
-                <div class="grid gap-6 md:grid-cols-3">
+                <div class="reveal rounded-[1.75rem] border border-ink/10 bg-white/70 p-3 shadow-soft md:p-5">
+                    <div id="proofCarousel" class="event-carousel flex gap-4 overflow-x-auto scroll-smooth pb-2">
                     {% for midia in prova_social %}
-                    <a href="{{ midia.link|default:'https://www.google.com.br/maps/place/Dona+do+chopp/@-3.7585457,-38.5656464,15z/data=!4m8!3m7!1s0x24b5a5a938d35363:0x266d5cc562862299!8m2!3d-3.7585457!4d-38.5656464!9m1!1b1!16s%2Fg%2F11t_krm151' }}"
-                        target="_blank" class="reveal block overflow-hidden rounded-[1.25rem] bg-white p-3 shadow-soft transition hover:scale-[1.02]">
-                        <img src="{{ midia.arquivo_seguro_url }}" alt="{{ midia.titulo }}" class="w-full rounded-xl" />
-                    </a>
+                    <button type="button"
+                        data-gallery-src="{{ midia.arquivo_seguro_url }}"
+                        data-gallery-alt="{{ midia.titulo|default:'Depoimento de cliente' }}"
+                        data-gallery-type="{{ midia.tipo }}"
+                        class="event-slide group relative h-[320px] min-w-[82%] overflow-hidden rounded-[1.35rem] border border-ink/10 bg-white text-left shadow-soft transition hover:-translate-y-1 hover:shadow-lift sm:min-w-[48%] lg:min-w-[31%]">
+                        {% if midia.tipo == "video" %}
+                        <video class="h-full w-full bg-ink object-contain p-2" preload="metadata" muted playsinline>
+                            <source src="{{ midia.arquivo_seguro_url }}" type="video/mp4">
+                        </video>
+                        <span class="absolute inset-0 flex items-center justify-center bg-ink/18 text-flame">
+                            <span class="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-lift">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                            </span>
+                        </span>
+                        {% else %}
+                        <img src="{{ midia.arquivo_seguro_url }}" alt="{{ midia.titulo }}" class="h-full w-full object-contain p-3 transition duration-500 group-hover:scale-[1.04]" />
+                        {% endif %}
+                    </button>
                     {% endfor %}
+                    </div>
+                    <div class="mt-5 flex justify-end gap-2">
+                        <button type="button" id="proofPrev" class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-ink shadow-soft transition hover:bg-beer" aria-label="Depoimento anterior">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <button type="button" id="proofNext" class="flex h-11 w-11 items-center justify-center rounded-full bg-flame text-white shadow-cta transition hover:bg-amber" aria-label="Próximo depoimento">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
+        {% endif %}
 
-        <!-- <section class="bg-white py-20 lg:py-28">
+        {% if galeria and blocos_fixos.galeria.ativo %}
+        <section class="bg-white py-20 lg:py-28" style="order: {{ blocos_fixos.galeria.ordem }};">
             <div class="container-max mx-auto px-4">
                 <div class="mx-auto mb-12 max-w-3xl text-center reveal">
-                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Galeria</p>
-                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Modelos que chamam atenção.</h2>
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">{{ blocos_fixos.galeria.etiqueta|default:"Galeria" }}</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">{{ blocos_fixos.galeria.titulo|default:"Modelos que chamam atenção."|destacar_titulo:blocos_fixos.galeria }}</h2>
                     <p class="mx-auto mt-4 max-w-2xl text-base font-semibold leading-relaxed text-ink/60">
-                        Algumas combinações de cores, marcas e acabamentos que fazem a chopeira aparecer no balcão, no evento e nas fotos.
+                        {{ blocos_fixos.galeria.descricao|default:"Algumas combinações de cores, marcas e acabamentos que fazem a chopeira aparecer no balcão, no evento e nas fotos." }}
                     </p>
                 </div>
 
                 <div class="reveal rounded-[1.75rem] border border-ink/10 bg-slate-50 p-3 shadow-soft md:p-5">
-                    <div class="grid auto-rows-[170px] grid-cols-2 gap-3 md:auto-rows-[210px] md:grid-cols-6 md:gap-4">
+                    <div id="galleryCarousel" class="event-carousel flex gap-4 overflow-x-auto scroll-smooth pb-2">
                         {% for midia in galeria %}
-                        <button type="button" data-gallery-src="{{ midia.arquivo_seguro_url }}" data-gallery-alt="{{ midia.titulo }}" class="group relative overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift {% if forloop.first %}col-span-2 row-span-2 md:col-span-3{% elif forloop.counter <= 3 %}md:col-span-3{% else %}md:col-span-2{% endif %}">
-                            <img src="{{ midia.arquivo_seguro_url }}" alt="{{ midia.titulo }}" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05] {% if forloop.first %}md:p-8{% endif %}" />
-                            {% if forloop.first %}
-                            <span class="absolute left-4 top-4 rounded-full bg-flame px-3 py-1.5 text-xs font-black uppercase tracking-wide text-white shadow-soft">
-                                Destaque
-                            </span>
-                            {% endif %}
+                        <button type="button" data-gallery-src="{{ midia.arquivo_seguro_url }}" data-gallery-alt="{{ midia.titulo }}" data-gallery-type="{{ midia.tipo|default:'imagem' }}" class="event-slide group relative h-[260px] min-w-[78%] overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift sm:min-w-[42%] lg:min-w-[28%]">
+                            <img src="{{ midia.arquivo_seguro_url }}" alt="{{ midia.titulo }}" class="h-full w-full object-contain p-4 transition duration-500 group-hover:scale-[1.05]" />
                         </button>
                         {% endfor %}
 
-                        <div class="col-span-2 flex flex-col justify-between rounded-[1.35rem] border border-slate-200 bg-white p-5 text-ink shadow-soft">
+                        <div class="event-slide flex h-[260px] min-w-[78%] flex-col justify-between rounded-[1.35rem] border border-slate-200 bg-white p-5 text-ink shadow-soft sm:min-w-[42%] lg:min-w-[28%]">
                             <p class="text-xs font-black uppercase tracking-wide text-flame">Personalização</p>
                             <div>
                                 <p class="font-display text-2xl font-black leading-tight">Sua marca no centro da experiência.</p>
@@ -996,9 +1075,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mt-5 flex justify-end gap-2">
+                        <button type="button" id="galleryPrev" class="flex h-11 w-11 items-center justify-center rounded-full bg-white text-ink shadow-soft transition hover:bg-beer" aria-label="Imagem anterior da galeria">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m15 18-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <button type="button" id="galleryNext" class="flex h-11 w-11 items-center justify-center rounded-full bg-flame text-white shadow-cta transition hover:bg-amber" aria-label="Próxima imagem da galeria">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </section> -->
+        </section>
+        {% endif %}
 
         <div id="galleryModal" class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/85 p-4 backdrop-blur-sm" aria-hidden="true">
             <button type="button" id="galleryModalBackdrop" class="absolute inset-0 cursor-zoom-out" aria-label="Fechar imagem ampliada"></button>
@@ -1007,16 +1099,18 @@
                     &times;
                 </button>
                 <img id="galleryModalImage" src="" alt="" class="max-h-[84vh] w-full object-contain" />
+                <video id="galleryModalVideo" class="hidden max-h-[84vh] w-full object-contain" controls playsinline></video>
             </div>
         </div>
 
-        <section id="faq" class="bg-cream py-20 lg:py-28">
+        {% if blocos_fixos.faq.ativo %}
+        <section id="faq" class="bg-cream py-20 lg:py-28" style="order: {{ blocos_fixos.faq.ordem }};">
             <div class="container-max mx-auto grid gap-10 px-4 lg:grid-cols-[.85fr_1.15fr]">
                 <div class="reveal">
-                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Ainda ficou com dúvidas?</p>
-                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Fale com nossa equipe e receba atendimento personalizado.</h2>
+                    <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">{{ blocos_fixos.faq.etiqueta|default:"Ainda ficou com dúvidas?" }}</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">{{ blocos_fixos.faq.titulo|default:"Fale com nossa equipe e receba atendimento personalizado."|destacar_titulo:blocos_fixos.faq }}</h2>
                     <p class="mt-5 text-lg leading-relaxed text-ink/62">
-                        Entenda como começar seu negócio com chopp, escolha o modelo ideal e tire suas dúvidas sobre operação, pagamento e personalização.
+                        {{ blocos_fixos.faq.descricao|default:"Entenda como começar seu negócio com chopp, escolha o modelo ideal e tire suas dúvidas sobre operação, pagamento e personalização." }}
                     </p>
                     <a href="https://wa.me/5585991803678?text=Olá!%20Tenho%20uma%20dúvida%20sobre%20as%20chopeiras."
                         target="_blank" class="mt-8 inline-flex rounded-full bg-leaf px-7 py-4 text-sm font-black uppercase text-white shadow-soft">
@@ -1062,15 +1156,17 @@
                 </div>
             </div>
         </section>
+        {% endif %}
 
-        <section id="contato" class="bg-white py-20 lg:py-28">
+        {% if blocos_fixos.contato.ativo %}
+        <section id="contato" class="bg-white py-20 lg:py-28" style="order: {{ blocos_fixos.contato.ordem }};">
             <div class="container-max mx-auto px-4">
                 <div class="mx-auto max-w-5xl">
                     <div class="mx-auto mb-10 max-w-3xl text-center reveal">
-                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">Ainda ficou com dúvidas?</p>
-                        <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Pergunte ou fale com um especialista.</h2>
+                        <p class="mb-3 text-sm font-black uppercase tracking-wide text-flame">{{ blocos_fixos.contato.etiqueta|default:"Ainda ficou com dúvidas?" }}</p>
+                        <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">{{ blocos_fixos.contato.titulo|default:"Pergunte ou fale com um especialista."|destacar_titulo:blocos_fixos.contato }}</h2>
                         <p class="mx-auto mt-4 max-w-2xl text-base font-semibold leading-relaxed text-ink/58">
-                            Fale com nossa equipe e receba atendimento personalizado para entender como começar seu negócio com chopp.
+                            {{ blocos_fixos.contato.descricao|default:"Fale com nossa equipe e receba atendimento personalizado para entender como começar seu negócio com chopp." }}
                         </p>
                         <a href="https://wa.me/5585991803678?text=Olá!%20Quero%20falar%20com%20um%20especialista%20sobre%20a%20chopeira%20bomba%20de%20gasolina."
                             target="_blank"
@@ -1119,14 +1215,16 @@
                 </div>
             </div>
         </section>
+        {% endif %}
 
-        <section class="bg-flame py-16 text-white lg:py-24">
+        {% if blocos_fixos.fechamento.ativo %}
+        <section class="bg-flame py-16 text-white lg:py-24" style="order: {{ blocos_fixos.fechamento.ordem }};">
             <div class="container-max mx-auto px-4 text-center">
                 <div class="mx-auto max-w-3xl reveal">
-                    <p class="mb-4 text-sm font-black uppercase tracking-wide text-white/75">Fechamento</p>
-                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">Você não compra apenas uma chopeira. Investe em uma máquina de faturamento.</h2>
+                    <p class="mb-4 text-sm font-black uppercase tracking-wide text-white/75">{{ blocos_fixos.fechamento.etiqueta|default:"Fechamento" }}</p>
+                    <h2 class="font-display text-4xl font-black leading-tight md:text-6xl">{{ blocos_fixos.fechamento.titulo|default:"Você não compra apenas uma chopeira. Investe em uma máquina de faturamento."|destacar_titulo:blocos_fixos.fechamento }}</h2>
                     <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/78">
-                        Um produto validado, lucrativo e respaldado por quem realmente entende do mercado de chopp. Fale com nossa equipe e veja como começar.
+                        {{ blocos_fixos.fechamento.descricao|default:"Um produto validado, lucrativo e respaldado por quem realmente entende do mercado de chopp. Fale com nossa equipe e veja como começar." }}
                     </p>
                     <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
                         <a href="https://wa.me/5585991803678?text=Olá!%20Quero%20comprar%20uma%20chopeira%20personalizada."
@@ -1140,6 +1238,8 @@
                 </div>
             </div>
         </section>
+        {% endif %}
+        </div>
     </main>
 
     <footer class="bg-ink py-10 text-white/65">
@@ -1449,6 +1549,12 @@
         const testimonialCarousel = document.getElementById('testimonialCarousel');
         const testimonialPrev = document.getElementById('testimonialPrev');
         const testimonialNext = document.getElementById('testimonialNext');
+        const proofCarousel = document.getElementById('proofCarousel');
+        const proofPrev = document.getElementById('proofPrev');
+        const proofNext = document.getElementById('proofNext');
+        const galleryCarousel = document.getElementById('galleryCarousel');
+        const galleryPrev = document.getElementById('galleryPrev');
+        const galleryNext = document.getElementById('galleryNext');
 
         function scrollCarousel(carousel, direction) {
             if (!carousel) return;
@@ -1462,9 +1568,14 @@
         eventNext?.addEventListener('click', () => scrollCarousel(eventCarousel, 1));
         testimonialPrev?.addEventListener('click', () => scrollCarousel(testimonialCarousel, -1));
         testimonialNext?.addEventListener('click', () => scrollCarousel(testimonialCarousel, 1));
+        proofPrev?.addEventListener('click', () => scrollCarousel(proofCarousel, -1));
+        proofNext?.addEventListener('click', () => scrollCarousel(proofCarousel, 1));
+        galleryPrev?.addEventListener('click', () => scrollCarousel(galleryCarousel, -1));
+        galleryNext?.addEventListener('click', () => scrollCarousel(galleryCarousel, 1));
 
         const galleryModal = document.getElementById('galleryModal');
         const galleryModalImage = document.getElementById('galleryModalImage');
+        const galleryModalVideo = document.getElementById('galleryModalVideo');
         const galleryModalClose = document.getElementById('galleryModalClose');
         const galleryModalBackdrop = document.getElementById('galleryModalBackdrop');
 
@@ -1476,14 +1587,31 @@
             if (galleryModalImage) {
                 galleryModalImage.src = '';
                 galleryModalImage.alt = '';
+                galleryModalImage.classList.remove('hidden');
+            }
+            if (galleryModalVideo) {
+                galleryModalVideo.pause();
+                galleryModalVideo.removeAttribute('src');
+                galleryModalVideo.load();
+                galleryModalVideo.classList.add('hidden');
             }
         };
 
         document.querySelectorAll('[data-gallery-src]').forEach((item) => {
             item.addEventListener('click', () => {
                 if (!galleryModal || !galleryModalImage) return;
-                galleryModalImage.src = item.dataset.gallerySrc;
-                galleryModalImage.alt = item.dataset.galleryAlt || 'Imagem ampliada da galeria';
+                const type = item.dataset.galleryType || 'imagem';
+                if (type === 'video' && galleryModalVideo) {
+                    galleryModalImage.classList.add('hidden');
+                    galleryModalVideo.src = item.dataset.gallerySrc;
+                    galleryModalVideo.classList.remove('hidden');
+                    galleryModalVideo.load();
+                } else {
+                    galleryModalImage.src = item.dataset.gallerySrc;
+                    galleryModalImage.alt = item.dataset.galleryAlt || 'Imagem ampliada da galeria';
+                    galleryModalImage.classList.remove('hidden');
+                    galleryModalVideo?.classList.add('hidden');
+                }
                 galleryModal.classList.remove('hidden');
                 galleryModal.classList.add('flex');
                 galleryModal.setAttribute('aria-hidden', 'false');

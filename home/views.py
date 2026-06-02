@@ -2,11 +2,24 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PedidoForm
 import requests
 from .criar_preferencia import criar_preferencia
-from .models import Produto, Pedido, Transacao, Pergunta, Evento, Depoimento, MidiaLanding
+from .models import (
+    Produto,
+    Pedido,
+    Transacao,
+    Pergunta,
+    Evento,
+    Depoimento,
+    MidiaLanding,
+    SecaoLanding,
+    SecaoLandingMidia,
+    SecaoLandingCard,
+    SecaoLandingLinhaTabela,
+)
 from .busca_pagamento import buscar_pagamento_mercado_pago
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator
+from django.db.models import Prefetch
 import json
 import logging
 from .notificacao import send_email
@@ -19,14 +32,75 @@ def paginar_perguntas(request):
     return paginator.get_page(page_number)
 
 
+class SecaoFixaPadrao:
+    def __init__(self, ordem, ativo=True, titulo="", etiqueta="", descricao="", tipo=""):
+        self.ordem = ordem
+        self.ativo = ativo
+        self.titulo = titulo
+        self.etiqueta = etiqueta
+        self.descricao = descricao
+        self.tipo = tipo
+
+
+def secoes_fixas_landing(secoes):
+    defaults = {
+        "hero_principal": SecaoFixaPadrao(0, tipo="hero_principal"),
+        "barra_confianca": SecaoFixaPadrao(5, tipo="barra_confianca"),
+        "produtos": SecaoFixaPadrao(10, tipo="produtos"),
+        "eventos": SecaoFixaPadrao(30, tipo="eventos"),
+        "passos": SecaoFixaPadrao(40, tipo="passos"),
+        "beneficios": SecaoFixaPadrao(50, tipo="beneficios"),
+        "video": SecaoFixaPadrao(60, tipo="video"),
+        "depoimentos": SecaoFixaPadrao(70, tipo="depoimentos"),
+        "personalizar": SecaoFixaPadrao(80, tipo="personalizar"),
+        "prova_social": SecaoFixaPadrao(90, tipo="prova_social"),
+        "galeria": SecaoFixaPadrao(100, tipo="galeria"),
+        "faq": SecaoFixaPadrao(110, tipo="faq"),
+        "contato": SecaoFixaPadrao(120, tipo="contato"),
+        "fechamento": SecaoFixaPadrao(130, tipo="fechamento"),
+        "logo_footer": SecaoFixaPadrao(140, tipo="logo_footer"),
+    }
+    defaults.update({secao.tipo: secao for secao in secoes if secao.tipo in defaults})
+    return defaults
+
+
 def home_view(request):
     produtos = Produto.objects.all()
     eventos = Evento.objects.filter(ativo=True)
     depoimentos = Depoimento.objects.filter(ativo=True)
+    todas_secoes = list(
+        SecaoLanding.objects.filter(ativo=True)
+        .prefetch_related(
+            Prefetch(
+                "midias",
+                queryset=SecaoLandingMidia.objects.filter(ativo=True).order_by(
+                    "-criado_em", "-id"
+                ),
+            ),
+            Prefetch("cards", queryset=SecaoLandingCard.objects.filter(ativo=True)),
+            Prefetch(
+                "linhas_tabela",
+                queryset=SecaoLandingLinhaTabela.objects.filter(ativo=True),
+            ),
+        )
+    )
+    secoes_landing = [
+        secao
+        for secao in todas_secoes
+        if secao.tipo in ("metricas_tabela", "painel_destaque")
+    ]
+    blocos_fixos = secoes_fixas_landing(todas_secoes)
     midias = MidiaLanding.objects.filter(ativo=True)
     midias_por_chave = {}
     for midia in midias:
         midias_por_chave.setdefault(midia.chave, []).append(midia)
+    midias_secao = {
+        chave: list(bloco.midias_ativas) if hasattr(bloco, "midias_ativas") else []
+        for chave, bloco in blocos_fixos.items()
+    }
+    video_secao = midias_secao.get("video", [])
+    video_thumb_secao = [midia for midia in video_secao if midia.tipo == "imagem" or midia.papel == "capa"]
+    video_principal_secao = [midia for midia in video_secao if midia.tipo == "video"]
     perguntas = paginar_perguntas(request)
     return render(
         request,
@@ -34,14 +108,17 @@ def home_view(request):
         {
             "produtos": produtos,
             "eventos": eventos,
+            "eventos_midia": midias_secao.get("eventos", []),
             "depoimentos": depoimentos,
-            "hero_principal": midias_por_chave.get("hero_principal", []),
+            "secoes_landing": secoes_landing,
+            "blocos_fixos": blocos_fixos,
+            "hero_principal": midias_secao.get("hero_principal") or midias_por_chave.get("hero_principal", []),
             "lucro_operacao": midias_por_chave.get("lucro_operacao", []),
-            "video_thumb": midias_por_chave.get("video_thumb", []),
-            "video_principal": midias_por_chave.get("video_principal", []),
-            "prova_social": midias_por_chave.get("prova_social", []),
-            "galeria": midias_por_chave.get("galeria", []),
-            "logo_footer": midias_por_chave.get("logo_footer", []),
+            "video_thumb": video_thumb_secao or midias_por_chave.get("video_thumb", []),
+            "video_principal": video_principal_secao or midias_por_chave.get("video_principal", []),
+            "prova_social": midias_secao.get("prova_social") or midias_por_chave.get("prova_social", []),
+            "galeria": midias_secao.get("galeria") or midias_por_chave.get("galeria", []),
+            "logo_footer": midias_secao.get("logo_footer") or midias_por_chave.get("logo_footer", []),
             "perguntas": perguntas,
         },
     )

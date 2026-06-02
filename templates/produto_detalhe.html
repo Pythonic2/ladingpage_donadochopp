@@ -240,9 +240,8 @@
 
                     <!-- Price -->
                     <div class="mb-6">
-                        {% if produto.preco_sem_desconto > 0 %}
-                        <span class="text-lg text-black/40 line-through mr-3">{{ produto.preco_sem_desconto|reais
-                            }}</span>
+                        {% if produto.preco_sem_desconto %}
+                        <span class="mb-1 block text-lg font-semibold text-black/40 line-through">{{ produto.preco_sem_desconto|reais }}</span>
                         {% endif %}
                         <span class="font-display text-4xl text-secondary">{{ produto.preco|reais }}</span>
                         <div class="mt-2 flex flex-wrap gap-3">
@@ -337,6 +336,9 @@
                         </a>
                         <div class="p-5">
                             <h3 class="mb-2 font-display text-lg">{{ p.nome }}</h3>
+                            {% if p.preco_sem_desconto %}
+                            <span class="block text-sm font-semibold text-black/40 line-through">{{ p.preco_sem_desconto|reais }}</span>
+                            {% endif %}
                             <span class="font-display text-xl text-secondary">{{ p.preco|reais }}</span>
                             <a href="{% url 'produto-detalhe' p.id %}"
                                 class="mt-3 block text-center rounded-full border-2 border-primary py-2 text-sm font-semibold text-primary transition hover:bg-primary hover:text-white">Ver

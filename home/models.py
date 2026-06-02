@@ -93,6 +93,14 @@ def landing_media_upload_path(instance, filename):
     return os.path.join("landing", instance.chave, filename)
 
 
+def landing_section_upload_path(instance, filename):
+    return os.path.join("landing", "secoes", instance.slug, filename)
+
+
+def landing_section_media_upload_path(instance, filename):
+    return os.path.join("landing", "secoes", instance.secao.slug, filename)
+
+
 class MidiaLanding(models.Model):
     CHAVE_CHOICES = [
         ("hero_principal", "Hero principal"),
@@ -120,7 +128,7 @@ class MidiaLanding(models.Model):
     criado_em = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["chave", "ordem", "-criado_em"]
+        ordering = ["ordem", "chave", "-criado_em"]
         verbose_name = "Mídia da landing"
         verbose_name_plural = "Mídias da landing"
 
@@ -141,6 +149,263 @@ class MidiaLanding(models.Model):
         }
         fallback = fallbacks.get(self.chave, "assets/images/logo2.png")
         return static(fallback)
+
+
+class SecaoLanding(models.Model):
+    TIPO_CHOICES = [
+        ("hero_principal", "Hero principal"),
+        ("barra_confianca", "Barra de confiança"),
+        ("produtos", "Produtos"),
+        ("metricas_tabela", "Texto, cards e tabela"),
+        ("painel_destaque", "Painel de destaque"),
+        ("eventos", "Eventos"),
+        ("passos", "Como funciona"),
+        ("beneficios", "Benefícios"),
+        ("video", "Vídeo"),
+        ("depoimentos", "Depoimentos"),
+        ("personalizar", "Personalizar"),
+        ("prova_social", "Prova social"),
+        ("galeria", "Galeria"),
+        ("faq", "FAQ"),
+        ("contato", "Contato"),
+        ("fechamento", "Fechamento"),
+        ("logo_footer", "Logo do rodapé"),
+    ]
+
+    FUNDO_CHOICES = [
+        ("branco", "Branco"),
+        ("bege", "Bege"),
+        ("marrom", "Marrom"),
+    ]
+
+    COR_CHOICES = [
+        ("vermelho", "Vermelho"),
+        ("amarelo", "Amarelo"),
+        ("marrom", "Marrom"),
+        ("branco", "Branco"),
+    ]
+
+    slug = models.SlugField(
+        max_length=80,
+        unique=True,
+        help_text="Usado como identificador interno e na URL da seção.",
+    )
+    ancora = models.CharField(
+        max_length=80,
+        blank=True,
+        help_text="ID usado no menu/âncora. Se ficar vazio, usa o slug.",
+    )
+    tipo = models.CharField(max_length=30, choices=TIPO_CHOICES, default="metricas_tabela")
+    etiqueta = models.CharField(max_length=140, blank=True)
+    titulo = models.CharField(max_length=220)
+    titulo_destaque = models.CharField(
+        max_length=160,
+        blank=True,
+        help_text="Trecho do título que deve receber cor diferente.",
+    )
+    cor_titulo_destaque = models.CharField(
+        max_length=40,
+        default="#169b4f",
+        help_text="Cor aplicada ao trecho destacado. Use #169b4f, rgb(22,155,79), rgba(...) ou hsl(...).",
+    )
+    descricao = models.TextField(blank=True)
+    texto_final = models.TextField(blank=True)
+    observacao = models.TextField(blank=True)
+    imagem = models.FileField(upload_to=landing_section_upload_path, blank=True)
+    imagem_titulo = models.CharField(max_length=140, blank=True)
+    cabecalho_tabela_esquerda = models.CharField(max_length=80, blank=True)
+    cabecalho_tabela_direita = models.CharField(max_length=80, blank=True)
+    destaque_etiqueta = models.CharField(max_length=140, blank=True)
+    destaque_valor = models.CharField(max_length=80, blank=True)
+    destaque_descricao = models.CharField(max_length=180, blank=True)
+    destaque_observacao = models.TextField(blank=True)
+    fundo = models.CharField(max_length=10, choices=FUNDO_CHOICES, default="branco")
+    cor_titulo = models.CharField(max_length=10, choices=COR_CHOICES, default="vermelho")
+    ordem = models.PositiveIntegerField(default=0)
+    ativo = models.BooleanField(default=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["ordem", "-criado_em"]
+        verbose_name = "Seção da landing"
+        verbose_name_plural = "Seções da landing"
+
+    def __str__(self):
+        return self.titulo
+
+    @property
+    def anchor_id(self):
+        return self.ancora or self.slug
+
+    @property
+    def background_class(self):
+        return {
+            "branco": "bg-white text-ink",
+            "bege": "bg-cream text-ink",
+            "marrom": "bg-ink text-white",
+        }.get(self.fundo, "bg-white text-ink")
+
+    @property
+    def highlight_text_class(self):
+        return {
+            "vermelho": "text-flame",
+            "amarelo": "text-beer",
+            "marrom": "text-ink",
+            "branco": "text-white",
+        }.get(self.cor_titulo, "text-flame")
+
+    @property
+    def body_text_class(self):
+        return "text-white/70" if self.fundo == "marrom" else "text-ink/62"
+
+    @property
+    def muted_text_class(self):
+        return "text-white/62" if self.fundo == "marrom" else "text-ink/55"
+
+    @property
+    def small_text_class(self):
+        return "text-white/45" if self.fundo == "marrom" else "text-ink/45"
+
+    @property
+    def card_class(self):
+        return "bg-white/10" if self.fundo == "marrom" else "bg-cream"
+
+    @property
+    def table_class(self):
+        return "border border-ink/10 bg-cream text-ink" if self.fundo != "marrom" else "border border-white/10 bg-white/10 text-white"
+
+    @property
+    def table_header_class(self):
+        return "bg-ink text-white" if self.fundo != "marrom" else "bg-white text-ink"
+
+    @property
+    def table_row_highlight_class(self):
+        return "bg-white" if self.fundo != "marrom" else "bg-white/10"
+
+    @property
+    def imagem_segura_url(self):
+        if self.imagem and self.imagem.name and self.imagem.storage.exists(self.imagem.name):
+            return self.imagem.url
+        return ""
+
+    @property
+    def midias_ativas(self):
+        return self.midias.filter(ativo=True)
+
+    @property
+    def primeira_midia(self):
+        return self.midias_ativas.first()
+
+    @property
+    def primeira_imagem(self):
+        return self.midias_ativas.filter(tipo="imagem").first()
+
+    @property
+    def primeiro_video(self):
+        return self.midias_ativas.filter(tipo="video").first()
+
+
+class SecaoLandingMidia(models.Model):
+    TIPO_CHOICES = [
+        ("imagem", "Imagem"),
+        ("video", "Vídeo"),
+    ]
+
+    PAPEL_CHOICES = [
+        ("principal", "Principal"),
+        ("capa", "Capa do vídeo"),
+        ("item", "Item da galeria/lista"),
+    ]
+
+    secao = models.ForeignKey(SecaoLanding, on_delete=models.CASCADE, related_name="midias")
+    arquivo = models.FileField(upload_to=landing_section_media_upload_path)
+    tipo = models.CharField(max_length=10, choices=TIPO_CHOICES, default="imagem")
+    papel = models.CharField(max_length=12, choices=PAPEL_CHOICES, default="principal")
+    titulo = models.CharField(max_length=120, blank=True)
+    descricao = models.CharField(max_length=220, blank=True)
+    link = models.URLField(blank=True)
+    ordem = models.PositiveIntegerField(default=0)
+    ativo = models.BooleanField(default=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-criado_em", "-id"]
+        verbose_name = "Mídia da seção"
+        verbose_name_plural = "Mídias da seção"
+
+    def __str__(self):
+        return self.titulo or self.arquivo.name
+
+    @property
+    def arquivo_seguro_url(self):
+        if self.arquivo and self.arquivo.name and self.arquivo.storage.exists(self.arquivo.name):
+            return self.arquivo.url
+        return static("assets/images/logo2.png")
+
+
+class SecaoLandingCard(models.Model):
+    secao = models.ForeignKey(SecaoLanding, on_delete=models.CASCADE, related_name="cards")
+    titulo = models.CharField(max_length=120)
+    valor = models.CharField(max_length=80, blank=True)
+    descricao = models.TextField(blank=True)
+    ordem = models.PositiveIntegerField(default=0)
+    ativo = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["ordem", "id"]
+        verbose_name = "Card da seção"
+        verbose_name_plural = "Cards da seção"
+
+    def __str__(self):
+        return self.titulo
+
+
+class SecaoLandingLinhaTabela(models.Model):
+    secao = models.ForeignKey(SecaoLanding, on_delete=models.CASCADE, related_name="linhas_tabela")
+    rotulo = models.CharField(max_length=140)
+    valor = models.CharField(max_length=80)
+    destacar = models.BooleanField(default=False)
+    ordem = models.PositiveIntegerField(default=0)
+    ativo = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["ordem", "id"]
+        verbose_name = "Linha de tabela da seção"
+        verbose_name_plural = "Linhas de tabela da seção"
+
+    def __str__(self):
+        return f"{self.rotulo}: {self.valor}"
+
+
+class BlocoFixoLanding(models.Model):
+    CHAVE_CHOICES = [
+        ("barra_confianca", "Barra de confiança"),
+        ("produtos", "Produtos"),
+        ("eventos", "Eventos"),
+        ("passos", "Como funciona"),
+        ("beneficios", "Benefícios"),
+        ("video", "Vídeo"),
+        ("depoimentos", "Depoimentos"),
+        ("personalizar", "Personalizar"),
+        ("prova_social", "Prova social"),
+        ("galeria", "Galeria"),
+        ("faq", "FAQ"),
+        ("contato", "Contato"),
+        ("fechamento", "Fechamento"),
+    ]
+
+    chave = models.CharField(max_length=30, choices=CHAVE_CHOICES, unique=True)
+    ordem = models.PositiveIntegerField(default=0)
+    ativo = models.BooleanField(default=True)
+    atualizado_em = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["ordem", "chave"]
+        verbose_name = "Bloco fixo da landing"
+        verbose_name_plural = "Blocos fixos da landing"
+
+    def __str__(self):
+        return self.get_chave_display()
 
 
 class Pedido(models.Model):
