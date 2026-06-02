@@ -70,7 +70,7 @@ def home_view(request):
     eventos = Evento.objects.filter(ativo=True)
     depoimentos = Depoimento.objects.filter(ativo=True)
     todas_secoes = list(
-        SecaoLanding.objects.filter(ativo=True)
+        SecaoLanding.objects.all()
         .prefetch_related(
             Prefetch(
                 "midias",
@@ -88,7 +88,7 @@ def home_view(request):
     secoes_landing = [
         secao
         for secao in todas_secoes
-        if secao.tipo in ("metricas_tabela", "painel_destaque")
+        if secao.ativo and secao.tipo in ("metricas_tabela", "painel_destaque")
     ]
     blocos_fixos = secoes_fixas_landing(todas_secoes)
     midias = MidiaLanding.objects.filter(ativo=True)
@@ -96,7 +96,9 @@ def home_view(request):
     for midia in midias:
         midias_por_chave.setdefault(midia.chave, []).append(midia)
     midias_secao = {
-        chave: list(bloco.midias_ativas) if hasattr(bloco, "midias_ativas") else []
+        chave: list(bloco.midias_ativas)
+        if getattr(bloco, "ativo", False) and hasattr(bloco, "midias_ativas")
+        else []
         for chave, bloco in blocos_fixos.items()
     }
     video_secao = midias_secao.get("video", [])
