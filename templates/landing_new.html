@@ -554,16 +554,16 @@
 
                 <div id="productCarousel" class="event-carousel -mx-4 flex gap-4 overflow-x-auto scroll-smooth px-4 pb-4 md:mx-auto md:grid md:max-w-5xl md:grid-cols-3 md:gap-7 md:overflow-visible md:px-0 md:pb-0">
                     {% for produto in produtos %}
-                    <article class="price-card event-slide reveal min-w-[86%] overflow-hidden rounded-[1.5rem] border border-ink/10 bg-white shadow-soft sm:min-w-[62%] md:min-w-0">
-                        <a href="{{ produto.get_absolute_url }}" class="product-media block relative p-4">
+                    <article class="price-card event-slide reveal flex min-w-[86%] flex-col overflow-hidden rounded-[1.5rem] border border-ink/10 bg-white shadow-soft sm:min-w-[62%] md:min-w-0">
+                        <a href="{{ produto.get_absolute_url }}" class="product-media relative flex h-80 items-center p-4">
                             {% if produto.preco_sem_desconto > 0 %}
                             <span class="absolute left-4 top-4 z-10 rounded-full bg-flame px-3 py-1.5 text-xs font-black uppercase text-white">Oferta</span>
                             {% endif %}
                             <img src="{{ produto.imagem_segura_url }}" alt="{{ produto.nome }}"
                                 class="mx-auto h-72 w-full object-contain transition duration-500 hover:scale-105" />
                         </a>
-                        <div class="p-6">
-                            <h3 class="font-display text-2xl font-black leading-tight">{{ produto.nome }}</h3>
+                        <div class="flex flex-1 flex-col p-6">
+                            <h3 class="min-h-[3.75rem] font-display text-2xl font-black leading-tight">{{ produto.nome }}</h3>
                             <div class="mt-4">
                                 {% if produto.preco_sem_desconto > 0 %}
                                 <p class="text-sm font-semibold text-ink/35 line-through">{{ produto.preco_sem_desconto|reais }}</p>
@@ -576,7 +576,7 @@
                                 <li class="flex gap-2"><span class="font-black text-leaf">✓</span> Envio para todo Brasil</li>
                                 <li class="flex gap-2"><span class="font-black text-leaf">✓</span> Garantia e suporte na montagem</li>
                             </ul>
-                            <div class="mt-6 grid gap-2">
+                            <div class="mt-auto grid gap-2 pt-6">
                                 <a href="{{ produto.get_checkout_url }}"
                                     class="rounded-full bg-flame px-5 py-3.5 text-center text-sm font-black uppercase text-white shadow-cta transition hover:scale-[1.02]">
                                     Comprar agora
