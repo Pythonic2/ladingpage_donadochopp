@@ -139,8 +139,11 @@ def enviar_pergunta(request):
     return render(request, "partials/perguntas.html", {"perguntas": perguntas})
 
 
-def produto_detalhe_view(request, produto_id):
-    produto = get_object_or_404(Produto, id=produto_id)
+def produto_detalhe_view(request, produto_id=None, slug=None):
+    if slug:
+        produto = get_object_or_404(Produto, slug=slug)
+    else:
+        produto = get_object_or_404(Produto, id=produto_id)
     outros_produtos = Produto.objects.exclude(id=produto_id)[:3]
     return render(
         request,
@@ -152,8 +155,11 @@ def produto_detalhe_view(request, produto_id):
     )
 
 
-def cadastrar_usuario_view(request, produto_id):
-    produto = get_object_or_404(Produto, id=produto_id)
+def cadastrar_usuario_view(request, produto_id=None, slug=None):
+    if slug:
+        produto = get_object_or_404(Produto, slug=slug)
+    else:
+        produto = get_object_or_404(Produto, id=produto_id)
     if request.method == "POST":
         form = PedidoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -163,7 +169,15 @@ def cadastrar_usuario_view(request, produto_id):
             return render(request, "success.html", {"form": form})
     else:
         form = PedidoForm()
-    return render(request, "cadastrar_user.html", {"form": form, "produto": produto})
+    return render(
+        request,
+        "cadastrar_user.html",
+        {
+            "form": form,
+            "produto": produto,
+            "config_landing": ConfiguracaoLanding.get_solo(),
+        },
+    )
 
 
 def cadastrar_pedido(request):
@@ -200,6 +214,17 @@ def cadastrar_pedido(request):
                         "mensagem": "Não foi possível gerar o link de pagamento. Tente novamente."
                     },
                 )
+        if produto_id:
+            produto = get_object_or_404(Produto, id=produto_id)
+            return render(
+                request,
+                "cadastrar_user.html",
+                {
+                    "form": form,
+                    "produto": produto,
+                    "config_landing": ConfiguracaoLanding.get_solo(),
+                },
+            )
     else:
         form = PedidoForm()
     return render(request, "cadastrar_user.html", {"form": form})
@@ -254,6 +279,8 @@ def simple_test(request):
                         cpf_cliente=pedido_user.cpf_cliente,
                         endereco_cliente=pedido_user.endereco_cliente,
                         cep_cliente=pedido_user.cep_cliente,
+                        tipo_entrega=pedido_user.tipo_entrega,
+                        capital_retirada=pedido_user.capital_retirada,
                         telefone_cliente=pedido_user.telefone_cliente,
                         email_cliente=pedido_user.email_cliente,
                         data_nascimento_cliente=pedido_user.data_nascimento_cliente,
@@ -284,6 +311,8 @@ def simple_test(request):
                             f"Telefone do Cliente: {transacao.telefone_cliente}\n"
                             f"Endereço do Cliente: {transacao.endereco_cliente}\n"
                             f"CEP da Capital: {transacao.cep_cliente}\n"
+                            f"Tipo de Entrega: {transacao.tipo_entrega}\n"
+                            f"Capital de Retirada: {transacao.capital_retirada}\n"
                             f"Data de Nascimento: {transacao.data_nascimento_cliente}\n"
                             f"Quantidade: {transacao.quantidade}\n"
                             f"Data do Pedido: {transacao.data_pedido}\n"

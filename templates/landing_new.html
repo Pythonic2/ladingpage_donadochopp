@@ -532,7 +532,7 @@
         {% if blocos_fixos.barra_confianca.ativo %}
         <section class="bg-white py-5" style="order: {{ blocos_fixos.barra_confianca.ordem }};">
             <div class="container-max mx-auto grid gap-3 px-4 text-center text-sm font-black text-ink/65 sm:grid-cols-2 lg:grid-cols-5">
-                <span class="rounded-full bg-cream px-4 py-3">Envio para todo Brasil</span>
+                <span class="rounded-full bg-cream px-4 py-3">Frete grátis no aeroporto das capitais</span>
                 <span class="rounded-full bg-cream px-4 py-3">Garantia de 1 ano</span>
                 <span class="rounded-full bg-cream px-4 py-3">10x sem juros</span>
                 <span class="rounded-full bg-cream px-4 py-3">Suporte do zero</span>
@@ -555,7 +555,7 @@
                 <div class="mx-auto grid max-w-5xl gap-7 md:grid-cols-3">
                     {% for produto in produtos %}
                     <article class="price-card reveal overflow-hidden rounded-[1.5rem] border border-ink/10 bg-white shadow-soft">
-                        <a href="{% url 'produto-detalhe' produto.id %}" class="product-media block relative p-4">
+                        <a href="{{ produto.get_absolute_url }}" class="product-media block relative p-4">
                             {% if produto.preco_sem_desconto > 0 %}
                             <span class="absolute left-4 top-4 z-10 rounded-full bg-flame px-3 py-1.5 text-xs font-black uppercase text-white">Oferta</span>
                             {% endif %}
@@ -577,11 +577,11 @@
                                 <li class="flex gap-2"><span class="font-black text-leaf">✓</span> Garantia e suporte na montagem</li>
                             </ul>
                             <div class="mt-6 grid gap-2">
-                                <a href="{% url 'cadastrar-usuario' produto.id %}"
+                                <a href="{{ produto.get_checkout_url }}"
                                     class="rounded-full bg-flame px-5 py-3.5 text-center text-sm font-black uppercase text-white shadow-cta transition hover:scale-[1.02]">
                                     Comprar agora
                                 </a>
-                                <a href="{% url 'produto-detalhe' produto.id %}"
+                                <a href="{{ produto.get_absolute_url }}"
                                     class="rounded-full border-2 border-ink/12 px-5 py-3 text-center text-sm font-black text-ink transition hover:border-amber hover:text-flame">
                                     Ver detalhes do modelo
                                 </a>

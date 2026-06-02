@@ -17,9 +17,15 @@ from .models import (
 )
 
 # Register your models here.
-admin.site.register(Produto)
 admin.site.register(Pedido)
 admin.site.register(Transacao)
+
+
+@admin.register(Produto)
+class ProdutoAdmin(admin.ModelAdmin):
+    list_display = ("nome", "preco", "preco_sem_desconto", "estoque", "slug")
+    prepopulated_fields = {"slug": ("nome",)}
+    search_fields = ("nome", "descricao", "slug")
 
 
 @admin.register(Evento)
@@ -40,8 +46,8 @@ class DepoimentoAdmin(admin.ModelAdmin):
 
 @admin.register(ConfiguracaoLanding)
 class ConfiguracaoLandingAdmin(admin.ModelAdmin):
-    list_display = ("mostrar_barra_topo", "texto_barra_topo", "modo_black_friday", "texto_selo_black", "atualizado_em")
-    fields = ("mostrar_barra_topo", "texto_barra_topo", "modo_black_friday", "texto_selo_black", "atualizado_em")
+    list_display = ("url_publica_site", "mostrar_barra_topo", "texto_barra_topo", "modo_black_friday", "texto_selo_black", "atualizado_em")
+    fields = ("url_publica_site", "mostrar_barra_topo", "texto_barra_topo", "modo_black_friday", "texto_selo_black", "atualizado_em")
     readonly_fields = ("atualizado_em",)
 
     def has_add_permission(self, request):

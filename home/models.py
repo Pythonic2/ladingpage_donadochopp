@@ -1,5 +1,7 @@
 from django.db import models
 from django.templatetags.static import static
+from django.urls import reverse
+from django.utils.text import slugify
 import os
 from ckeditor.fields import RichTextField
 
@@ -13,6 +15,7 @@ def logo_upload_path(instance, filename):
 class Produto(models.Model):
     imagem = models.ImageField(upload_to="produtos/", blank=True, null=True)
     nome = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=120, unique=True, blank=True, null=True)
     descricao = RichTextField()
     preco = models.DecimalField(max_digits=10, decimal_places=2)
     preco_sem_desconto = models.DecimalField(
@@ -35,6 +38,23 @@ class Produto(models.Model):
 
     def __str__(self):
         return self.nome
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.nome) or "produto"
+            slug = base_slug
+            counter = 2
+            while Produto.objects.exclude(pk=self.pk).filter(slug=slug).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("produto-detalhe-slug", kwargs={"slug": self.slug})
+
+    def get_checkout_url(self):
+        return reverse("cadastrar-usuario-slug", kwargs={"slug": self.slug})
 
     @property
     def imagem_segura_url(self):
@@ -90,6 +110,10 @@ class Depoimento(models.Model):
 
 
 class ConfiguracaoLanding(models.Model):
+    url_publica_site = models.URLField(
+        blank=True,
+        help_text="URL pública usada em links enviados no WhatsApp. Ex: https://vendas1.donadochopp.com.br",
+    )
     mostrar_barra_topo = models.BooleanField(default=True)
     texto_barra_topo = models.CharField(
         max_length=140,
@@ -441,6 +465,11 @@ class BlocoFixoLanding(models.Model):
 
 
 class Pedido(models.Model):
+    TIPO_ENTREGA_CHOICES = [
+        ("retirada_aeroporto", "Retirada grátis no aeroporto da capital"),
+        ("receber_em_casa", "Receber em casa - chamar especialista"),
+    ]
+
     CORES_CHOICES = [
         ("amarela_vermelha", "Amarela e vermelha"),
         ("amarela_preta", "Amarela e preta"),
@@ -458,6 +487,12 @@ class Pedido(models.Model):
     cpf_cliente = models.CharField(max_length=11, unique=True)
     endereco_cliente = models.CharField(max_length=255)
     cep_cliente = models.CharField(max_length=9, blank=True, null=True)
+    tipo_entrega = models.CharField(
+        max_length=30,
+        choices=TIPO_ENTREGA_CHOICES,
+        default="retirada_aeroporto",
+    )
+    capital_retirada = models.CharField(max_length=80, blank=True)
     telefone_cliente = models.CharField(max_length=15)
     email_cliente = models.EmailField(
         max_length=100, blank=True, null=True, unique=True
@@ -486,6 +521,8 @@ class Transacao(models.Model):
     cpf_cliente = models.CharField(max_length=11)
     endereco_cliente = models.CharField(max_length=255)
     cep_cliente = models.CharField(max_length=9, blank=True, null=True)
+    tipo_entrega = models.CharField(max_length=30, blank=True, null=True)
+    capital_retirada = models.CharField(max_length=80, blank=True)
     telefone_cliente = models.CharField(max_length=15)
     email_cliente = models.EmailField(max_length=100, blank=True, null=True)
     data_nascimento_cliente = models.DateField()

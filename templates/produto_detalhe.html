@@ -275,7 +275,7 @@
 
                     <!-- CTA Buttons -->
                     <div class="flex flex-col gap-3 sm:flex-row">
-                        <a href="{% url 'cadastrar-usuario' produto.id %}"
+                        <a href="{{ produto.get_checkout_url }}"
                             class="inline-flex items-center justify-center rounded-full bg-secondary px-8 py-4 text-lg font-bold text-white shadow-soft transition hover:scale-[1.02] hover:bg-secondary/90">Comprar
                             Agora</a>
                         <a href="https://wa.me/5585991803678?text=Olá!%20Tenho%20interesse%20no%20produto:%20{{ produto.nome }}"
@@ -331,7 +331,7 @@
                     {% for p in outros_produtos %}
                     <div
                         class="rounded-3xl border border-black/10 bg-card overflow-hidden shadow-soft transition hover:-translate-y-2 hover:shadow-strong">
-                        <a href="{% url 'produto-detalhe' p.id %}">
+                        <a href="{{ p.get_absolute_url }}">
                             <img src="{{ p.imagem_segura_url }}" alt="{{ p.nome }}" class="w-full h-56 object-cover" />
                         </a>
                         <div class="p-5">
@@ -340,7 +340,7 @@
                             <span class="block text-sm font-semibold text-black/40 line-through">{{ p.preco_sem_desconto|reais }}</span>
                             {% endif %}
                             <span class="font-display text-xl text-secondary">{{ p.preco|reais }}</span>
-                            <a href="{% url 'produto-detalhe' p.id %}"
+                            <a href="{{ p.get_absolute_url }}"
                                 class="mt-3 block text-center rounded-full border-2 border-primary py-2 text-sm font-semibold text-primary transition hover:bg-primary hover:text-white">Ver
                                 Detalhes</a>
                         </div>
