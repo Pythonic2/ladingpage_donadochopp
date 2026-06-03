@@ -24,7 +24,10 @@ NOTIFICATION_URL = env_or_default(
 )
 
 sdk = mercadopago.SDK(ACCESS_TOKEN)
-request_options = RequestOptions(connection_timeout=8.0, max_retries=1)
+request_options = RequestOptions(
+    connection_timeout=float(os.getenv("MERCADO_PAGO_PREFERENCE_TIMEOUT", "20.0")),
+    max_retries=int(os.getenv("MERCADO_PAGO_PREFERENCE_RETRIES", "1")),
+)
 
 
 def criar_preferencia(item: list, cliente_id: str):

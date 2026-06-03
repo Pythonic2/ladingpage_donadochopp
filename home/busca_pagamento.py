@@ -5,17 +5,15 @@ from mercadopago.config import RequestOptions
 from dotenv import load_dotenv
 
 load_dotenv()
-# Substitua pelo seu token de acesso do Mercado Pago
 
 ACCESS_TOKEN = os.getenv(
     "MERCADO_PAGO_ACCESS_TOKEN",
-    "APP_USR-4324407327815265-060316-302a183b471584f3bdf3c8369f2f5009-718297245",
 )
-#fsf
-#APP_USR-1593410664899051-060316-fd084459c24e48c1e48398ad93781783-3449228666
-# Inicializar o SDK do Mercado Pago
 sdk = mercadopago.SDK(ACCESS_TOKEN)
-request_options = RequestOptions(connection_timeout=8.0, max_retries=1)
+request_options = RequestOptions(
+    connection_timeout=float(os.getenv("MERCADO_PAGO_PAYMENT_TIMEOUT", "8.0")),
+    max_retries=int(os.getenv("MERCADO_PAGO_PAYMENT_RETRIES", "1")),
+)
 
 # Função para buscar o pagamento no Mercado Pago usando o SDK
 def buscar_pagamento_mercado_pago(pagamento_id):

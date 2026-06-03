@@ -362,8 +362,17 @@ def simple_test(request):
                             .first()
                         )
                     if not pedido_user:
-                        raise Pedido.DoesNotExist(
-                            f"Pedido não encontrado para a referência {referencia_pedido}"
+                        logging.warning(
+                            "Pedido não encontrado para a referência %s do pagamento %s.",
+                            referencia_pedido,
+                            pagamento_mp_id,
+                        )
+                        return JsonResponse(
+                            {
+                                "status": "pedido_not_found",
+                                "external_reference": referencia_pedido,
+                                "pagamento_id": pagamento_mp_id,
+                            }
                         )
                     user = pedido_user.nome_cliente
                     print(user)
