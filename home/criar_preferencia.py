@@ -10,7 +10,7 @@ def env_or_default(name, default):
     return os.getenv(name) or default
 
 
-ACCESS_TOKEN = env_or_default(
+ACCESS_TOKEN = os.getenv(
     "MERCADO_PAGO_ACCESS_TOKEN",
 )
 BACK_URL_BASE = env_or_default(
