@@ -165,6 +165,7 @@ class MidiaLanding(models.Model):
         ("video_principal", "Vídeo principal - arquivo"),
         ("prova_social", "Prova social"),
         ("galeria", "Galeria"),
+        ("logo_header", "Logo do cabeçalho"),
         ("logo_footer", "Logo do rodapé"),
     ]
 
@@ -225,6 +226,7 @@ class SecaoLanding(models.Model):
         ("faq", "FAQ"),
         ("contato", "Contato"),
         ("fechamento", "Fechamento"),
+        ("logo_header", "Logo do cabeçalho"),
         ("logo_footer", "Logo do rodapé"),
     ]
 
@@ -369,6 +371,9 @@ class SecaoLandingMidia(models.Model):
 
     PAPEL_CHOICES = [
         ("principal", "Principal"),
+        ("desktop", "Desktop"),
+        ("mobile", "Mobile"),
+        ("logo_header", "Logo do cabeçalho"),
         ("capa", "Capa do vídeo"),
         ("item", "Item da galeria/lista"),
     ]

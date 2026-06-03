@@ -94,6 +94,7 @@ class MidiaLandingAdmin(admin.ModelAdmin):
             "video_principal": "Arquivo do vídeo principal.",
             "prova_social": "Cards da seção Prova social.",
             "galeria": "Imagens da seção Galeria.",
+            "logo_header": "Logo usada no cabeçalho.",
             "logo_footer": "Logo pequena do rodapé.",
         }
         return usos.get(obj.chave, "Mídia cadastrada, mas sem uso específico no template.")
@@ -162,7 +163,7 @@ class SecaoLandingAdminForm(forms.ModelForm):
 class SecaoLandingMidiaInline(admin.TabularInline):
     model = SecaoLandingMidia
     extra = 1
-    fields = ("arquivo", "tipo", "papel", "titulo", "link", "ordem", "ativo")
+    fields = ("arquivo", "tipo", "papel", "titulo", "descricao", "link", "ordem", "ativo")
 
 
 @admin.register(SecaoLanding)

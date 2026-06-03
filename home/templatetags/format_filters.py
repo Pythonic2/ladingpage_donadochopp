@@ -78,3 +78,26 @@ def destacar_titulo(value, secao):
         count=1,
     )
     return mark_safe(highlighted)
+
+
+@register.filter
+def titulo_hero_formatado(value, secao):
+    if value is None:
+        return ""
+
+    raw_text = str(value)
+    if ":" not in raw_text:
+        return destacar_titulo(raw_text, secao)
+
+    antes, depois = raw_text.split(":", 1)
+    primeira_linha = conditional_escape(f"{antes.strip()}:")
+    segunda_linha = destacar_titulo(depois.strip(), secao)
+
+    return mark_safe(
+        '<span class="block text-[0.72em] leading-[1.04] lg:text-[0.62em]">'
+        f"{primeira_linha}"
+        "</span>"
+        '<span class="mt-1 block leading-[.96]">'
+        f"{segunda_linha}"
+        "</span>"
+    )

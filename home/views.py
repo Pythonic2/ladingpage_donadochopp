@@ -59,10 +59,24 @@ def secoes_fixas_landing(secoes):
         "faq": SecaoFixaPadrao(110, tipo="faq"),
         "contato": SecaoFixaPadrao(120, tipo="contato"),
         "fechamento": SecaoFixaPadrao(130, tipo="fechamento"),
-        "logo_footer": SecaoFixaPadrao(140, tipo="logo_footer"),
+        "logo_header": SecaoFixaPadrao(140, tipo="logo_header"),
+        "logo_footer": SecaoFixaPadrao(150, tipo="logo_footer"),
     }
     defaults.update({secao.tipo: secao for secao in secoes if secao.tipo in defaults})
     return defaults
+
+
+def primeira_midia_por_papel(midias, papeis):
+    papeis_normalizados = {papel.lower() for papel in papeis}
+    for midia in midias:
+        papel = (getattr(midia, "papel", "") or "").lower()
+        descricao = (getattr(midia, "descricao", "") or "").lower()
+        titulo = (getattr(midia, "titulo", "") or "").lower()
+        if papel in papeis_normalizados:
+            return midia
+        if any(marcador in descricao or marcador in titulo for marcador in papeis_normalizados):
+            return midia
+    return None
 
 
 def home_view(request):
@@ -75,7 +89,7 @@ def home_view(request):
             Prefetch(
                 "midias",
                 queryset=SecaoLandingMidia.objects.filter(ativo=True).order_by(
-                    "-criado_em", "-id"
+                    "ordem", "id"
                 ),
             ),
             Prefetch("cards", queryset=SecaoLandingCard.objects.filter(ativo=True)),
@@ -96,7 +110,7 @@ def home_view(request):
     for midia in midias:
         midias_por_chave.setdefault(midia.chave, []).append(midia)
     midias_secao = {
-        chave: list(bloco.midias_ativas)
+        chave: list(bloco.midias.filter(ativo=True).order_by("ordem", "id"))
         if getattr(bloco, "ativo", False) and hasattr(bloco, "midias_ativas")
         else []
         for chave, bloco in blocos_fixos.items()
@@ -104,6 +118,19 @@ def home_view(request):
     video_secao = midias_secao.get("video", [])
     video_thumb_secao = [midia for midia in video_secao if midia.tipo == "imagem" or midia.papel == "capa"]
     video_principal_secao = [midia for midia in video_secao if midia.tipo == "video"]
+    hero_midias = midias_secao.get("hero_principal") or midias_por_chave.get("hero_principal", [])
+    hero_desktop = primeira_midia_por_papel(hero_midias, ("desktop", "principal")) or (hero_midias[0] if hero_midias else None)
+    hero_mobile = primeira_midia_por_papel(hero_midias, ("mobile",)) or hero_desktop
+    logo_header_midias = (
+        midias_secao.get("logo_header")
+        or midias_por_chave.get("logo_header", [])
+        or midias_secao.get("logo_footer")
+        or midias_por_chave.get("logo_footer", [])
+    )
+    logo_header_desktop = primeira_midia_por_papel(logo_header_midias, ("desktop", "logo_header", "principal")) or (
+        logo_header_midias[0] if logo_header_midias else None
+    )
+    logo_header_mobile = primeira_midia_por_papel(logo_header_midias, ("mobile",)) or logo_header_desktop
     perguntas = paginar_perguntas(request)
     return render(
         request,
@@ -116,7 +143,11 @@ def home_view(request):
             "depoimentos": depoimentos,
             "secoes_landing": secoes_landing,
             "blocos_fixos": blocos_fixos,
-            "hero_principal": midias_secao.get("hero_principal") or midias_por_chave.get("hero_principal", []),
+            "hero_principal": hero_midias,
+            "hero_desktop": hero_desktop,
+            "hero_mobile": hero_mobile,
+            "logo_header_desktop": logo_header_desktop,
+            "logo_header_mobile": logo_header_mobile,
             "lucro_operacao": midias_por_chave.get("lucro_operacao", []),
             "video_thumb": video_thumb_secao or midias_por_chave.get("video_thumb", []),
             "video_principal": video_principal_secao or midias_por_chave.get("video_principal", []),

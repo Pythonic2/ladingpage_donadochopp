@@ -398,7 +398,14 @@
     <header class="fixed left-0 right-0 top-0 z-[80] border-b border-ink/10 bg-white/95 shadow-soft backdrop-blur-xl md:top-8">
         <div class="container-max mx-auto flex items-center justify-between px-4 py-3 md:py-4">
             <a href="#hero" class="flex items-center gap-3" aria-label="Dona do Chopp">
-                <img src="{% static 'assets/images/logo2.png' %}" alt="Dona do Chopp" class="h-12 w-auto object-contain md:h-14" />
+                {% if logo_header_desktop %}
+                <picture>
+                    {% if logo_header_mobile %}
+                    <source media="(max-width: 767px)" srcset="{{ logo_header_mobile.arquivo_seguro_url }}">
+                    {% endif %}
+                    <img src="{{ logo_header_desktop.arquivo_seguro_url }}" alt="{{ logo_header_desktop.titulo|default:'Dona do Chopp' }}" class="h-12 w-auto object-contain md:h-14" />
+                </picture>
+                {% endif %}
             </a>
             <nav class="hidden items-center gap-6 lg:flex">
                 <a href="#hero" class="text-sm font-bold text-ink/75 transition hover:text-flame">Produto</a>
@@ -459,9 +466,11 @@
                         {{ blocos_fixos.hero_principal.etiqueta|default:"Produto exclusivo para eventos, festas e negócios" }}
                     </div>
                     <h1 class="font-display text-4xl font-black leading-[1.02] sm:text-5xl lg:text-[5.2rem]">
-                        {{ blocos_fixos.hero_principal.titulo|default:"Chopeira Bomba de Gasolina: A Máquina de Fazer Dinheiro"|destacar_titulo:blocos_fixos.hero_principal }}
+                        {{ blocos_fixos.hero_principal.titulo|default:"Chopeira Bomba de Gasolina: A Máquina de Fazer Dinheiro"|titulo_hero_formatado:blocos_fixos.hero_principal }}
                     </h1>
-                    <img src="{% static 'assets/images/nova_logo.png' %}" alt="Dona do Chopp" class="mx-auto mt-5 h-auto w-80 max-w-[90vw] lg:hidden" />
+                    {% if hero_mobile %}
+                    <img src="{{ hero_mobile.arquivo_seguro_url }}" alt="{{ hero_mobile.titulo|default:blocos_fixos.hero_principal.titulo }}" class="hero-logo-mark mx-auto mt-5 h-auto w-80 max-w-[90vw] lg:hidden" />
+                    {% endif %}
                     <p class="mx-auto mt-5 max-w-xl font-display text-2xl font-black leading-tight text-flame sm:text-3xl lg:mx-0">
                         {{ blocos_fixos.hero_principal.texto_final|default:"Fature mais de 2 mil reais com um único barril." }}
                     </p>
@@ -495,15 +504,10 @@
                 </div>
 
                 <div class="relative mx-auto hidden h-[360px] w-full max-w-[520px] sm:h-[500px] lg:block lg:h-[620px] lg:max-w-none">
-                    {% with hero=hero_principal.0 %}
-                    {% if hero %}
-                    <img src="{{ hero.arquivo_seguro_url }}" alt="{{ hero.titulo }}"
-                        class="hero-logo-mark absolute -bottom-[35px] left-1/2 z-0 block w-[100%] max-w-none -translate-x-1/2 opacity-95" />
-                    {% else %}
-                    <img src="{% static 'assets/images/aed46108-0684-4c51-ad43-86fcb4425c8b.png' %}" alt="Chopeira Dona do Chopp"
+                    {% if hero_desktop %}
+                    <img src="{{ hero_desktop.arquivo_seguro_url }}" alt="{{ hero_desktop.titulo|default:blocos_fixos.hero_principal.titulo }}"
                         class="hero-logo-mark absolute -bottom-[35px] left-1/2 z-0 block w-[100%] max-w-none -translate-x-1/2 opacity-95" />
                     {% endif %}
-                    {% endwith %}
                     <!-- <div class="relative z-10 mx-auto flex items-end justify-center gap-0">
                         <img src="{% static 'assets/images/bomba1.png' %}" alt="Chopeira bomba de gasolina personalizada"
                             class="hero-product w-[48%] max-w-[290px] object-contain sm:w-[42%] lg:w-[38%]" />
