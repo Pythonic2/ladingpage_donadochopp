@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import PedidoForm
-import requests
 from .criar_preferencia import criar_preferencia
 from .models import (
     Produto,
@@ -18,7 +17,7 @@ from .models import (
 )
 from .busca_pagamento import buscar_pagamento_mercado_pago
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
 import json
@@ -318,6 +317,16 @@ def simple_test(request):
             logging.debug(f"Informações do pagamento: {pag}")
             logging.debug(f"Informações do tipo do Pagamento: {tipo}, tam {len(tipo)}")
             pd_id = tipo
+            print(pag)
+            if not pag:
+                logging.warning(
+                    "Pagamento não encontrado para o ID %s. Encerrando webhook sem erro.",
+                    pagamento_id,
+                )
+                return JsonResponse(
+                    {"ok": False, "message": "Pagamento não encontrado"},
+                    status=200,
+                )
             status = pag["status"]
             try:
                 print(f"-----------------{pd_id}-----------------")
@@ -367,7 +376,7 @@ def simple_test(request):
                     transacao.items.add(produto_obj)
 
                     transacao.save()  # Salvar a transação
-                    pedido_user.delete()  # Excluir o pedido
+                    #pedido_user.delete()  # Excluir o pedido
                     send_email(
                         subject=f"Nova Compra Realizada",
                         body=(
