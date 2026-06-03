@@ -16,6 +16,8 @@ urlpatterns = [
     path("cadastrar-pedido/", cadastrar_pedido, name="cadastrar-pedido"),
     path("pag/", simple_test, name="pagamento"),
     path("sucesso/", sucesso_view, name="sucesso"),
+    path("falha/", failure_view, name="falha"),
+    path("pendente/", pending_view, name="pendente"),
     path("enviar-pergunta/", enviar_pergunta, name="enviar-pergunta"),
 ]
 

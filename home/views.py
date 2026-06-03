@@ -260,8 +260,9 @@ def cadastrar_pedido(request):
             client_id = str(pedido.id)
 
             a = criar_preferencia(item, client_id)
-            if a and a.get("init_point"):
-                return redirect(a["init_point"])
+            checkout_url = a.get("init_point") or a.get("sandbox_init_point") if a else None
+            if checkout_url:
+                return redirect(checkout_url)
             else:
                 print(form.errors)
                 # Exibe mensagem de erro amigável
@@ -269,7 +270,8 @@ def cadastrar_pedido(request):
                     request,
                     "erro_pagamento.html",
                     {
-                        "mensagem": "Não foi possível gerar o link de pagamento. Tente novamente."
+                        "mensagem": "Não foi possível gerar o link de pagamento. Tente novamente.",
+                        "detalhe": a,
                     },
                 )
         if produto_id:
@@ -439,7 +441,7 @@ def sucesso_view(request):
 
 
 def failure_view(request):
-    return render(request, "failure.html")
+    return render(request, "faliure.html")
 
 
 def pending_view(request):
