@@ -1,6 +1,7 @@
 import os
 
 import mercadopago
+from mercadopago.config import RequestOptions
 from dotenv import load_dotenv
 
 
@@ -23,6 +24,7 @@ NOTIFICATION_URL = env_or_default(
 )
 
 sdk = mercadopago.SDK(ACCESS_TOKEN)
+request_options = RequestOptions(connection_timeout=8.0, max_retries=1)
 
 
 def criar_preferencia(item: list, cliente_id: str):
@@ -37,7 +39,7 @@ def criar_preferencia(item: list, cliente_id: str):
         "notification_url": NOTIFICATION_URL
     }
     try:
-        preference = sdk.preference().create(payload)
+        preference = sdk.preference().create(payload, request_options=request_options)
         if preference.get("status") in (200, 201):
             return preference.get("response")
         return preference.get("response") or preference
