@@ -258,7 +258,7 @@ def cadastrar_pedido(request):
                     "unit_price": float(produto.preco),
                 }
             ]
-            client_id = pedido.cpf_cliente
+            client_id = str(pedido.id)
 
             a = criar_preferencia(item, client_id)
             if a and a.get("init_point"):
@@ -325,7 +325,20 @@ def simple_test(request):
                     print(f"pag {pag}")
                     print(f"items:{pag['items'][0]}")
                     #     logging.debug("Pagamento aprovado, processando transação...")
-                    pedido_user = Pedido.objects.get(cpf_cliente=pag["usuario"])
+                    referencia_pedido = str(pag.get("usuario") or "")
+                    pedido_user = None
+                    if referencia_pedido.isdigit():
+                        pedido_user = Pedido.objects.filter(id=referencia_pedido).first()
+                    if not pedido_user:
+                        pedido_user = (
+                            Pedido.objects.filter(cpf_cliente=referencia_pedido)
+                            .order_by("-data_pedido", "-id")
+                            .first()
+                        )
+                    if not pedido_user:
+                        raise Pedido.DoesNotExist(
+                            f"Pedido não encontrado para a referência {referencia_pedido}"
+                        )
                     user = pedido_user.nome_cliente
                     print(user)
                     transacao = Transacao(

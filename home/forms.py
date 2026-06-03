@@ -64,7 +64,7 @@ class PedidoForm(forms.ModelForm):
         ]
         labels = {
             'nome_cliente': 'NOME (Obrigatório)',
-            'email_cliente': 'EMAIL',
+            'email_cliente': 'EMAIL (Obrigatório)',
             'telefone_cliente': 'Celular (Obrigatório)',
             'cpf_cliente': 'CPF (Obrigatório)',
             'endereco_cliente': 'ENDEREÇO (Obrigatório)',

@@ -487,8 +487,9 @@ class Pedido(models.Model):
         ("preta_verde", "Preta e verde"),
         ("azul_vermelha", "Azul e vermelha"),
     ]
+
     nome_cliente = models.CharField(max_length=100)
-    cpf_cliente = models.CharField(max_length=11, unique=False)
+    cpf_cliente = models.CharField(max_length=11)
     endereco_cliente = models.CharField(max_length=255)
     cep_cliente = models.CharField(max_length=9)
     tipo_entrega = models.CharField(
@@ -498,9 +499,7 @@ class Pedido(models.Model):
     )
     capital_retirada = models.CharField(max_length=80, blank=True)
     telefone_cliente = models.CharField(max_length=15)
-    email_cliente = models.EmailField(
-        max_length=100, blank=True, null=True, unique=False
-    )
+    email_cliente = models.EmailField(max_length=100)
     data_nascimento_cliente = models.DateField()
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField()
