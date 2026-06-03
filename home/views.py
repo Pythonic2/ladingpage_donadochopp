@@ -335,6 +335,21 @@ def simple_test(request):
                 if status == "approved" and tipo == "payment":
                     print(f"pag {pag}")
                     print(f"items:{pag['items'][0]}")
+                    pagamento_mp_id = str(pag["id"])
+                    transacao_existente = Transacao.objects.filter(
+                        pagamento_id=pagamento_mp_id
+                    ).first()
+                    if transacao_existente:
+                        logging.info(
+                            "Transação %s já processada. Encerrando webhook.",
+                            pagamento_mp_id,
+                        )
+                        return JsonResponse(
+                            {
+                                "status": "already_processed",
+                                "pagamento_id": pagamento_mp_id,
+                            }
+                        )
                     #     logging.debug("Pagamento aprovado, processando transação...")
                     referencia_pedido = str(pag.get("usuario") or "")
                     pedido_user = None
@@ -353,7 +368,7 @@ def simple_test(request):
                     user = pedido_user.nome_cliente
                     print(user)
                     transacao = Transacao(
-                        pagamento_id=pag["id"],
+                        pagamento_id=pagamento_mp_id,
                         data=pag["data"],
                         valor=pag["valor"],
                         status=pag["status"],

@@ -6,14 +6,27 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+DJANGO_ENV = os.getenv("DJANGO_ENV", "development")
+IS_PRODUCTION = DJANGO_ENV == "production"
+
+
+def env_or_default(name, default):
+    return os.getenv(name) or default
+
 
 ACCESS_TOKEN = os.getenv(
     "MERCADO_PAGO_ACCESS_TOKEN",
+    
 )
-BACK_URL_BASE = os.getenv("MERCADO_PAGO_BACK_URL_BASE", "http://127.0.0.1:8000")
-NOTIFICATION_URL = os.getenv(
-    "MERCADO_PAGO_NOTIFICATION_URL"
+BACK_URL_BASE = env_or_default(
+    "MERCADO_PAGO_BACK_URL_BASE",
+    "https://vendas1.donadochopp.com.br" if IS_PRODUCTION else "http://127.0.0.1:8000",
 )
+NOTIFICATION_URL = env_or_default(
+    "MERCADO_PAGO_NOTIFICATION_URL",
+    "https://vendas1.donadochopp.com.br/pag/" if IS_PRODUCTION else "http://127.0.0.1:8000/pag/",
+)
+
 sdk = mercadopago.SDK(ACCESS_TOKEN)
 
 

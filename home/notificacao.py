@@ -17,14 +17,13 @@ def send_email(subject, body, sender_email, sender_password, recipient_emails):
 
     try:
         # Conecta ao servidor SMTP do Gmail
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()  # Usa TLS para segurança
-        server.login(sender_email, sender_password)  # Faz login no servidor
-        text = msg.as_string()  # Converte a mensagem para string
+        with smtplib.SMTP('smtp.gmail.com', 587, timeout=10) as server:
+            server.starttls()  # Usa TLS para segurança
+            server.login(sender_email, sender_password)  # Faz login no servidor
+            text = msg.as_string()  # Converte a mensagem para string
 
-        # Envia o email para todos os destinatários
-        server.sendmail(sender_email, recipient_emails, text)
-        server.quit()  # Encerra a conexão
+            # Envia o email para todos os destinatários
+            server.sendmail(sender_email, recipient_emails, text)
         print("Email enviado com sucesso!")
     except Exception as e:
         print(f"Erro ao enviar email: {e}")
