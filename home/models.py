@@ -489,9 +489,9 @@ class Pedido(models.Model):
     ]
 
     nome_cliente = models.CharField(max_length=100)
-    cpf_cliente = models.CharField(max_length=11, unique=True)
+    cpf_cliente = models.CharField(max_length=11, unique=False)
     endereco_cliente = models.CharField(max_length=255)
-    cep_cliente = models.CharField(max_length=9, blank=True, null=True)
+    cep_cliente = models.CharField(max_length=9)
     tipo_entrega = models.CharField(
         max_length=30,
         choices=TIPO_ENTREGA_CHOICES,
