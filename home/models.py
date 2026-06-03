@@ -487,7 +487,6 @@ class Pedido(models.Model):
         ("preta_verde", "Preta e verde"),
         ("azul_vermelha", "Azul e vermelha"),
     ]
-
     nome_cliente = models.CharField(max_length=100)
     cpf_cliente = models.CharField(max_length=11, unique=False)
     endereco_cliente = models.CharField(max_length=255)
