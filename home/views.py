@@ -79,6 +79,16 @@ def primeira_midia_por_papel(midias, papeis):
     return None
 
 
+def midias_de_galeria(midias):
+    papeis_excluidos = {"desktop", "mobile", "logo_header", "capa"}
+    return [
+        midia
+        for midia in midias
+        if getattr(midia, "tipo", "imagem") == "imagem"
+        and (getattr(midia, "papel", "") or "principal") not in papeis_excluidos
+    ]
+
+
 def home_view(request):
     produtos = Produto.objects.all()
     eventos = Evento.objects.filter(ativo=True)
@@ -105,6 +115,9 @@ def home_view(request):
         if secao.ativo and secao.tipo in ("metricas_tabela", "painel_destaque")
     ]
     blocos_fixos = secoes_fixas_landing(todas_secoes)
+    for secao in todas_secoes:
+        if hasattr(secao, "midias"):
+            secao.midias_galeria = midias_de_galeria(list(secao.midias.all()))
     midias = MidiaLanding.objects.filter(ativo=True)
     midias_por_chave = {}
     for midia in midias:
@@ -131,6 +144,10 @@ def home_view(request):
         logo_header_midias[0] if logo_header_midias else None
     )
     logo_header_mobile = primeira_midia_por_papel(logo_header_midias, ("mobile",)) or logo_header_desktop
+    midias_extras_secao = {
+        chave: midias_de_galeria(midias)
+        for chave, midias in midias_secao.items()
+    }
     perguntas = paginar_perguntas(request)
     return render(
         request,
@@ -139,7 +156,16 @@ def home_view(request):
             "produtos": produtos,
             "config_landing": ConfiguracaoLanding.get_solo(),
             "eventos": eventos,
-            "eventos_midia": midias_secao.get("eventos", []),
+            "eventos_midia": midias_extras_secao.get("eventos", []),
+            "barra_confianca_midia": midias_extras_secao.get("barra_confianca", []),
+            "produtos_midia": midias_extras_secao.get("produtos", []),
+            "passos_midia": midias_extras_secao.get("passos", []),
+            "beneficios_midia": midias_extras_secao.get("beneficios", []),
+            "video_midia_extra": midias_extras_secao.get("video", []),
+            "personalizar_midia": midias_extras_secao.get("personalizar", []),
+            "faq_midia": midias_extras_secao.get("faq", []),
+            "contato_midia": midias_extras_secao.get("contato", []),
+            "fechamento_midia": midias_extras_secao.get("fechamento", []),
             "depoimentos": depoimentos,
             "secoes_landing": secoes_landing,
             "blocos_fixos": blocos_fixos,

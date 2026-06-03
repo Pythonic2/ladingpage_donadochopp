@@ -1,0 +1,18 @@
+{% if midias %}
+<div class="section-media reveal {{ wrapper_class|default:'mt-8' }}">
+    <div class="section-media-track event-carousel flex gap-3 overflow-x-auto scroll-smooth pb-2 lg:gap-4">
+        {% for midia in midias %}
+        <button type="button"
+            data-gallery-src="{{ midia.arquivo_seguro_url }}"
+            data-gallery-alt="{{ midia.titulo|default:titulo|default:'Imagem da seção' }}"
+            data-gallery-type="{{ midia.tipo|default:'imagem' }}"
+            class="event-slide group relative h-44 min-w-[72%] overflow-hidden rounded-[1.1rem] border border-ink/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-lift sm:h-52 sm:min-w-[46%] lg:h-56 lg:min-w-[31%]">
+            <img src="{{ midia.arquivo_seguro_url }}" alt="{{ midia.titulo|default:titulo|default:'Imagem da seção' }}" class="h-full w-full object-contain p-2 transition duration-500 group-hover:scale-[1.04] sm:p-3" />
+        </button>
+        {% endfor %}
+    </div>
+    {% if midias|length > 1 %}
+    <p class="mt-1 text-center text-[10px] font-black uppercase tracking-wide text-current opacity-50 md:hidden">Arraste para ver mais</p>
+    {% endif %}
+</div>
+{% endif %}

@@ -141,7 +141,7 @@ class SecaoLandingAdminForm(forms.ModelForm):
     arquivos_multiplos = MultipleFileField(
         required=False,
         label="Adicionar várias imagens",
-        help_text="Permitido para Galeria, Eventos e Prova social. Nos outros tipos, prefira uma mídia principal no quadro abaixo.",
+        help_text="Você pode adicionar uma série de imagens em qualquer seção. Elas aparecem como carrossel compacto no site.",
     )
 
     class Meta:
@@ -150,15 +150,6 @@ class SecaoLandingAdminForm(forms.ModelForm):
 
     class Media:
         js = ("admin/js/secao_landing_color_picker.js",)
-
-    def clean(self):
-        cleaned_data = super().clean()
-        arquivos = cleaned_data.get("arquivos_multiplos") or []
-        tipo = cleaned_data.get("tipo")
-        if arquivos and tipo not in ("galeria", "eventos", "prova_social") and len(arquivos) > 1:
-            raise forms.ValidationError("Upload múltiplo é permitido apenas para Galeria, Eventos e Prova social.")
-        return cleaned_data
-
 
 class SecaoLandingMidiaInline(admin.TabularInline):
     model = SecaoLandingMidia
@@ -247,7 +238,7 @@ class SecaoLandingAdmin(admin.ModelAdmin):
                 secao=form.instance,
                 arquivo=arquivo,
                 tipo="imagem",
-                papel="item" if form.instance.tipo in ("galeria", "eventos", "prova_social") else "principal",
+                papel="item",
                 titulo=getattr(arquivo, "name", ""),
                 ordem=index,
                 ativo=True,
