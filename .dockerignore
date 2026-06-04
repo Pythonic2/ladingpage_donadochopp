@@ -3,6 +3,7 @@
 .dockerignore
 .agents
 .codex
+.env
 venv/
 __pycache__/
 *.pyc
