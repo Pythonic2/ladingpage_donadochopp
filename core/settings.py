@@ -12,7 +12,8 @@ def _list_from_env(name, default):
     value = os.environ.get(name)
     if not value:
         return default
-    return [item.strip() for item in value.split(",") if item.strip()]
+    items = [item.strip() for item in value.split(",") if item.strip()]
+    return list(dict.fromkeys([*default, *items]))
 
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
