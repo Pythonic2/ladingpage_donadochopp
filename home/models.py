@@ -35,6 +35,10 @@ class Produto(models.Model):
     cep_origem = models.CharField(
         default="58074158", max_length=9, blank=True, null=True
     )
+    solicitar_logo = models.BooleanField(
+        default=True,
+        help_text="Marque apenas para produtos que precisam receber logomarca no checkout.",
+    )
 
     def __str__(self):
         return self.nome
@@ -151,7 +155,7 @@ class Depoimento(models.Model):
 class ConfiguracaoLanding(models.Model):
     url_publica_site = models.URLField(
         blank=True,
-        help_text="URL pública usada em links enviados no WhatsApp. Ex: https://vendas1.donadochopp.com.br",
+        help_text="URL pública usada em links enviados no WhatsApp. Ex: https://vendas.donadochopp.com.br",
     )
     mostrar_barra_topo = models.BooleanField(default=True)
     texto_barra_topo = models.CharField(

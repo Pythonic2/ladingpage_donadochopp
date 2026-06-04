@@ -25,11 +25,11 @@ SERVE_MEDIA = os.environ.get("SERVE_MEDIA", "false").lower() in ("1", "true", "y
 
 if ENVIRONMENT == "production":
     ALLOWED_HOSTS = _list_from_env("DJANGO_ALLOWED_HOSTS", [
-        "vendas1.donadochopp.com.br",
+        "vendas.donadochopp.com.br",
         "192.168.1.7",
     ])
     CSRF_TRUSTED_ORIGINS = _list_from_env("DJANGO_CSRF_TRUSTED_ORIGINS", [
-        "https://vendas1.donadochopp.com.br",
+        "https://vendas.donadochopp.com.br",
         "http://192.168.1.7:8010",
     ])
 else:
@@ -37,13 +37,13 @@ else:
         "localhost",
         "127.0.0.1",
         "0.0.0.0",
-        "vendas1.donadochopp.com.br",
+        "vendas.donadochopp.com.br",
         "192.168.1.7",
     ])
     CSRF_TRUSTED_ORIGINS = _list_from_env("DJANGO_CSRF_TRUSTED_ORIGINS", [
         "http://localhost",
         "http://127.0.0.1",
-        "https://vendas1.donadochopp.com.br",
+        "https://vendas.donadochopp.com.br",
         "http://192.168.1.7:8010",
     ])
 # Application definition

@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='configuracaolanding',
             name='url_publica_site',
-            field=models.URLField(blank=True, help_text='URL pública usada em links enviados no WhatsApp. Ex: https://vendas1.donadochopp.com.br'),
+            field=models.URLField(blank=True, help_text='URL pública usada em links enviados no WhatsApp. Ex: https://vendas.donadochopp.com.br'),
         ),
         migrations.AddField(
             model_name='produto',

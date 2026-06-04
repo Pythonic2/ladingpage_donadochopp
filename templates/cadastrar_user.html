@@ -140,10 +140,12 @@
                     </div>
 
                     <div class="mt-6 grid gap-3 text-sm font-bold text-ink/64">
+                        {% if produto.solicitar_logo %}
                         <div class="flex items-center gap-3 rounded-2xl bg-cream px-4 py-3">
                             <span class="flex h-7 w-7 items-center justify-center rounded-full bg-leaf text-white">✓</span>
                             Personalização com sua marca
                         </div>
+                        {% endif %}
                         <div class="flex items-center gap-3 rounded-2xl bg-cream px-4 py-3">
                             <span class="flex h-7 w-7 items-center justify-center rounded-full bg-leaf text-white">✓</span>
                             Garantia de 1 ano e suporte
@@ -269,11 +271,13 @@
                         </div>
                     </div>
                     {% endif %}
+                    {% if form.logo %}
                     <div>
                         {{ form.logo.label_tag }}
                         {{ form.logo }}
                         {{ form.logo.errors }}
                     </div>
+                    {% endif %}
                 </div>
 
                 <div class="mt-6 hidden overflow-hidden rounded-[1.25rem] border border-ink/10 bg-cream p-4" id="variation-preview-card">

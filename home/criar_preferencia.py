@@ -15,11 +15,11 @@ ACCESS_TOKEN = os.getenv(
 )
 BACK_URL_BASE = env_or_default(
     "MERCADO_PAGO_BACK_URL_BASE",
-    "https://vendas1.donadochopp.com.br",
+    "https://vendas.donadochopp.com.br",
 )
 NOTIFICATION_URL = env_or_default(
     "MERCADO_PAGO_NOTIFICATION_URL",
-    "https://vendas1.donadochopp.com.br/pag/",
+    "https://vendas.donadochopp.com.br/pag/",
 )
 
 sdk = mercadopago.SDK(ACCESS_TOKEN)

@@ -106,6 +106,8 @@ class PedidoForm(forms.ModelForm):
             variacoes = produto.variacoes_ativas
         self.fields["produto_variacao"].queryset = variacoes
         self.fields["produto_variacao"].required = variacoes.exists()
+        if not produto or not produto.solicitar_logo:
+            self.fields.pop("logo", None)
 
     def clean(self):
         cleaned_data = super().clean()

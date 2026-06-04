@@ -30,7 +30,8 @@ class ProdutoVariacaoInline(admin.TabularInline):
 
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ("nome", "preco", "preco_sem_desconto", "estoque", "slug")
+    list_display = ("nome", "preco", "preco_sem_desconto", "estoque", "solicitar_logo", "slug")
+    list_editable = ("solicitar_logo",)
     prepopulated_fields = {"slug": ("nome",)}
     search_fields = ("nome", "descricao", "slug")
     inlines = (ProdutoVariacaoInline,)
