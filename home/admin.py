@@ -2,6 +2,7 @@ from django.contrib import admin
 from django import forms
 from .models import (
     Produto,
+    ProdutoVariacao,
     Pedido,
     Transacao,
     Pergunta,
@@ -21,11 +22,18 @@ admin.site.register(Pedido)
 admin.site.register(Transacao)
 
 
+class ProdutoVariacaoInline(admin.TabularInline):
+    model = ProdutoVariacao
+    extra = 1
+    fields = ("nome", "cor_hex", "imagem", "ordem", "ativo")
+
+
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
     list_display = ("nome", "preco", "preco_sem_desconto", "estoque", "slug")
     prepopulated_fields = {"slug": ("nome",)}
     search_fields = ("nome", "descricao", "slug")
+    inlines = (ProdutoVariacaoInline,)
 
 
 @admin.register(Evento)

@@ -57,6 +57,14 @@ class Produto(models.Model):
         return reverse("cadastrar-usuario-slug", kwargs={"slug": self.slug})
 
     @property
+    def variacoes_ativas(self):
+        return self.variacoes.filter(ativo=True).order_by("ordem", "nome")
+
+    @property
+    def tem_variacoes(self):
+        return self.variacoes_ativas.exists()
+
+    @property
     def imagem_segura_url(self):
         if self.imagem and self.imagem.name and self.imagem.storage.exists(self.imagem.name):
             return self.imagem.url
@@ -65,6 +73,37 @@ class Produto(models.Model):
         if "carrinho" in nome or "combo" in nome:
             return static("assets/images/fullcombo.png")
         return static("assets/images/bomba2.png")
+
+
+class ProdutoVariacao(models.Model):
+    produto = models.ForeignKey(
+        Produto,
+        on_delete=models.CASCADE,
+        related_name="variacoes",
+    )
+    nome = models.CharField(max_length=80)
+    cor_hex = models.CharField(
+        max_length=20,
+        blank=True,
+        help_text="Opcional. Ex: #df2f24",
+    )
+    imagem = models.ImageField(upload_to="produtos/variacoes/", blank=True, null=True)
+    ordem = models.PositiveIntegerField(default=0)
+    ativo = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ["ordem", "nome"]
+        verbose_name = "Variação do produto"
+        verbose_name_plural = "Variações do produto"
+
+    def __str__(self):
+        return f"{self.produto.nome} - {self.nome}"
+
+    @property
+    def imagem_segura_url(self):
+        if self.imagem and self.imagem.name and self.imagem.storage.exists(self.imagem.name):
+            return self.imagem.url
+        return self.produto.imagem_segura_url
 
 
 class Evento(models.Model):
@@ -504,6 +543,13 @@ class Pedido(models.Model):
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     quantidade = models.PositiveIntegerField()
     data_pedido = models.DateTimeField(auto_now_add=True)
+    produto_variacao = models.ForeignKey(
+        ProdutoVariacao,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="pedidos",
+    )
     cor_produto = models.CharField(
         max_length=50, choices=CORES_CHOICES, blank=True, null=True
     )
@@ -531,6 +577,7 @@ class Transacao(models.Model):
     data_nascimento_cliente = models.DateField()
     quantidade = models.PositiveIntegerField()
     data_pedido = models.DateTimeField(auto_now_add=True)
+    produto_variacao_nome = models.CharField(max_length=100, blank=True)
     cor_produto = models.CharField(max_length=50, blank=True, null=True)
     logo = models.ImageField(upload_to=logo_upload_path, blank=True, null=True)
 

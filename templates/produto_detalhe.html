@@ -272,6 +272,28 @@
                         {% endif %}
                     </div>
 
+                    {% if produto.tem_variacoes %}
+                    <div class="mb-8">
+                        <p class="mb-3 text-sm font-semibold uppercase tracking-wide text-black/50">Variações disponíveis</p>
+                        <div class="grid gap-3 sm:grid-cols-2">
+                            {% for variacao in produto.variacoes_ativas %}
+                            <div class="flex items-center gap-3 rounded-2xl border border-black/10 bg-white p-3 shadow-soft">
+                                <img src="{{ variacao.imagem_segura_url }}" alt="{{ variacao.nome }}" class="h-16 w-16 rounded-xl object-cover">
+                                <div>
+                                    <p class="font-semibold text-foreground">{{ variacao.nome }}</p>
+                                    {% if variacao.cor_hex %}
+                                    <p class="mt-1 inline-flex items-center gap-2 text-xs text-black/50">
+                                        <span class="h-3 w-3 rounded-full border border-black/10" style="background: {{ variacao.cor_hex }}"></span>
+                                        {{ variacao.cor_hex }}
+                                    </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
                     <!-- CTA Buttons -->
                     <div class="flex flex-col gap-3 sm:flex-row">
                         <a href="{{ produto.get_checkout_url }}"

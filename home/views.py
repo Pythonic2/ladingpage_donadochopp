@@ -200,9 +200,10 @@ def enviar_pergunta(request):
 def produto_detalhe_view(request, produto_id=None, slug=None):
     if slug:
         produto = get_object_or_404(Produto, slug=slug)
+        outros_produtos = Produto.objects.exclude(id=produto.id)[:3]
     else:
         produto = get_object_or_404(Produto, id=produto_id)
-    outros_produtos = Produto.objects.exclude(id=produto_id)[:3]
+        outros_produtos = Produto.objects.exclude(id=produto.id)[:3]
     return render(
         request,
         "produto_detalhe.html",
@@ -219,14 +220,14 @@ def cadastrar_usuario_view(request, produto_id=None, slug=None):
     else:
         produto = get_object_or_404(Produto, id=produto_id)
     if request.method == "POST":
-        form = PedidoForm(request.POST, request.FILES)
+        form = PedidoForm(request.POST, request.FILES, produto=produto)
         if form.is_valid():
             pedido = form.save(commit=False)
             pedido.produto = produto
             pedido.save()
             return render(request, "success.html", {"form": form})
     else:
-        form = PedidoForm()
+        form = PedidoForm(produto=produto)
     return render(
         request,
         "cadastrar_user.html",
@@ -240,11 +241,11 @@ def cadastrar_usuario_view(request, produto_id=None, slug=None):
 
 def cadastrar_pedido(request):
     if request.method == "POST":
-        form = PedidoForm(request.POST, request.FILES)
         produto_id = request.POST.get("produto_id")
+        produto = get_object_or_404(Produto, id=produto_id) if produto_id else None
+        form = PedidoForm(request.POST, request.FILES, produto=produto)
         if form.is_valid() and produto_id:
             pedido = form.save(commit=False)
-            produto = Produto.objects.get(id=produto_id)
             pedido.produto = produto
             pedido.save()
 
@@ -275,7 +276,6 @@ def cadastrar_pedido(request):
                     },
                 )
         if produto_id:
-            produto = get_object_or_404(Produto, id=produto_id)
             return render(
                 request,
                 "cadastrar_user.html",
@@ -393,6 +393,11 @@ def simple_test(request):
                         data_nascimento_cliente=pedido_user.data_nascimento_cliente,
                         quantidade=pedido_user.quantidade,
                         data_pedido=pedido_user.data_pedido,
+                        produto_variacao_nome=(
+                            pedido_user.produto_variacao.nome
+                            if pedido_user.produto_variacao
+                            else ""
+                        ),
                         cor_produto=pedido_user.cor_produto,
                         logo=pedido_user.logo,
                     )
@@ -423,6 +428,7 @@ def simple_test(request):
                             f"Data de Nascimento: {transacao.data_nascimento_cliente}\n"
                             f"Quantidade: {transacao.quantidade}\n"
                             f"Data do Pedido: {transacao.data_pedido}\n"
+                            f"Variação do Produto: {transacao.produto_variacao_nome or 'Não selecionada'}\n"
                             f"Cor do Produto: {transacao.cor_produto}\n"
                         ),
                         sender_email="noticacoes@gmail.com",

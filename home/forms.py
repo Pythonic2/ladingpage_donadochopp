@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pedido
+from .models import Pedido, ProdutoVariacao
 
 
 CAPITAL_CEP_RANGES = [
@@ -46,6 +46,14 @@ def capital_por_cep(cep):
 
 
 class PedidoForm(forms.ModelForm):
+    produto_variacao = forms.ModelChoiceField(
+        queryset=ProdutoVariacao.objects.none(),
+        required=False,
+        label="Variação do produto",
+        empty_label="Selecione a variação desejada",
+        widget=forms.Select(attrs={'class': 'form-group'}),
+    )
+
     class Meta:
         model = Pedido
         fields = [
@@ -59,7 +67,7 @@ class PedidoForm(forms.ModelForm):
             'capital_retirada',
             'data_nascimento_cliente',
             'quantidade',
-            'cor_produto',
+            'produto_variacao',
             'logo'
         ]
         labels = {
@@ -73,7 +81,7 @@ class PedidoForm(forms.ModelForm):
             'capital_retirada': 'CAPITAL IDENTIFICADA',
             'data_nascimento_cliente': 'DATA DE NASCIMENTO (Obrigatório)',
             'quantidade': 'QUANTIDADE (Obrigatório)',
-            'cor_produto': 'COR DO PRODUTO',
+            'produto_variacao': 'VARIAÇÃO DO PRODUTO',
             'logo': 'LOGO',
         }
         widgets = {
@@ -87,19 +95,40 @@ class PedidoForm(forms.ModelForm):
             'capital_retirada': forms.HiddenInput(),
             'data_nascimento_cliente': forms.DateInput(attrs={'class': 'form-group', 'type': 'date'}),
             'quantidade': forms.NumberInput(attrs={'class': 'form-group'}),
-            'cor_produto': forms.Select(attrs={'class': 'form-group'}),
             'logo': forms.FileInput(attrs={'class': 'form-group'}),
         }
+
+    def __init__(self, *args, produto=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.produto = produto
+        variacoes = ProdutoVariacao.objects.none()
+        if produto:
+            variacoes = produto.variacoes_ativas
+        self.fields["produto_variacao"].queryset = variacoes
+        self.fields["produto_variacao"].required = variacoes.exists()
 
     def clean(self):
         cleaned_data = super().clean()
         tipo_entrega = cleaned_data.get("tipo_entrega")
         cep_cliente = cleaned_data.get("cep_cliente")
+        produto_variacao = cleaned_data.get("produto_variacao")
 
         if tipo_entrega == "receber_em_casa":
             raise forms.ValidationError(
                 "Para receber em casa, chame um especialista pelo WhatsApp para calcular o frete."
             )
+
+        if self.produto and self.produto.tem_variacoes:
+            if not produto_variacao:
+                self.add_error(
+                    "produto_variacao",
+                    "Selecione a variação desejada para este produto.",
+                )
+            elif produto_variacao.produto_id != self.produto.id:
+                self.add_error(
+                    "produto_variacao",
+                    "Selecione uma variação válida para este produto.",
+                )
 
         capital = capital_por_cep(cep_cliente)
         if not capital:

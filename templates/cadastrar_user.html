@@ -239,11 +239,36 @@
                         <p id="cep-capital-status" class="mt-2 text-xs font-bold text-ink/42">Use um CEP da capital onde será feita a retirada no aeroporto.</p>
                         {{ form.cep_cliente.errors }}
                     </div>
-                    <div>
-                        {{ form.cor_produto.label_tag }}
-                        {{ form.cor_produto }}
-                        {{ form.cor_produto.errors }}
+                    {% if produto.tem_variacoes %}
+                    <div class="md:col-span-2">
+                        {{ form.produto_variacao.label_tag }}
+                        {{ form.produto_variacao }}
+                        {{ form.produto_variacao.errors }}
+                        <div class="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" id="variation-options">
+                            {% for variacao in produto.variacoes_ativas %}
+                            <button type="button"
+                                class="variation-option flex items-center gap-3 rounded-[1.25rem] border border-ink/10 bg-cream p-3 text-left transition hover:border-amber"
+                                data-variation-id="{{ variacao.id }}"
+                                data-variation-name="{{ variacao.nome|escapejs }}"
+                                data-variation-image="{{ variacao.imagem_segura_url }}"
+                                data-variation-color="{{ variacao.cor_hex|default:'' }}">
+                                <span class="h-14 w-14 shrink-0 overflow-hidden rounded-2xl bg-white shadow-soft">
+                                    <img src="{{ variacao.imagem_segura_url }}" alt="{{ variacao.nome }}" class="h-full w-full object-cover">
+                                </span>
+                                <span class="min-w-0">
+                                    <span class="block text-sm font-black uppercase text-ink">{{ variacao.nome }}</span>
+                                    {% if variacao.cor_hex %}
+                                    <span class="mt-1 inline-flex items-center gap-2 text-xs font-bold text-ink/55">
+                                        <span class="h-3 w-3 rounded-full border border-ink/10" style="background: {{ variacao.cor_hex }}"></span>
+                                        {{ variacao.cor_hex }}
+                                    </span>
+                                    {% endif %}
+                                </span>
+                            </button>
+                            {% endfor %}
+                        </div>
                     </div>
+                    {% endif %}
                     <div>
                         {{ form.logo.label_tag }}
                         {{ form.logo }}
@@ -251,13 +276,13 @@
                     </div>
                 </div>
 
-                <div class="mt-6 hidden overflow-hidden rounded-[1.25rem] border border-ink/10 bg-cream p-4" id="cor-preview-card">
+                <div class="mt-6 hidden overflow-hidden rounded-[1.25rem] border border-ink/10 bg-cream p-4" id="variation-preview-card">
                     <div class="flex items-center gap-4">
-                        <img id="cor-preview" src="" alt="Cor escolhida"
+                        <img id="variation-preview" src="" alt="Variação escolhida"
                             class="h-24 w-24 rounded-2xl bg-white object-cover shadow-soft sm:h-28 sm:w-28">
                         <div>
-                            <p class="text-xs font-black uppercase text-ink/42">Prévia da cor</p>
-                            <p id="cor-preview-name" class="mt-1 font-display text-2xl font-black text-ink">Cor selecionada</p>
+                            <p class="text-xs font-black uppercase text-ink/42">Variação selecionada</p>
+                            <p id="variation-preview-name" class="mt-1 font-display text-2xl font-black text-ink">Variação selecionada</p>
                         </div>
                     </div>
                 </div>
@@ -310,44 +335,43 @@
     </footer>
 
     <script>
-        const corSelect = document.getElementById("id_cor_produto");
-        const corPreview = document.getElementById("cor-preview");
-        const corPreviewCard = document.getElementById("cor-preview-card");
-        const corPreviewName = document.getElementById("cor-preview-name");
+        const variationSelect = document.getElementById("id_produto_variacao");
+        const variationPreview = document.getElementById("variation-preview");
+        const variationPreviewCard = document.getElementById("variation-preview-card");
+        const variationPreviewName = document.getElementById("variation-preview-name");
+        const variationButtons = document.querySelectorAll(".variation-option");
 
-        const corImagens = {
-            "amarela_vermelha": "{% static 'assets/images/amarela_vermelha.jpg' %}",
-            "amarela_preta": "{% static 'assets/images/amarela_preta.jpg' %}",
-            "laranja_preta": "{% static 'assets/images/laranja_preta.jpg' %}",
-            "branca_preta": "{% static 'assets/images/branca_preta.jpg' %}",
-            "vermelha": "{% static 'assets/images/vermelha.jpg' %}",
-            "rosa_preta": "{% static 'assets/images/rosa_preta.jpg' %}",
-            "verde_branca": "{% static 'assets/images/verde_branca.jpg' %}",
-            "vermelha_preta": "{% static 'assets/images/vermelha_preta.jpg' %}",
-            "preta_verde": "{% static 'assets/images/preta_verde.jpg' %}",
-            "azul_vermelha": "{% static 'assets/images/azul_vermelha.jpg' %}",
-        };
+        function updateVariationPreview() {
+            if (!variationSelect || !variationPreview || !variationPreviewCard) return;
+            const selectedButton = document.querySelector(`.variation-option[data-variation-id="${variationSelect.value}"]`);
 
-        function updateCorPreview() {
-            if (!corSelect || !corPreview || !corPreviewCard) return;
+            variationButtons.forEach((button) => {
+                const active = button === selectedButton;
+                button.classList.toggle("border-flame", active);
+                button.classList.toggle("bg-white", active);
+                button.classList.toggle("shadow-soft", active);
+            });
 
-            const cor = corSelect.value;
-            const selectedText = corSelect.options[corSelect.selectedIndex]?.text || "Cor selecionada";
-
-            if (corImagens[cor]) {
-                corPreview.src = corImagens[cor];
-                corPreviewName.textContent = selectedText;
-                corPreviewCard.classList.remove("hidden");
+            if (selectedButton) {
+                variationPreview.src = selectedButton.dataset.variationImage;
+                variationPreviewName.textContent = selectedButton.dataset.variationName || "Variação selecionada";
+                variationPreviewCard.classList.remove("hidden");
             } else {
-                corPreview.removeAttribute("src");
-                corPreviewCard.classList.add("hidden");
+                variationPreview.removeAttribute("src");
+                variationPreviewCard.classList.add("hidden");
             }
         }
 
-        if (corSelect) {
-            corSelect.addEventListener("change", updateCorPreview);
-            updateCorPreview();
-        }
+        variationButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                if (!variationSelect) return;
+                variationSelect.value = button.dataset.variationId;
+                variationSelect.dispatchEvent(new Event("change", { bubbles: true }));
+            });
+        });
+
+        variationSelect?.addEventListener("change", updateVariationPreview);
+        updateVariationPreview();
 
         const cepInput = document.getElementById("id_cep_cliente");
         const capitalInput = document.getElementById("id_capital_retirada");
