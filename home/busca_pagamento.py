@@ -17,6 +17,10 @@ request_options = RequestOptions(
 
 # Função para buscar o pagamento no Mercado Pago usando o SDK
 def buscar_pagamento_mercado_pago(pagamento_id):
+    if not pagamento_id:
+        print("ID do pagamento não informado.")
+        return None
+
     try:
         # Usando o SDK para buscar o pagamento
         pagamento = sdk.payment().get(pagamento_id, request_options=request_options)

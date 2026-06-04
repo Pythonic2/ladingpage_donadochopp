@@ -305,11 +305,21 @@ def simple_test(request):
             logging.debug(f"Dados recebidos no webhook: {webhook_data}")
 
             # Capturar o pagamento_id e outras informações do webhook
-            pagamento_id = str(webhook_data.get("data", {}).get("id", ""))
+            pagamento_id = str(webhook_data.get("data", {}).get("id") or "").strip()
             tipo = webhook_data.get("type", {})
             logging.debug(f"Pagamento ID: {pagamento_id}, Tipo: {tipo}")
 
             logging.info("Dados do webhook salvos em recibo.csv")
+
+            if not pagamento_id:
+                logging.warning(
+                    "Webhook recebido sem ID de pagamento. Payload ignorado: %s",
+                    webhook_data,
+                )
+                return JsonResponse(
+                    {"status": "ignored", "message": "payment_id ausente"},
+                    status=200,
+                )
 
             # Buscar pagamento usando a função definida anteriormente
             pag = buscar_pagamento_mercado_pago(pagamento_id)
