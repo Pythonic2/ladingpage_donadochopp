@@ -39,6 +39,5 @@ def main():
     response = sdk.payment().get(args.payment_id, request_options=request_options)
     print(json.dumps(response, ensure_ascii=False, indent=2, default=str))
 
-
 if __name__ == "__main__":
     main()

@@ -20,6 +20,5 @@ urlpatterns = [
     path("pendente/", pending_view, name="pendente"),
     path("enviar-pergunta/", enviar_pergunta, name="enviar-pergunta"),
 ]
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

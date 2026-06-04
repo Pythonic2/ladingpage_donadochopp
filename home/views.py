@@ -213,7 +213,6 @@ def produto_detalhe_view(request, produto_id=None, slug=None):
         },
     )
 
-
 def cadastrar_usuario_view(request, produto_id=None, slug=None):
     if slug:
         produto = get_object_or_404(Produto, slug=slug)
