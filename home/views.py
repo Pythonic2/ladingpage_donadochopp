@@ -339,6 +339,22 @@ def simple_test(request):
                     {"ok": False, "message": "Pagamento não encontrado"},
                     status=200,
                 )
+            if pag.get("erro"):
+                logging.warning(
+                    "Erro retornado pelo Mercado Pago para o pagamento %s: %s",
+                    pagamento_id,
+                    pag,
+                )
+                return JsonResponse(
+                    {
+                        "ok": False,
+                        "message": "Erro ao consultar pagamento no Mercado Pago",
+                        "payment_id": pagamento_id,
+                        "mp_status": pag.get("mp_status"),
+                        "mp_response": pag.get("mp_response"),
+                    },
+                    status=200,
+                )
             status = pag["status"]
             try:
                 print(f"-----------------{pd_id}-----------------")

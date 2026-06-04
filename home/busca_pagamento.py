@@ -61,6 +61,16 @@ def buscar_pagamento_mercado_pago(pagamento_id):
             }
         else:
             print(f"Erro ao buscar o pagamento: {pagamento['status']}, {pagamento['response']}")
+            return {
+                "erro": True,
+                "mp_status": pagamento.get("status"),
+                "mp_response": pagamento.get("response"),
+            }
     
     except Exception as e:
         print(f"Ocorreu um erro: {str(e)}")
+        return {
+            "erro": True,
+            "mp_status": "exception",
+            "mp_response": str(e),
+        }
