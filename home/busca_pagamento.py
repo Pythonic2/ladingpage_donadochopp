@@ -1,7 +1,6 @@
 import os
 
-import mercadopago
-from mercadopago.config import RequestOptions
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -9,11 +8,9 @@ load_dotenv()
 ACCESS_TOKEN = os.getenv(
     "MERCADO_PAGO_ACCESS_TOKEN",
 )
-sdk = mercadopago.SDK(ACCESS_TOKEN)
-request_options = RequestOptions(
-    connection_timeout=float(os.getenv("MERCADO_PAGO_PAYMENT_TIMEOUT", "8.0")),
-    max_retries=int(os.getenv("MERCADO_PAGO_PAYMENT_RETRIES", "1")),
-)
+PAYMENT_CONNECT_TIMEOUT = float(os.getenv("MERCADO_PAGO_PAYMENT_CONNECT_TIMEOUT", "20.0"))
+PAYMENT_READ_TIMEOUT = float(os.getenv("MERCADO_PAGO_PAYMENT_READ_TIMEOUT", "20.0"))
+MERCADO_PAGO_PAYMENT_URL = "https://api.mercadopago.com/v1/payments/{payment_id}"
 
 # Função para buscar o pagamento no Mercado Pago usando o SDK
 def buscar_pagamento_mercado_pago(pagamento_id):
@@ -22,19 +19,22 @@ def buscar_pagamento_mercado_pago(pagamento_id):
         return None
 
     try:
-        # Usando o SDK para buscar o pagamento
-        pagamento = sdk.payment().get(pagamento_id, request_options=request_options)
+        response = requests.get(
+            MERCADO_PAGO_PAYMENT_URL.format(payment_id=pagamento_id),
+            headers={"Authorization": f"Bearer {ACCESS_TOKEN}"},
+            timeout=(PAYMENT_CONNECT_TIMEOUT, PAYMENT_READ_TIMEOUT),
+        )
 
         # Verificar se a resposta foi bem-sucedida
-        if pagamento["status"] == 200:
-            dados_pagamento = pagamento["response"]
+        if response.status_code == 200:
+            dados_pagamento = response.json()
                         
             # Buscar os itens do pagamento
             itens = dados_pagamento.get('additional_info', {}).get('items', [])
             # inf = dados_pagamento.get('metadata', {}).get('other_info', [])
             # carrinho_id = dados_pagamento.get('metadata', {}).get('carrinho_id')
             # evento_id = dados_pagamento.get('metadata', {}).get('evento_id')
-            payment_type = pagamento['response']['payment_type_id']
+            payment_type = dados_pagamento.get('payment_type_id')
             # print(f"Informações adicionais: {inf}")
             # print(f"Carrinho ID: {carrinho_id}, Evento ID: {evento_id}")
             
@@ -60,11 +60,15 @@ def buscar_pagamento_mercado_pago(pagamento_id):
 
             }
         else:
-            print(f"Erro ao buscar o pagamento: {pagamento['status']}, {pagamento['response']}")
+            try:
+                mp_response = response.json()
+            except ValueError:
+                mp_response = response.text
+            print(f"Erro ao buscar o pagamento: {response.status_code}, {mp_response}")
             return {
                 "erro": True,
-                "mp_status": pagamento.get("status"),
-                "mp_response": pagamento.get("response"),
+                "mp_status": response.status_code,
+                "mp_response": mp_response,
             }
     
     except Exception as e:

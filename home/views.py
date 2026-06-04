@@ -428,8 +428,7 @@ def simple_test(request):
                     )
                     transacao.save()  # Salve primeiro para gerar o ID
 
-                    produto_obj = Produto.objects.get(nome=pag["items"][0])
-                    transacao.items.add(produto_obj)
+                    transacao.items.add(pedido_user.produto)
 
                     transacao.save()  # Salvar a transação
                     #pedido_user.delete()  # Excluir o pedido
