@@ -21,6 +21,8 @@ urlpatterns = [
     path("enviar-pergunta/", enviar_pergunta, name="enviar-pergunta"),
     path("catalogo/", catalogo_instagram, name="catalogo-instagram"),
     path("catalogo/<slug:slug>/", catalogo_instagram_produto, name="catalogo-instagram-produto"),
+    path("catalogo-instagram.csv", catalogo_instagram_csv, name="catalogo-instagram-csv"),
+    path("catalogo/<slug:slug>.csv", catalogo_instagram_csv_produto, name="catalogo-instagram-csv-produto"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

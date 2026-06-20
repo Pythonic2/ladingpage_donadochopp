@@ -8,12 +8,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ produto.nome }} - Dona do Chopp</title>
     <meta name="description" content="{{ produto.nome }} - Chopeira artesanal estilo bomba vintage. Dona do Chopp." />
-    <!-- Open Graph for Instagram / Social -->
-    <meta property="og:title" content="{{ produto.nome }} - Dona do Chopp" />
-    <meta property="og:description" content="Chopeira artesanal personalizada. Pronta para faturar!" />
-    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ produto.imagem_segura_url }}" />
+    <!-- Open Graph / Instagram Shopping -->
     <meta property="og:type" content="product" />
-    <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}" />
+    <meta property="og:site_name" content="Dona do Chopp" />
+    <meta property="og:title" content="{{ produto.nome }} - Dona do Chopp" />
+    <meta property="og:description" content="{{ produto.descricao|striptags|truncatechars:200 }}" />
+    <meta property="og:image" content="{{ request.build_absolute_uri }}{{ produto.imagem_segura_url }}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="{{ request.build_absolute_uri }}" />
+    <meta property="product:price:amount" content="{{ produto.preco }}" />
+    <meta property="product:price:currency" content="BRL" />
+    <meta property="product:availability" content="{% if produto.estoque > 0 %}in stock{% else %}out of stock{% endif %}" />
+    <meta property="product:condition" content="new" />
+    <meta property="product:brand" content="Dona do Chopp" />
+    <meta property="product:retailer_item_id" content="{{ produto.id }}" />
+    <!-- Schema.org Product (Google / Rich Results) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "{{ produto.nome|escapejs }}",
+        "description": "{{ produto.descricao|striptags|escapejs }}",
+        "sku": "{{ produto.id }}",
+        "image": ["{{ request.build_absolute_uri }}{{ produto.imagem_segura_url }}"],
+        "brand": {
+            "@type": "Brand",
+            "name": "Dona do Chopp"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": "{{ request.build_absolute_uri }}",
+            "priceCurrency": "BRL",
+            "price": "{{ produto.preco }}",
+            "availability": "{% if produto.estoque > 0 %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+            "itemCondition": "https://schema.org/NewCondition"
+        }
+    }
+    </script>
     <link rel="icon" type="image/png" href="{% static 'assets/images/logo.jpeg' %}" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>

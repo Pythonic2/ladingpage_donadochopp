@@ -17,11 +17,14 @@ from .models import (
 )
 from .busca_pagamento import buscar_pagamento_mercado_pago
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
+import csv
+import html
 import json
 import logging
+from django.utils.html import strip_tags
 from .notificacao import send_email
 
 
@@ -560,3 +563,98 @@ def catalogo_instagram_produto(request, slug):
         item["price"] = f"{produto.preco_sem_desconto:.2f} BRL"
 
     return JsonResponse({"data": [item]})
+
+
+def _limpar_html(valor):
+    if not valor:
+        return ""
+    texto = strip_tags(valor)
+    texto = html.unescape(texto)
+    return " ".join(texto.split())
+
+
+def catalogo_instagram_csv(request):
+    """
+    Feed CSV no formato Meta/Facebook Product Catalog.
+    Cadastre no Commerce Manager > Fontes de dados > Feed de dados > URL:
+    https://vendas.donadochopp.com.br/catalogo-instagram.csv
+    """
+    produtos = Produto.objects.filter(estoque__gt=0).order_by("id")
+
+    response = HttpResponse(content_type="text/csv; charset=utf-8")
+    response["Content-Disposition"] = 'inline; filename="catalogo-instagram.csv"'
+    response.write("\ufeff")  # BOM UTF-8 para compatibilidade
+
+    writer = csv.writer(response)
+    writer.writerow([
+        "id", "title", "description", "availability", "condition",
+        "price", "link", "image_link", "brand", "sale_price",
+    ])
+
+    for p in produtos:
+        link = request.build_absolute_uri(p.get_absolute_url())
+        imagem = request.build_absolute_uri(p.imagem.url) if p.imagem and p.imagem.name else ""
+        preco = f"{p.preco:.2f} BRL"
+        sale_price = ""
+
+        if p.preco_sem_desconto and p.preco_sem_desconto > p.preco:
+            sale_price = preco
+            preco = f"{p.preco_sem_desconto:.2f} BRL"
+
+        writer.writerow([
+            str(p.id),
+            p.nome,
+            _limpar_html(p.descricao),
+            "in stock",
+            "new",
+            preco,
+            link,
+            imagem,
+            "Dona do Chopp",
+            sale_price,
+        ])
+
+    return response
+
+
+def catalogo_instagram_csv_produto(request, slug):
+    """
+    CSV de um único produto pelo slug. Use para cadastrar um produto
+    de cada vez no Instagram Shopping:
+    https://vendas.donadochopp.com.br/catalogo/<slug>.csv
+    """
+    p = get_object_or_404(Produto, slug=slug)
+
+    response = HttpResponse(content_type="text/csv; charset=utf-8")
+    response["Content-Disposition"] = f'inline; filename="{p.slug}.csv"'
+    response.write("\ufeff")
+
+    writer = csv.writer(response)
+    writer.writerow([
+        "id", "title", "description", "availability", "condition",
+        "price", "link", "image_link", "brand", "sale_price",
+    ])
+
+    link = request.build_absolute_uri(p.get_absolute_url())
+    imagem = request.build_absolute_uri(p.imagem.url) if p.imagem and p.imagem.name else ""
+    preco = f"{p.preco:.2f} BRL"
+    sale_price = ""
+
+    if p.preco_sem_desconto and p.preco_sem_desconto > p.preco:
+        sale_price = preco
+        preco = f"{p.preco_sem_desconto:.2f} BRL"
+
+    writer.writerow([
+        str(p.id),
+        p.nome,
+        _limpar_html(p.descricao),
+        "in stock" if p.estoque > 0 else "out of stock",
+        "new",
+        preco,
+        link,
+        imagem,
+        "Dona do Chopp",
+        sale_price,
+    ])
+
+    return response
