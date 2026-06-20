@@ -532,3 +532,31 @@ def catalogo_instagram(request):
         items.append(item)
 
     return JsonResponse({"data": items})
+
+
+def catalogo_instagram_produto(request, slug):
+    """
+    Retorna um único produto pelo slug no formato Meta Product Catalog.
+    URL: /catalogo/<slug>/
+    """
+    produto = get_object_or_404(Produto, slug=slug)
+    imagem_url = request.build_absolute_uri(produto.imagem_segura_url)
+    link_url = request.build_absolute_uri(produto.get_absolute_url())
+
+    preco_formatado = f"{produto.preco:.2f} BRL"
+    item = {
+        "id": str(produto.id),
+        "title": produto.nome,
+        "description": produto.descricao,
+        "availability": "in stock" if produto.estoque > 0 else "out of stock",
+        "condition": "new",
+        "price": preco_formatado,
+        "link": link_url,
+        "image_link": imagem_url,
+        "brand": "Dona do Chopp",
+    }
+    if produto.preco_sem_desconto and produto.preco_sem_desconto > produto.preco:
+        item["sale_price"] = preco_formatado
+        item["price"] = f"{produto.preco_sem_desconto:.2f} BRL"
+
+    return JsonResponse({"data": [item]})
