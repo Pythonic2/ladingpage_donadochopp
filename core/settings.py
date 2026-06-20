@@ -27,11 +27,11 @@ SERVE_MEDIA = os.environ.get("SERVE_MEDIA", "false").lower() in ("1", "true", "y
 if ENVIRONMENT == "production":
     ALLOWED_HOSTS = _list_from_env("DJANGO_ALLOWED_HOSTS", [
         "vendas.donadochopp.com.br",
-        "192.168.1.7",
+        "192.168.3.17",
     ])
     CSRF_TRUSTED_ORIGINS = _list_from_env("DJANGO_CSRF_TRUSTED_ORIGINS", [
         "https://vendas.donadochopp.com.br",
-        "http://192.168.1.7:8010",
+        "http://192.168.3.17:8010",
     ])
 else:
     ALLOWED_HOSTS = _list_from_env("DJANGO_ALLOWED_HOSTS", [
@@ -39,13 +39,13 @@ else:
         "127.0.0.1",
         "0.0.0.0",
         "vendas.donadochopp.com.br",
-        "192.168.1.7",
+        "192.168.3.17",
     ])
     CSRF_TRUSTED_ORIGINS = _list_from_env("DJANGO_CSRF_TRUSTED_ORIGINS", [
         "http://localhost",
         "http://127.0.0.1",
         "https://vendas.donadochopp.com.br",
-        "http://192.168.1.7:8010",
+        "http://192.168.3.17:8010",
     ])
 # Application definition
 
@@ -108,7 +108,7 @@ if ENVIRONMENT == "production":
             "NAME": os.environ.get("DB_NAME", "cloudbooster_db"),
             "USER": os.environ.get("DB_USER", "cloud_user"),
             "PASSWORD": os.environ.get("DB_PASSWORD", "37192541aaSS@"),
-            "HOST": os.environ.get("DB_HOST", "192.168.1.7"),
+            "HOST": os.environ.get("DB_HOST", "192.168.3.17"),
             "PORT": os.environ.get("DB_PORT", "5432"),
             "OPTIONS": db_options,
         }

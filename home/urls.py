@@ -19,6 +19,7 @@ urlpatterns = [
     path("falha/", failure_view, name="falha"),
     path("pendente/", pending_view, name="pendente"),
     path("enviar-pergunta/", enviar_pergunta, name="enviar-pergunta"),
+    path("catalogo/", catalogo_instagram, name="catalogo-instagram"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

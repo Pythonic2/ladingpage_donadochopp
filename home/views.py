@@ -500,3 +500,35 @@ def failure_view(request):
 
 def pending_view(request):
     return render(request, "pending.html")
+
+
+def catalogo_instagram(request):
+    """
+    Feed de produtos no formato Meta/Facebook Product Catalog.
+    Cadastre esta URL no Gerenciador de Comércio do Facebook/Instagram:
+    https://vendas.donadochopp.com.br/catalogo/
+    """
+    produtos = Produto.objects.filter(estoque__gt=0)
+    items = []
+    for p in produtos:
+        imagem_url = request.build_absolute_uri(p.imagem_segura_url)
+        link_url = request.build_absolute_uri(p.get_absolute_url())
+
+        preco_formatado = f"{p.preco:.2f} BRL"
+        item = {
+            "id": str(p.id),
+            "title": p.nome,
+            "description": p.descricao,
+            "availability": "in stock" if p.estoque > 0 else "out of stock",
+            "condition": "new",
+            "price": preco_formatado,
+            "link": link_url,
+            "image_link": imagem_url,
+            "brand": "Dona do Chopp",
+        }
+        if p.preco_sem_desconto and p.preco_sem_desconto > p.preco:
+            item["sale_price"] = preco_formatado
+            item["price"] = f"{p.preco_sem_desconto:.2f} BRL"
+        items.append(item)
+
+    return JsonResponse({"data": items})
