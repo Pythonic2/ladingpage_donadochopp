@@ -203,6 +203,59 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = os.environ.get("MEDIA_URL", "/media/")
 MEDIA_ROOT = os.environ.get("MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
+
+GCS_ENABLED = os.environ.get("GCS_ENABLED", "false").lower() in ("1", "true", "yes")
+GCS_BUCKET_NAME = os.environ.get("GCS_BUCKET_NAME", "")
+GCS_PROJECT_ID = os.environ.get("GCS_PROJECT_ID", "")
+GCS_APP_PREFIX = os.environ.get("GCS_APP_PREFIX", "landing-page-ddc").strip("/")
+GCS_MEDIA_PREFIX = f"{GCS_APP_PREFIX}/midias"
+GCS_SIGNED_URL_TTL = int(os.environ.get("GCS_SIGNED_URL_TTL", "900"))
+GCS_IAM_SIGN_BLOB = os.environ.get("GCS_IAM_SIGN_BLOB", "false").lower() in (
+    "1",
+    "true",
+    "yes",
+)
+GCS_SA_EMAIL = os.environ.get("GCS_SA_EMAIL", "")
+MEDIA_MAX_UPLOAD_SIZE = int(os.environ.get("MEDIA_MAX_UPLOAD_SIZE", str(25 * 1024 * 1024)))
+
+if GCS_ENABLED:
+    missing_gcs_vars = [
+        name
+        for name, value in (
+            ("GCS_BUCKET_NAME", GCS_BUCKET_NAME),
+            ("GCS_PROJECT_ID", GCS_PROJECT_ID),
+            ("GCS_APP_PREFIX", GCS_APP_PREFIX),
+        )
+        if not value
+    ]
+    if missing_gcs_vars:
+        raise RuntimeError(
+            "Missing required GCS variables: " + ", ".join(missing_gcs_vars)
+        )
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+            "OPTIONS": {
+                "bucket_name": GCS_BUCKET_NAME,
+                "project_id": GCS_PROJECT_ID,
+                "location": GCS_MEDIA_PREFIX,
+                "default_acl": None,
+                "querystring_auth": True,
+                "expiration": GCS_SIGNED_URL_TTL,
+                "file_overwrite": False,
+                "iam_sign_blob": GCS_IAM_SIGN_BLOB,
+                "sa_email": GCS_SA_EMAIL or None,
+            },
+        },
+        "staticfiles": {
+            "BACKEND": (
+                "whitenoise.storage.CompressedManifestStaticFilesStorage"
+                if ENVIRONMENT == "production"
+                else "django.contrib.staticfiles.storage.StaticFilesStorage"
+            ),
+        },
+    }
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 

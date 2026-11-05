@@ -70,6 +70,12 @@ merged.update(
         "DB_SCHEMA": "ladingpageddc",
         "SERVE_MEDIA": "false",
         "RUN_MIGRATIONS": "false",
+        "GCS_ENABLED": "true",
+        "GCS_BUCKET_NAME": "gesttechmidias",
+        "GCS_PROJECT_ID": "gestcloud-500200",
+        "GCS_APP_PREFIX": "landing-page-ddc",
+        "GCS_IAM_SIGN_BLOB": "true",
+        "GCS_SA_EMAIL": "926822874156-compute@developer.gserviceaccount.com",
     }
 )
 merged.setdefault("ALLOWED_HOSTS", ".run.app,vendas.donadochopp.com.br")
@@ -96,6 +102,7 @@ PY
 gcloud run deploy "$SERVICE" \
   --source "$PROJECT_ROOT" \
   --region "$REGION" \
+  --service-account "926822874156-compute@developer.gserviceaccount.com" \
   --allow-unauthenticated \
   --memory 512Mi \
   --cpu 1 \
