@@ -9,6 +9,11 @@ load_dotenv(BASE_DIR / ".env")
 
 # Ambiente: 'production' ou 'development'
 ENVIRONMENT = os.environ.get("DJANGO_ENV", "development")
+DATABASE_ENGINE = os.environ.get("DB_ENGINE", "").lower()
+USE_POSTGRESQL = ENVIRONMENT == "production" or DATABASE_ENGINE in (
+    "postgres",
+    "postgresql",
+)
 
 
 def _list_from_env(name, default):
@@ -115,14 +120,14 @@ if ENVIRONMENT == "production":
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-if ENVIRONMENT == "production":
+if USE_POSTGRESQL:
     db_schema = os.environ.get("DB_SCHEMA", "ladingpageddc")
     db_host = os.environ.get("DB_HOST")
     required_db_vars = ("DB_NAME", "DB_USER", "DB_PASSWORD", "DB_HOST")
     missing_db_vars = [name for name in required_db_vars if not os.environ.get(name)]
     if missing_db_vars:
         raise RuntimeError(
-            "Missing required production database variables: "
+            "Missing required PostgreSQL database variables: "
             + ", ".join(missing_db_vars)
         )
 
