@@ -9,6 +9,11 @@ load_dotenv(BASE_DIR / ".env")
 
 # Ambiente: 'production' ou 'development'
 ENVIRONMENT = os.environ.get("DJANGO_ENV", "development")
+BUILD_STATICFILES = os.environ.get("BUILD_STATICFILES", "false").lower() in (
+    "1",
+    "true",
+    "yes",
+)
 DATABASE_ENGINE = os.environ.get("DB_ENGINE", "").lower()
 USE_POSTGRESQL = ENVIRONMENT == "production" or DATABASE_ENGINE in (
     "postgres",
@@ -114,9 +119,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-if ENVIRONMENT == "production":
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -204,6 +206,19 @@ STATICFILES_DIRS = [
 MEDIA_URL = os.environ.get("MEDIA_URL", "/media/")
 MEDIA_ROOT = os.environ.get("MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": (
+            "whitenoise.storage.CompressedManifestStaticFilesStorage"
+            if ENVIRONMENT == "production" or BUILD_STATICFILES
+            else "django.contrib.staticfiles.storage.StaticFilesStorage"
+        ),
+    },
+}
+
 GCS_ENABLED = os.environ.get("GCS_ENABLED", "false").lower() in ("1", "true", "yes")
 GCS_BUCKET_NAME = os.environ.get("GCS_BUCKET_NAME", "")
 GCS_PROJECT_ID = os.environ.get("GCS_PROJECT_ID", "")
@@ -233,27 +248,18 @@ if GCS_ENABLED:
             "Missing required GCS variables: " + ", ".join(missing_gcs_vars)
         )
 
-    STORAGES = {
-        "default": {
-            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
-            "OPTIONS": {
-                "bucket_name": GCS_BUCKET_NAME,
-                "project_id": GCS_PROJECT_ID,
-                "location": GCS_MEDIA_PREFIX,
-                "default_acl": None,
-                "querystring_auth": True,
-                "expiration": GCS_SIGNED_URL_TTL,
-                "file_overwrite": False,
-                "iam_sign_blob": GCS_IAM_SIGN_BLOB,
-                "sa_email": GCS_SA_EMAIL or None,
-            },
-        },
-        "staticfiles": {
-            "BACKEND": (
-                "whitenoise.storage.CompressedManifestStaticFilesStorage"
-                if ENVIRONMENT == "production"
-                else "django.contrib.staticfiles.storage.StaticFilesStorage"
-            ),
+    STORAGES["default"] = {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        "OPTIONS": {
+            "bucket_name": GCS_BUCKET_NAME,
+            "project_id": GCS_PROJECT_ID,
+            "location": GCS_MEDIA_PREFIX,
+            "default_acl": None,
+            "querystring_auth": True,
+            "expiration": GCS_SIGNED_URL_TTL,
+            "file_overwrite": False,
+            "iam_sign_blob": GCS_IAM_SIGN_BLOB,
+            "sa_email": GCS_SA_EMAIL or None,
         },
     }
 # Default primary key field type
