@@ -100,6 +100,7 @@ def home_view(request):
                 queryset=SecaoLandingMidia.objects.filter(ativo=True).order_by(
                     "ordem", "id"
                 ),
+                to_attr="midias_ativas_prefetched",
             ),
             Prefetch("cards", queryset=SecaoLandingCard.objects.filter(ativo=True)),
             Prefetch(
@@ -115,15 +116,16 @@ def home_view(request):
     ]
     blocos_fixos = secoes_fixas_landing(todas_secoes)
     for secao in todas_secoes:
-        if hasattr(secao, "midias"):
-            secao.midias_galeria = midias_de_galeria(list(secao.midias.all()))
+        secao.midias_galeria = midias_de_galeria(
+            getattr(secao, "midias_ativas_prefetched", [])
+        )
     midias = MidiaLanding.objects.filter(ativo=True)
     midias_por_chave = {}
     for midia in midias:
         midias_por_chave.setdefault(midia.chave, []).append(midia)
     midias_secao = {
-        chave: list(bloco.midias.filter(ativo=True).order_by("ordem", "id"))
-        if getattr(bloco, "ativo", False) and hasattr(bloco, "midias_ativas")
+        chave: list(getattr(bloco, "midias_ativas_prefetched", []))
+        if getattr(bloco, "ativo", False)
         else []
         for chave, bloco in blocos_fixos.items()
     }

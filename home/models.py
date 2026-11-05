@@ -2,6 +2,7 @@ from django.db import models
 from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.text import slugify
+from django.utils.functional import cached_property
 import os
 from ckeditor.fields import RichTextField
 
@@ -68,9 +69,9 @@ class Produto(models.Model):
     def tem_variacoes(self):
         return self.variacoes_ativas.exists()
 
-    @property
+    @cached_property
     def imagem_segura_url(self):
-        if self.imagem and self.imagem.name and self.imagem.storage.exists(self.imagem.name):
+        if self.imagem and self.imagem.name:
             return self.imagem.url
 
         nome = self.nome.lower()
@@ -103,9 +104,9 @@ class ProdutoVariacao(models.Model):
     def __str__(self):
         return f"{self.produto.nome} - {self.nome}"
 
-    @property
+    @cached_property
     def imagem_segura_url(self):
-        if self.imagem and self.imagem.name and self.imagem.storage.exists(self.imagem.name):
+        if self.imagem and self.imagem.name:
             return self.imagem.url
         return self.produto.imagem_segura_url
 
@@ -235,9 +236,9 @@ class MidiaLanding(models.Model):
     def __str__(self):
         return f"{self.get_chave_display()} - {self.titulo}"
 
-    @property
+    @cached_property
     def arquivo_seguro_url(self):
-        if self.arquivo and self.arquivo.name and self.arquivo.storage.exists(self.arquivo.name):
+        if self.arquivo and self.arquivo.name:
             return self.arquivo.url
 
         fallbacks = {
@@ -383,9 +384,9 @@ class SecaoLanding(models.Model):
     def table_row_highlight_class(self):
         return "bg-white" if self.fundo != "marrom" else "bg-white/10"
 
-    @property
+    @cached_property
     def imagem_segura_url(self):
-        if self.imagem and self.imagem.name and self.imagem.storage.exists(self.imagem.name):
+        if self.imagem and self.imagem.name:
             return self.imagem.url
         return ""
 
@@ -440,9 +441,9 @@ class SecaoLandingMidia(models.Model):
     def __str__(self):
         return self.titulo or self.arquivo.name
 
-    @property
+    @cached_property
     def arquivo_seguro_url(self):
-        if self.arquivo and self.arquivo.name and self.arquivo.storage.exists(self.arquivo.name):
+        if self.arquivo and self.arquivo.name:
             return self.arquivo.url
         return static("assets/images/logo2.png")
 

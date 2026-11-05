@@ -76,6 +76,8 @@ merged.update(
         "GCS_APP_PREFIX": "landing-page-ddc",
         "GCS_IAM_SIGN_BLOB": "true",
         "GCS_SA_EMAIL": "926822874156-compute@developer.gserviceaccount.com",
+        "GCS_SIGNED_URL_TTL": "604800",
+        "GCS_SIGNED_URL_CACHE_TTL": "604500",
     }
 )
 merged.setdefault("ALLOWED_HOSTS", ".run.app,vendas.donadochopp.com.br")

@@ -1,11 +1,14 @@
 from io import BytesIO
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import SimpleTestCase, override_settings
 from PIL import Image
+from storages.backends.gcloud import GoogleCloudStorage
 
+from .gcs_storage import CachedGoogleCloudStorage
 from .storage_service import MediaStorageService, StorageServiceError
 
 
@@ -92,3 +95,29 @@ class MediaStorageServiceTests(SimpleTestCase):
 
         self.assertEqual(url, "https://signed.example/file")
         self.storage.url.assert_called_once()
+
+
+@override_settings(GCS_SIGNED_URL_CACHE_TTL=3600)
+class CachedGoogleCloudStorageTests(SimpleTestCase):
+    def setUp(self):
+        cache.clear()
+        self.storage = CachedGoogleCloudStorage(
+            bucket_name="test-bucket",
+            project_id="test-project",
+            location="landing-page-ddc/midias",
+        )
+
+    def tearDown(self):
+        cache.clear()
+
+    def test_reuses_signed_url_without_signing_again(self):
+        with patch.object(
+            GoogleCloudStorage,
+            "url",
+            return_value="https://storage.example/signed",
+        ) as signer:
+            first = self.storage.url("imagens/banner.png")
+            second = self.storage.url("imagens/banner.png")
+
+        self.assertEqual(first, second)
+        signer.assert_called_once_with("imagens/banner.png", parameters=None)

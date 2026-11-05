@@ -228,6 +228,17 @@ STATICFILES_DIRS = [
 MEDIA_URL = os.environ.get("MEDIA_URL", "/media/")
 MEDIA_ROOT = os.environ.get("MEDIA_ROOT", os.path.join(BASE_DIR, "media"))
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "landing-page-ddc-cache",
+        "TIMEOUT": None,
+        "OPTIONS": {
+            "MAX_ENTRIES": 5000,
+        },
+    }
+}
+
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -246,7 +257,14 @@ GCS_BUCKET_NAME = os.environ.get("GCS_BUCKET_NAME", "")
 GCS_PROJECT_ID = os.environ.get("GCS_PROJECT_ID", "")
 GCS_APP_PREFIX = os.environ.get("GCS_APP_PREFIX", "landing-page-ddc").strip("/")
 GCS_MEDIA_PREFIX = f"{GCS_APP_PREFIX}/midias"
-GCS_SIGNED_URL_TTL = int(os.environ.get("GCS_SIGNED_URL_TTL", "900"))
+GCS_SIGNED_URL_TTL = min(
+    int(os.environ.get("GCS_SIGNED_URL_TTL", "604800")),
+    604800,
+)
+GCS_SIGNED_URL_CACHE_TTL = min(
+    int(os.environ.get("GCS_SIGNED_URL_CACHE_TTL", str(GCS_SIGNED_URL_TTL - 300))),
+    max(GCS_SIGNED_URL_TTL - 60, 1),
+)
 GCS_IAM_SIGN_BLOB = os.environ.get("GCS_IAM_SIGN_BLOB", "false").lower() in (
     "1",
     "true",
@@ -271,7 +289,7 @@ if GCS_ENABLED:
         )
 
     STORAGES["default"] = {
-        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        "BACKEND": "home.gcs_storage.CachedGoogleCloudStorage",
         "OPTIONS": {
             "bucket_name": GCS_BUCKET_NAME,
             "project_id": GCS_PROJECT_ID,
@@ -282,6 +300,9 @@ if GCS_ENABLED:
             "file_overwrite": False,
             "iam_sign_blob": GCS_IAM_SIGN_BLOB,
             "sa_email": GCS_SA_EMAIL or None,
+            "object_parameters": {
+                "cache_control": "private, max-age=604800, immutable",
+            },
         },
     }
 # Default primary key field type
