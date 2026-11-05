@@ -1,8 +1,11 @@
 from pathlib import Path
 import os
 
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 # Ambiente: 'production' ou 'development'
 ENVIRONMENT = os.environ.get("DJANGO_ENV", "development")
@@ -15,24 +18,29 @@ def _list_from_env(name, default):
     items = [item.strip() for item in value.split(",") if item.strip()]
     return list(dict.fromkeys([*default, *items]))
 
-SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-    "django-insecure-^0kbg8)m$7mcmjnlkjx@$)uo)$u4hyob2rxks3t21%c-u9qxtg",
-)
+SECRET_KEY = os.environ.get("SECRET_KEY") or os.environ.get("DJANGO_SECRET_KEY")
+if not SECRET_KEY:
+    if ENVIRONMENT == "production":
+        raise RuntimeError("SECRET_KEY is required in production")
+    SECRET_KEY = "dev-secret-key-change-me"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ENVIRONMENT == "development"
 SERVE_MEDIA = os.environ.get("SERVE_MEDIA", "false").lower() in ("1", "true", "yes")
 
 if ENVIRONMENT == "production":
-    ALLOWED_HOSTS = _list_from_env("DJANGO_ALLOWED_HOSTS", [
+    ALLOWED_HOSTS = _list_from_env("ALLOWED_HOSTS", [
+        ".run.app",
         "vendas.donadochopp.com.br",
-        "192.168.1.7",
     ])
-    CSRF_TRUSTED_ORIGINS = _list_from_env("DJANGO_CSRF_TRUSTED_ORIGINS", [
+    ALLOWED_HOSTS = _list_from_env("DJANGO_ALLOWED_HOSTS", ALLOWED_HOSTS)
+    CSRF_TRUSTED_ORIGINS = _list_from_env("CSRF_TRUSTED_ORIGINS", [
+        "https://*.run.app",
         "https://vendas.donadochopp.com.br",
-        "http://192.168.1.7:8010",
     ])
+    CSRF_TRUSTED_ORIGINS = _list_from_env(
+        "DJANGO_CSRF_TRUSTED_ORIGINS", CSRF_TRUSTED_ORIGINS
+    )
 else:
     ALLOWED_HOSTS = _list_from_env("DJANGO_ALLOWED_HOSTS", [
         "localhost",
@@ -47,6 +55,17 @@ else:
         "https://vendas.donadochopp.com.br",
         "http://192.168.1.7:8010",
     ])
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+USE_X_FORWARDED_HOST = True
+SECURE_SSL_REDIRECT = (
+    os.environ.get("DJANGO_SECURE_SSL_REDIRECT", str(ENVIRONMENT == "production"))
+    .lower()
+    in ("1", "true", "yes")
+)
+SESSION_COOKIE_SECURE = ENVIRONMENT == "production"
+CSRF_COOKIE_SECURE = ENVIRONMENT == "production"
+SECURE_CONTENT_TYPE_NOSNIFF = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -98,19 +117,37 @@ if ENVIRONMENT == "production":
 
 if ENVIRONMENT == "production":
     db_schema = os.environ.get("DB_SCHEMA", "ladingpageddc")
-    db_options = {}
-    if db_schema:
+    db_host = os.environ.get("DB_HOST")
+    required_db_vars = ("DB_NAME", "DB_USER", "DB_PASSWORD", "DB_HOST")
+    missing_db_vars = [name for name in required_db_vars if not os.environ.get(name)]
+    if missing_db_vars:
+        raise RuntimeError(
+            "Missing required production database variables: "
+            + ", ".join(missing_db_vars)
+        )
+
+    db_options = {
+        "connect_timeout": int(os.environ.get("DB_CONNECT_TIMEOUT", "10")),
+        "sslmode": os.environ.get("DB_SSLMODE", "require"),
+    }
+    channel_binding = os.environ.get("DB_CHANNEL_BINDING")
+    if channel_binding:
+        db_options["channel_binding"] = channel_binding
+    if db_schema and db_schema != "public" and "-pooler." not in db_host:
         db_options["options"] = f"-c search_path={db_schema}"
 
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.environ.get("DB_NAME", "cloudbooster_db"),
-            "USER": os.environ.get("DB_USER", "cloud_user"),
-            "PASSWORD": os.environ.get("DB_PASSWORD", "37192541aaSS@"),
-            "HOST": os.environ.get("DB_HOST", "192.168.1.7"),
+            "NAME": os.environ["DB_NAME"],
+            "USER": os.environ["DB_USER"],
+            "PASSWORD": os.environ["DB_PASSWORD"],
+            "HOST": db_host,
             "PORT": os.environ.get("DB_PORT", "5432"),
             "OPTIONS": db_options,
+            "CONN_MAX_AGE": int(os.environ.get("DB_CONN_MAX_AGE", "60")),
+            "CONN_HEALTH_CHECKS": True,
+            "DISABLE_SERVER_SIDE_CURSORS": "-pooler." in db_host,
         }
     }
 else:

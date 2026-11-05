@@ -1,15 +1,20 @@
 #!/bin/sh
-set -e
+set -eu
 
-echo "Preparando diretórios..."
-mkdir -p /app/media
-mkdir -p /app/staticfiles
+case "${RUN_MIGRATIONS:-false}" in
+    true|True|TRUE|1|yes|Yes|YES)
+        if [ "${DJANGO_ENV:-}" != "production" ]; then
+            echo "ERROR: RUN_MIGRATIONS requires DJANGO_ENV=production." >&2
+            exit 1
+        fi
+        python manage.py migrate --noinput
+        ;;
+esac
 
-echo "Rodando makemigrations e migrate..."
-python manage.py makemigrations --noinput
-python manage.py migrate --noinput
-
-echo "Coletando arquivos estáticos..."
-python manage.py collectstatic --noinput
-
-exec gunicorn core.wsgi:application --bind 0.0.0.0:${PORT:-8010} --workers ${GUNICORN_WORKERS:-2} --timeout ${GUNICORN_TIMEOUT:-120}
+exec gunicorn core.wsgi:application \
+    --bind "0.0.0.0:${PORT:-8080}" \
+    --workers "${GUNICORN_WORKERS:-1}" \
+    --threads "${GUNICORN_THREADS:-4}" \
+    --timeout "${GUNICORN_TIMEOUT:-120}" \
+    --access-logfile - \
+    --error-logfile -
