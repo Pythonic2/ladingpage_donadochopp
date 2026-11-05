@@ -76,6 +76,28 @@ SECURE_SSL_REDIRECT = (
 SESSION_COOKIE_SECURE = ENVIRONMENT == "production"
 CSRF_COOKIE_SECURE = ENVIRONMENT == "production"
 SECURE_CONTENT_TYPE_NOSNIFF = True
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "django.security": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+    },
+}
 # Application definition
 
 INSTALLED_APPS = [
