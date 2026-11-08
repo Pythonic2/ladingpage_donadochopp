@@ -13,6 +13,9 @@ services:
       - pi_default
     environment:
       DJANGO_ENV: production
+      DJANGO_SECURE_SSL_REDIRECT: "false"
+      DJANGO_SESSION_COOKIE_SECURE: "false"
+      DJANGO_CSRF_COOKIE_SECURE: "false"
       PORT: "8080"
       DB_SCHEMA: ladingpageddc
       SERVE_MEDIA: "false"

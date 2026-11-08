@@ -28,6 +28,10 @@ def _list_from_env(name, default):
     items = [item.strip() for item in value.split(",") if item.strip()]
     return list(dict.fromkeys([*default, *items]))
 
+
+def _bool_from_env(name, default):
+    return os.environ.get(name, str(default)).lower() in ("1", "true", "yes")
+
 SECRET_KEY = os.environ.get("SECRET_KEY") or os.environ.get("DJANGO_SECRET_KEY")
 if not SECRET_KEY:
     if ENVIRONMENT == "production":
@@ -73,8 +77,12 @@ SECURE_SSL_REDIRECT = (
     .lower()
     in ("1", "true", "yes")
 )
-SESSION_COOKIE_SECURE = ENVIRONMENT == "production"
-CSRF_COOKIE_SECURE = ENVIRONMENT == "production"
+SESSION_COOKIE_SECURE = _bool_from_env(
+    "DJANGO_SESSION_COOKIE_SECURE", ENVIRONMENT == "production"
+)
+CSRF_COOKIE_SECURE = _bool_from_env(
+    "DJANGO_CSRF_COOKIE_SECURE", ENVIRONMENT == "production"
+)
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
 LOGGING = {
