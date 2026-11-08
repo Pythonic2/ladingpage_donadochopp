@@ -21,7 +21,7 @@ chmod +x deploy-cloud-run.sh
 ./deploy-cloud-run.sh
 ```
 
-Os padrões são serviço `landingpage-donadochopp` e região `europe-west1`. Para
+Os padrões são serviço `landingpage-donadochopp` e região `southamerica-east1`. Para
 alterá-los:
 
 ```bash

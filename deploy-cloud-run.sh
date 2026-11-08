@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SERVICE="${SERVICE:-landingpage-donadochopp}"
-REGION="${REGION:-europe-west1}"
+REGION="${REGION:-southamerica-east1}"
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 APP_ENV="${PROJECT_ROOT}/.env"
 COMERCIAL_ENV="${COMERCIAL_ENV:-${PROJECT_ROOT}/../comercial_tool/.env}"
