@@ -8,6 +8,7 @@ from django.test import SimpleTestCase, override_settings
 from PIL import Image
 from storages.backends.gcloud import GoogleCloudStorage
 
+from .criar_preferencia import criar_preferencia
 from .gcs_storage import CachedGoogleCloudStorage
 from .storage_service import MediaStorageService, StorageServiceError
 
@@ -16,6 +17,29 @@ def image_upload(name="foto.png", size=(2, 2)):
     content = BytesIO()
     Image.new("RGB", size, color="red").save(content, format="PNG")
     return SimpleUploadedFile(name, content.getvalue(), content_type="image/png")
+
+
+class MercadoPagoPreferenceTests(SimpleTestCase):
+    @patch.dict("os.environ", {}, clear=True)
+    @patch("home.criar_preferencia.mercadopago.SDK")
+    def test_missing_access_token_does_not_initialize_sdk(self, sdk):
+        self.assertIsNone(criar_preferencia([], "cliente-1"))
+        sdk.assert_not_called()
+
+    @patch.dict(
+        "os.environ", {"MERCADO_PAGO_ACCESS_TOKEN": "test-access-token"}, clear=True
+    )
+    @patch("home.criar_preferencia.mercadopago.SDK")
+    def test_initializes_sdk_only_when_preference_is_created(self, sdk):
+        sdk.return_value.preference.return_value.create.return_value = {
+            "status": 201,
+            "response": {"id": "preference-1"},
+        }
+
+        result = criar_preferencia([], "cliente-1")
+
+        self.assertEqual(result, {"id": "preference-1"})
+        sdk.assert_called_once_with("test-access-token")
 
 
 @override_settings(MEDIA_MAX_UPLOAD_SIZE=1024 * 1024, GCS_SIGNED_URL_TTL=900)
