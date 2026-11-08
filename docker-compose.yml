@@ -6,7 +6,7 @@ services:
     pull_policy: build
     restart: always
     env_file:
-      - .env
+      - stack.env
     ports:
       - "8010:8080"
     networks:
