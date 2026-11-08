@@ -15,10 +15,14 @@ services:
       DJANGO_ENV: production
       PORT: "8080"
       DB_SCHEMA: ladingpageddc
-      SERVE_MEDIA: "true"
+      SERVE_MEDIA: "false"
       RUN_MIGRATIONS: "true"
+      GCS_ENABLED: "true"
+      GCS_APP_PREFIX: landing-page-ddc
+      GOOGLE_APPLICATION_CREDENTIALS: /run/secrets/gcp.json
     volumes:
       - ladingpage2_chopp_app:/app/media
+      - /home/pi/gcp-secrets/eventos-ddc.json:/run/secrets/gcp.json:ro
 volumes:
   ladingpage2_chopp_app:
     name: ladingpage2_chopp_app

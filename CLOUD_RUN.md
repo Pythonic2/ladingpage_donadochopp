@@ -104,3 +104,31 @@ confirme que o objeto foi criado sob `landing-page-ddc/midias/` e abra a página
 que o referencia. A URL deve conter assinatura e expirar após o TTL definido.
 Exclua o objeto de teste pelo admin ao terminar; não torne o bucket público.
 
+## Raspberry Pi com Docker Compose
+
+No Raspberry, o Compose ativa o mesmo backend GCS e o mesmo prefixo usados no
+Cloud Run. A credencial permanece fora do repositório e é montada somente para
+leitura em `/run/secrets/gcp.json`:
+
+```text
+/home/pi/gcp-secrets/eventos-ddc.json
+```
+
+Essa credencial pode ser reutilizada somente enquanto a conta de serviço tiver
+autorização para o prefixo desta aplicação no bucket privado. O arquivo não deve
+ser copiado para o repositório nem para a imagem Docker.
+
+Antes de subir o serviço, valide no próprio Raspberry:
+
+```bash
+test -r /home/pi/gcp-secrets/eventos-ddc.json
+docker compose config --quiet
+docker compose up -d --build
+```
+
+Depois, confirme que o container enxerga a configuração sem imprimir o conteúdo
+da credencial, que uma mídia existente é carregada e que um novo upload é salvo
+sob `landing-page-ddc/midias/`. O volume local `/app/media` é mantido apenas para
+compatibilidade e recuperação; com `GCS_ENABLED=true`, ele não é a fonte
+principal das mídias.
+
